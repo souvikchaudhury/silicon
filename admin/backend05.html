@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Backend 5 | Silikon Graphics</title>
+		<!-- Style Sheets -->
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/backend.css">
+		<link rel="stylesheet" href="css/common.css">
+		<!-- jQuery Library  -->
+		<script src="js/jquery-1.9.1.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$("input[type='radio']").click(function()
+					{
+				  var previousValue = $(this).attr('previousValue');
+				  var name = $(this).attr('name');
+
+				  if (previousValue == 'checked')
+				  {
+				    $(this).removeAttr('checked');
+				    $(this).attr('previousValue', false);
+				  }
+				  else
+				  {
+				    $("input[name="+name+"]:radio").attr('previousValue', false);
+				    $(this).attr('previousValue', 'checked');
+				  }
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div class="backend"> <!-- backend start -->
+		<div class="header"> <!-- header start -->
+		<div class="wrap">
+			<div class="logo">
+				<a href="#"><img src="images/logo.png" alt="Silikon Graphics"></a>
+			</div>
+			<div class="nav">
+				<ul>
+					<li class="active print2u"><a href="#">Print 2 you</a></li>
+					<li class="right"><a href="#">Register</a></li>
+					<li class="right bdr"><a href="#">Sign In</a></li>
+				</ul>
+			</div>
+		</div>
+		</div> <!-- header end -->
+		<div class="bodyPannel"> <!-- bodypannel start -->
+		<div class="wrap">
+			<div class="contentSection">
+				<div class="uploadArea">
+					<ul>
+						<li><a href="#">Account Storage</a></li>
+						<li><a href="#">1 gb Used 5mb</a></li>
+						<li><a href="#">Available 995 mb</a></li>
+					</ul>
+					<div class="uploadingbox">
+					</div>
+				</div>
+				<hr>
+				<div class="userOptions">
+					<ul>
+						<li>
+							<a href="javascript:void(0)">
+								<span class="image">
+								<img src="images/category.png" height="35" width="44" alt="">
+								</span>
+								<span class="text">Product Category</span>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">
+								<span class="image">
+								<img src="images/catalog.png" height="30" width="24" alt="">
+								</span>
+								<span class="text">Product Catalog</span>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">
+								<span class="image">
+								<img src="images/customers.png" height="26" width="34" alt="">
+								</span>
+								<span class="text">Customers</span>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">
+								<span class="image">
+								<img src="images/paymentSetup.png" height="34" width="45" alt="">
+								</span>
+								<span class="text">Payment Setup</span>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">
+								<span class="image">
+								<img src="images/website.png" height="28" width="35" alt="">
+								</span>
+								<span class="text">Website Integration</span>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">
+								<span class="image">
+								<img src="images/setup.png" height="28" width="28" alt="">
+								</span>
+								<span class="text">Setup Guide</span>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">
+								<span class="image">
+								<img src="images/admin.png" height="32" width="47" alt="">
+								</span>
+								<span class="text">Admin Branding</span>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">
+								<span class="image">
+								<img src="images/contact.png" height="23" width="23" alt="">
+								</span>
+								<span class="text">Contact</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="productOptionSec">
+					<div class="productOptionMenu">
+						<ul>
+							<li><a href="#">Product Categories</a></li>
+							<li><a href="#">Business Stationary</a></li>
+							<li><a href="#">Promotional Flyers</a></li>
+							<li><a href="#">Booklets &amp; Catalogs</a></li>
+							<li><a href="#">Posters / Promo + POS</a></li>
+							<li><a href="#">Photo Prints</a></li>
+						</ul>
+					</div>
+
+					<div class="proOptionArea">
+						<div class="popCol3">
+							<div class="popColWrap">
+								<br>
+								<a class="buttonPink" href="#"><img alt="" src="images/plus.png">ADD Customer</a>
+								<hr>
+								<ul>
+									<li>
+										<div class="leftHSide">
+											<a href="#" class="box"><span class="imgBox business1"></span><span class="title">Business Cards</span></a>
+											<p>Business Cards 500 qty.</p>
+										</div>
+									</li>
+									<li>
+										<div class="leftHSide">
+											<a href="#" class="box"><span class="imgBox business2"></span><span class="title">Letter Heads</span></a>
+											<p>Letter Heads 500 qty.</p>
+										</div>
+									</li>
+									<li>
+										<div class="leftHSide">
+											<a href="#" class="box"><span class="imgBox business4"></span><span class="title">Presentation Folders</span></a>
+											<p>Presentation Folders 100 qty.</p>
+										</div>
+									</li>
+									<li>
+										<div class="leftHSide">
+											<a href="#" class="box"><span class="imgBox business3"></span><span class="title">With Compliments Slips</span></a>
+											<p>With Compliments Slips 50 qty.</p>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="popCol4">
+							<div class="popColWrap">
+								<h4>Customer contact &amp; Shipping Details</h4>
+								<h4>Contact &amp; Shipping Details</h4>
+								<form action="" class="customerContact">
+									<p>
+										<label for="Name">Name</label>
+										<input type="text" id="Name" placeholder="Name">
+									</p>
+
+									<p>
+										<label for="Business Name">Business Name</label>
+										<input type="text" id="Business Name" placeholder="Business Name">
+									</p>
+
+									<p>
+										<label for="Email">Email</label>
+										<input type="email" id="Email" placeholder="Email">
+									</p>
+
+									<p>
+										<label for="Mobile / Cell No.">Mobile / Cell No.</label>
+										<input type="text" id="Mobile / Cell No." placeholder="Mobile / Cell No.">
+									</p>
+
+									<p>
+										<label for="Phone Number">Phone Number</label>
+										<input type="text" id="Phone Number" placeholder="Phone Number">
+									</p>
+
+									<p>
+										<label for="Account Password">Account Password</label>
+										<input type="password" id="Account Password" placeholder="Account Password">
+									</p>
+
+									<p class="fullWidth">
+										<button class="buttonPink">SAVE   |   Update</button>
+									</p>
+									
+									<p class="fullWidth">
+										<button class="buttonBlack">DELETE CUSTOMER</button>
+									</p>
+
+								</form>
+
+								<h4>Current Job Orders Status</h4>
+								<form action="" class="orderStatus">
+									<h4>Order No. 000187</h4>
+									<p>
+										<span>Business Cards 500 Qty. . </span>
+										<label for="production1">
+											<input type="radio" id="production1"> Production
+										</label>
+										<label for="completed1">
+											<input type="radio" id="completed1"> Completed
+										</label>
+									</p>
+
+									<p>
+										<span>Business Cards 500 Qty. . </span>
+										<label for="production2">
+											<input type="radio" id="production2"> Production
+										</label>
+										<label for="completed2">
+											<input type="radio" id="completed2"> Completed
+										</label>
+									</p>
+
+									<p>
+										<span>Business Cards 500 Qty. . </span>
+										<label for="production3">
+											<input type="radio" id="production3"> Production
+										</label>
+										<label for="completed3">
+											<input type="radio" id="completed3"> Completed
+										</label>
+									</p>
+									
+									<p class="halfWidth">
+										<button class="buttonPink">Order Production</button>
+										<button class="buttonBlack">Order Complete</button>
+									</p>
+								</form>
+							</div>
+						</div>
+
+						<div class="popCol5">
+							<div class="popColWrap">
+								<h4>Customers Custom Inventory Orders</h4>
+								<form action="" class="addItem">
+									<p><input type="text"></p>
+									<p><a href="#" class="buttonPink">ADD NEW ITEM</a></p>
+									<p>
+										<strong>Upload New File | Image</strong>
+										<span>No file selected</span>
+										<span>* File formats supported : PDF, JPEG, TIFF, PNG</span>
+									</p>
+									<div class="itemPreview">
+										
+									</div>
+									<div class="previewButton"><a href="#">Click to preview</a></div>
+								</form>
+							</div>
+							<div class="popColWrap">
+								<forn class="addQuantity">
+									<p>
+										<label for="Item">Item Name</label>
+										<input type="text" id="Item">
+									</p>
+									<p>
+										<label for="Description">Description</label>
+										<input type="text" id="Description">
+									</p>
+									<p>
+										<label for="Quantity">Quantity Options</label>
+										<input type="text" id="Quantity">
+									</p>
+									<p><a href="#" class="buttonPink"><img alt="" src="images/plus.png">ADD quantity</a></p>
+								</forn>
+							</div>
+							<div class="popColWrap">
+								<form class="saveProOption shortVer" action="">
+										<p class="smlVer">
+											<span>1000</span>
+											<span>Price $</span>
+											<input type="text">
+										</p>
+										<p class="smlVer">
+											<span class="lastOne">Shipping $</span>
+											<input type="text">
+										</p>
+										<p class="smlVer">
+											<span>1500</span>
+											<span>Price $</span>
+											<input type="text">
+										</p>
+										<p class="smlVer">
+											<span class="lastOne">Shipping $</span>
+											<input type="text">
+										</p>
+										<p><a href="#" class="buttonPink"><img alt="" src="images/save.png">SAVE PRODUCT</a></p>
+								</form>
+
+							</div>
+
+							<div class="popColWrap">
+								<table class="quickView">
+										<tbody>
+											<tr>
+												<td>
+													<input type="radio" id="category01">
+													<label for="category01" class="productDescription">1000 Business Cards</label>
+												</td>
+												
+												<td><span class="productPrice">$75</span></td>
+												
+												<td>
+													<a class="edit" href="#"><img src="images/edit.png" alt=""></a>
+													<a class="delete" href="#"><img src="images/delete.png" alt=""></a>
+												</td>
+											</tr>
+
+											<tr>
+												<td>
+													<input type="radio" id="category02">
+													<label for="category02" class="productDescription">1500 Business Cards</label>
+												</td>
+												
+												<td><span class="productPrice">$85</span></td>
+												
+												<td>
+													<a class="edit" href="#"><img src="images/edit.png" alt=""></a>
+													<a class="delete" href="#"><img src="images/delete.png" alt=""></a>
+												</td>
+											</tr>
+
+											<tr>
+												<td>
+													<input type="radio" id="category03">
+													<label for="category03" class="productDescription">2000 Business Cards</label>
+												</td>
+												
+												<td><span class="productPrice">$100</span></td>
+												
+												<td><a class="edit" href="#"><img src="images/edit.png" alt=""></a>
+													<a class="delete" href="#"><img src="images/delete.png" alt=""></a>
+												</td>
+											</tr>
+
+											<tr>
+												<td>
+													<input type="radio" id="category04">
+													<label for="category04" class="productDescription">1500 A4 POS Posters</label>
+												</td>
+
+												<td><span class="productPrice">$800</span></td>
+												
+												<td>
+													<a class="edit" href="#"><img src="images/edit.png" alt=""></a>
+													<a class="delete" href="#"><img src="images/delete.png" alt=""></a>
+												</td>
+											</tr>
+
+											<tr>
+												<td>
+													<input type="radio"  id="category05">
+													<label for="category05" class="productDescription">3000 A4 POS Posters</label>
+												</td>
+												
+												<td><span class="productPrice">$1500</span></td>
+												
+												<td>
+													<a class="edit" href="#"><img src="images/edit.png" alt=""></a>
+													<a class="delete" href="#"><img src="images/delete.png" alt=""></a>
+												</td>
+											</tr>
+
+										</tbody>
+									</table>
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		</div> <!-- bodypannel end -->
+		</div> <!-- backend end -->
+	</body>
+</html>

@@ -1,0 +1,277 @@
+body{
+	background-color: #F5F5F5;
+}
+#black{
+	display: none;
+}
+.nav{
+	background-color: #313131;
+}
+.nav li.bdr{
+	background: url(images/black/login-divider.png) no-repeat 100% center;
+}
+.nav li.user a{
+	background: url(images/user.png) no-repeat 15px center #111111;
+}
+.nav li a {
+		color: #FFFFFF;
+}
+.nav li a:hover, .nav li a.active, .nav li a:focus, .nav li:nth-child(1){
+    background-color: #4e4e4e;
+}
+.header, .contentArea{
+	background: #fff;
+}
+.box{
+	border: 1px solid #DDDDDD;
+	background-color: #fff;
+}
+.box:hover{
+	border: 1px solid #000;
+}
+span.title {
+    color: #898989;
+}
+.items h2{
+	color: #777;
+}
+.business1{
+	background-image: url(images/black/b1.png);
+}
+.business2{
+	background-image: url(images/black/b2.png);
+}
+.business3{
+	background-image: url(images/black/b3.png);
+}
+.business4{
+	background-image: url(images/black/b4.png);
+}
+.business5{
+	background-image: url(images/black/b5.png);
+}
+.business6{
+	background-image: url(images/black/b6.png);
+}
+.promo1{
+	background-image: url(images/black/p1.png);
+}
+.promo2{
+	background-image: url(images/black/p2.png);
+}
+.promo3{
+	background-image: url(images/black/p3.png);
+}
+.promo4{
+	background-image: url(images/black/p4.png);
+}
+.promo5{
+	background-image: url(images/black/p5.png);
+}
+.promo6{
+	background-image: url(images/black/p6.png);
+}
+.books1{
+	background-image: url(images/black/cat1.png);
+}
+.books2{
+	background-image: url(images/black/cat1.png);
+}
+.books3{
+	background-image: url(images/black/cat1.png);
+}
+.books4{
+	background-image: url(images/black/cat1.png);
+}
+.books5{
+	background-image: url(images/black/cat1.png);
+}
+.books6{
+	background-image: url(images/black/cat1.png);
+}
+.books7{
+	background-image: url(images/black/cat1.png);
+}
+.books8{
+	background-image: url(images/black/cat1.png);
+}
+.books9{
+	background-image: url(images/black/cat1.png);
+}
+.books10{
+	background-image: url(images/black/cat1.png);
+}
+.books11{
+	background-image: url(images/black/cat1.png);
+}
+.books12{
+	background-image: url(images/black/cat1.png);
+}
+.books13{
+	background-image: url(images/black/cat1.png);
+}
+.books14{
+	background-image: url(images/black/cat1.png);
+}
+.poster1{
+	background-image: url(images/black/po1.png);
+}
+.poster2{
+	background-image: url(images/black/po2.png);
+}
+.poster3{
+	background-image: url(images/black/po3.png);
+}
+.poster4{
+	background-image: url(images/black/po4.png);
+}
+.poster5{
+	background-image: url(images/black/po5.png);
+}
+.poster6{
+	background-image: url(images/black/po6.png);
+}
+.poster7{
+	background-image: url(images/black/po7.png);
+}
+.poster8{
+	background-image: url(images/black/po8.png);
+}
+.poster9{
+	background-image: url(images/black/po9.png);
+}
+.poster10{
+	background-image: url(images/black/po10.png);
+}
+.poster11{
+	background-image: url(images/black/po11.png);
+}
+.poster12{
+	background-image: url(images/black/po12.png);
+}
+.sticker1{
+	background-image: url(images/black/s1.png);
+}
+.lenticular1{
+	background-image: url(images/black/l1.png);
+}
+.userMenu ul li{
+	background: url(images/black/userSep.png) no-repeat 99% center;
+}
+.userMenu ul li a{
+	color: #6f6f6e;
+}
+.userMenu > ul > li.active > a, .userMenu > ul > li > a:hover{
+	color: #fff;
+	background: #555f62;
+}
+.userMenu {
+    border-bottom: 1px solid #eee;
+}
+.contentArea h3{
+	color: #313131;
+}
+.customerContact{
+	color: #6f6f6e;
+}
+.largeButton {
+  background: none repeat scroll 0 0 #555F62;
+  color: #FFFFFF;
+}
+.popUpBox{
+	background: #fff;
+	border: 1px solid #c2c2c2;
+	color: #6f6f6e;
+}
+.popCol1{
+	border-right: 1px solid #c2c2c2;
+}
+.popCol2{
+	border-right: 1px solid #c2c2c2;
+}
+.uploadProcess {
+  border: 1px solid #C2C2C2;
+}
+.uploadProcess:before {
+  background: #555F62;
+}
+.previewBtn a, .previewBtn{
+	color: #fff;
+}
+.artControlBtn > a {
+  background: none repeat scroll 0 0 #555F62;
+  color: #FFFFFF;
+}
+.artWorkControl a{
+	color: #6F6F6E;
+}
+.closeBtn{
+	background: url(images/black/closeBtn.png) no-repeat 0 0;
+}
+.createAccount .button{
+	background-color: #555f62;
+	color: #fff;
+}
+.createAccount {
+    border-bottom: 1px solid #EEEEEE;
+}
+.option1{
+	background-color: #555f62;
+	color: #fff;
+}
+.option2{
+	background-color: #8b8e8f;
+	color: #fff;
+}
+.option3{
+	background-color: #a7a8a8;
+	color: #fff;
+}
+.userMenuOptions{
+	border: 1px solid #cfcfcf;
+	box-shadow: 0 0 10px #D3D3D3;
+}
+.accDetail > p {
+    border-bottom: 1px solid #C3C3C3;
+}
+.accDetail input[type="button"]{
+	background: url(images/black/editBtn.png) no-repeat 0 bottom;
+}
+.accDetail input[type="button"]:hover, .accDetail input[type="button"].active{
+	background: url(images/black/editBtn.png) no-repeat 0 0;
+}
+.accountDetails h3 {
+    border-bottom: 1px solid #EDEDED;
+}
+.accountDetails{
+	background: #fff;
+}
+.myInvenTory{
+	background: #fff;
+}
+.myInvenTory ul li{
+	background: none;
+}
+.invenControl a{
+	background-color: #898989;
+	color: #fff !important;
+}
+.orderStatus{
+	background-color: #fff;
+}
+.inventory2{
+	border: 1px solid #c2c2c2;
+}
+.inventory2 .popupMode2{
+	border-top: 1px solid #c2c2c2;
+}
+.userAddress{
+	color: #6f6f6e;
+}
+.dornloadArt{
+	color: #000;
+}
+.billingInfo h3{
+	border-top: 1px solid #c2c2c2;
+	border-bottom: 1px solid #c2c2c2;
+}

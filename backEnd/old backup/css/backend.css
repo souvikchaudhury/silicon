@@ -1,0 +1,65 @@
+.backend .header{
+	background-color: #fff;
+	box-shadow: 0 0 5px #D3D3D3;
+	height: 152px;
+	text-align: center;
+}
+.backend .logo {
+    padding-top: 52px;
+}
+.loginSection{
+	width: 660px;
+	margin: 0 auto;
+	padding: 80px 0;
+	color: #6f6f6e;
+}
+.loginSection h2{
+	color: #f07a78;
+	font-size: 30px;
+	padding-bottom: 20px;
+}
+.loginSection form input{
+	width: 290px;
+	height: 38px;
+	line-height: 38px;
+	border: 1px solid #c2c2c2;
+	padding: 0 10px;
+}
+.loginSection form p{
+	margin-bottom: 15px;
+}
+.loginSection form input:first-child{
+	margin-right: 30px;
+}
+.forgetPass{
+	font-size: 12px;
+}
+.forgetPass .blackBtn{
+	margin-left: 10px;
+}
+.loginButton {
+  background-color: #F07A78;
+  color: #FFFFFF;
+  display: inline-block;
+  height: 50px;
+  line-height: 50px;
+  margin-top: 20px;
+  text-align: center;
+  width: 130px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Index | Silikon Graphics</title>
+
+	<!-- styles -->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800' rel='stylesheet' type='text/css'> -->
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" id="switch_style" href="black.css"> 
+
+	<!-- Scripts  -->
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<script src="js/core.js"></script>
+	<script>
+		$(document).ready(function() {
+			$("input[type='radio']").click(function()
+				{
+			  var previousValue = $(this).attr('previousValue');
+			  var name = $(this).attr('name');
+
+			  if (previousValue == 'checked')
+			  {
+			    $(this).removeAttr('checked');
+			    $(this).attr('previousValue', false);
+			  }
+			  else
+			  {
+			    $("input[name="+name+"]:radio").attr('previousValue', false);
+			    $(this).attr('previousValue', 'checked');
+			  }
+			});
+		});
+	</script>
+
+</head>
+<body>
+	<!-- header start -->
+	<div class="header">  
+		<div class="wrapper">
+			<div class="logo">
+				<a href="index.html"><img src="images/logo.png" alt=""></a>
+			</div>
+			<div class="nav">
+				<ul>
+					<li class="active print2u"><a href="#">Print 2 you</a></li>
+
+					<li class="right"><a href="#">Register</a></li>
+					<li class="right bdr"><a href="#">Sign In</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- header end -->
+	
+	<!-- mainBody Start -->
+	<div class="mainBody">
+		<div class="wrapper">
+			<div class="contentArea">
+				<div class="userMenu">
+					<ul>
+						<li><a href="#">My Account Details</a></li>
+						<li><a href="#">Order Status</a></li>
+						<li class="active"><a href="#">Job Submission</a></li>
+					</ul>
+				</div>
+
+				<h3>Customer contact &amp; Shipping Details </h3>
+				<form action="" class="customerContact">
+					<p><input type="radio" id="Guidelines"><label for="Guidelines">Artwork Submission Guidelines </label>
+						 <input type="radio" id="Download"><label for="Download">Artwork Templates Download</label>
+					</p>
+					<p>
+						<input type="text" placeholder="Name">
+						<input type="text" placeholder="Email">
+						<input type="text" placeholder="Account Password">
+					</p>
+					<p>
+						<input type="text" placeholder="Business Name">
+						<input type="text" placeholder="Mobile / Cell No.">
+						<input type="text" placeholder="Phone Number">
+					</p>
+					<p>
+						<span>Please check your contact details throughly to ensure that you receive your printed jobs on time and in convenience.</span>
+						<span>** You email &amp; account password will be emailed to you which you can use to login to check your order status and re order items.</span>
+						<span>*** Account registration is required when placing orders</span>
+					</p>
+					<div class="createAccount">
+						<a href="#" class="largeButton">Create Account</a>	
+					</div>
+				</form> 
+			</div>
+		</div>
+	</div>
+	<!-- mainBody End -->
+
+	<!-- Color Change Start -->
+	<div class="colorChange">
+		<div class="switch" id="black">Black</div>
+		<div class="switch" id="pink">Pink</div> 
+	</div>
+	<!-- Color Change End -->
+</body>
+</html>

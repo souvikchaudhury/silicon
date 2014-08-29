@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Backend 2 | Silikon Graphics</title>
+		<!-- Style Sheets -->
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/backend.css">
+		<link rel="stylesheet" href="css/common.css">
+		<!-- jQuery Library  -->
+		<script src="js/jquery-1.9.1.min.js"></script>
+		<script>
+			$(document).ready(function() {
+				$("input[type='radio']").click(function()
+					{
+				  var previousValue = $(this).attr('previousValue');
+				  var name = $(this).attr('name');
+
+				  if (previousValue == 'checked')
+				  {
+				    $(this).removeAttr('checked');
+				    $(this).attr('previousValue', false);
+				  }
+				  else
+				  {
+				    $("input[name="+name+"]:radio").attr('previousValue', false);
+				    $(this).attr('previousValue', 'checked');
+				  }
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<div class="backend"> <!-- backend start -->
+		<div class="header"> <!-- header start -->
+		<div class="wrap">
+			<div class="logo">
+				<a href="#"><img src="images/logo.png" alt="Silikon Graphics"></a>
+			</div>
+			<div class="nav">
+				<ul>
+					<li class="active print2u"><a href="#">Print 2 you</a></li>
+					<li class="right"><a href="#">Register</a></li>
+					<li class="right bdr"><a href="#">Sign In</a></li>
+				</ul>
+			</div>
+		</div>
+		</div> <!-- header end -->
+		<div class="bodyPannel"> <!-- bodypannel start -->
+		<div class="wrap">
+			<div class="contentSection">
+				<div class="uploadArea">
+					<ul>
+						<li><a href="#">Account Storage</a></li>
+						<li><a href="#">1 gb Used 5mb</a></li>
+						<li><a href="#">Available 995 mb</a></li>
+					</ul>
+					<div class="uploadingbox">
+					</div>
+				</div>
+				<hr>
+				<div class="userOptions">
+					<ul>
+						<li>
+							<a href="javascript:void(0)">
+								<span class="image">
+								<img src="images/category.png" height="35" width="44" alt="">
+								</span>
+								<span class="text">Product Category</span>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">
+								<span class="image">
+								<img src="images/catalog.png" height="30" width="24" alt="">
+								</span>
+								<span class="text">Product Catalog</span>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">
+								<span class="image">
+								<img src="images/customers.png" height="26" width="34" alt="">
+								</span>
+								<span class="text">Customers</span>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">
+								<span class="image">
+								<img src="images/paymentSetup.png" height="34" width="45" alt="">
+								</span>
+								<span class="text">Payment Setup</span>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">
+								<span class="image">
+								<img src="images/website.png" height="28" width="35" alt="">
+								</span>
+								<span class="text">Website Integration</span>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">
+								<span class="image">
+								<img src="images/setup.png" height="28" width="28" alt="">
+								</span>
+								<span class="text">Setup Guide</span>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">
+								<span class="image">
+								<img src="images/admin.png" height="32" width="47" alt="">
+								</span>
+								<span class="text">Admin Branding</span>
+							</a>
+						</li>
+						<li>
+							<a href="javascript:void(0)">
+								<span class="image">
+								<img src="images/contact.png" height="23" width="23" alt="">
+								</span>
+								<span class="text">Contact</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<hr>
+				<div class="pannelWrap">
+					<div class="leftPannelOption">
+						<h3>Product Category</h3>
+						<ul class="selection">
+							<li><input id="business" type="radio"><label for="business">Business Stationary</label></li>
+							<li><input id="promotional" type="radio"><label for="promotional">Promotional Flyers</label></li>
+							<li><input id="bookslets" type="radio"><label for="bookslets">Bookslets &amp; Catalogs</label></li>
+							<li><input id="posters" type="radio"><label for="posters">Posters &amp; Point of Sale Promotions</label></li>
+							<li><input id="photo" type="radio"><label for="photo">Photo Prints</label></li>
+						</ul>
+						<a href="#" class="addCategory buttonPink"> <img src="images/plus.png" alt="">ADD CATEGORY</a>
+					</div>
+					<div class="rightPannelOption">
+						<div class="saveCategory">
+							<h3>Category Name</h3>
+							<form class="printForm">
+								<p><input type="text" placeholder="Photo Prints"></p>
+								<a href="#" class="saveCategory buttonPink"> <img src="images/save.png" alt="">Save CATEGORY</a>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div> <!-- bodypannel end -->
+		</div> <!-- backend end -->
+	</body>
+</html>

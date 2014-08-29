@@ -1,0 +1,827 @@
+input[type="radio"] {
+    margin: 0;
+}
+.backend hr {
+    margin: 2em 0;
+    border-color: #eee;
+}
+.backend .header {
+    background-color: #fff;
+    box-shadow: 0 0 5px #D3D3D3;
+    /*height: 152px;*/
+    text-align: center;
+}
+.backend .logo {
+    padding-bottom: 30px;
+    padding-top: 50px;
+    text-align: center;
+}
+.loginSection {
+    width: 660px;
+    margin: 0 auto;
+    padding: 80px 0;
+    color: #6f6f6e;
+}
+.loginSection h2 {
+    color: #f07a78;
+    font-size: 30px;
+    padding-bottom: 20px;
+}
+.loginSection form input {
+    width: 290px;
+    height: 38px;
+    line-height: 38px;
+    border: 1px solid #c2c2c2;
+    padding: 0 10px;
+}
+.loginSection form p {
+    margin-bottom: 15px;
+}
+.loginSection form input:first-child {
+    margin-right: 30px;
+}
+.forgetPass {
+    font-size: 12px;
+    position: relative;
+}
+.forgetPass .blackBtn {
+    margin-left: 10px;
+}
+.loginButton {
+    background-color: #F07A78;
+    color: #FFFFFF;
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    margin-top: 20px;
+    text-align: center;
+    width: 130px;
+}
+.nav {
+    background-color: #F07A78;
+    overflow: hidden;
+}
+.nav li {
+    float: left;
+    padding-right: 1px;
+}
+.nav li.right {
+    float: right;
+}
+.nav li.bdr {
+    background: url(../images/login-divider.png) no-repeat 100% center;
+}
+.nav li a {
+    color: #FFFFFF;
+    display: block;
+    font-size: 12px;
+    padding: 25px 20px;
+    text-transform: uppercase;
+}
+.nav li a:hover, .nav li a.active, .nav li a:focus, .nav li:nth-child(1) {
+    background-color: #F88F8D;
+}
+.contentSection {
+    background-color: #fff;
+    padding: 30px 20px 60px;
+}
+.uploadArea ul {
+    overflow: hidden;
+}
+.uploadArea ul li {
+    float: left;
+}
+.uploadArea ul li a {
+    color: #686868;
+    font-size: 12px;
+    line-height: 14px;
+    padding-right: 15px;
+    border-right: 1px solid #686868;
+    margin-right: 15px;
+    display: block;
+}
+.uploadArea ul li:last-child a {
+    border-right: none;
+}
+.uploadingbox {
+    width: 580px;
+    height: 20px;
+    position: relative;
+    border: 1px solid #c2c2c2;
+    margin-top: 10px;
+}
+.uploadingbox:after {
+    position: absolute;
+    height: 22px;
+    content: "";
+    position: absolute;
+    width: 30%;
+    background-color: #f07a78;
+    left: 0px;
+    top: -1px;
+    max-width: 100%;
+}
+.userOptions ul {
+    overflow: hidden;
+}
+.userOptions ul li {
+    float: left;
+    margin-right: 20px;
+    text-align: center;
+    width: 80px;
+}
+.userOptions ul li a {
+    display: block;
+    color: #555f62;
+    font-size: 11px;
+    line-height: 13px;
+}
+.userOptions ul li .image {
+    border: 1px solid #C2C2C2;
+    display: table-cell;
+    height: 80px;
+    text-align: center;
+    vertical-align: middle;
+    width: 80px;
+}
+.userOptions ul li:hover .image {
+    border-color: #f07a78;
+}
+.userOptions ul li .text {
+    display: inline-block;
+    margin-top: 8px;
+    line-height: 14px;
+}
+.pannelWrap {
+    overflow: hidden;
+    position: relative;
+    margin-top: -2em;
+}
+.pannelWrap h3 {
+    font-weight: bold;
+    color: #f07a78;
+    font-size: 18px;
+    padding-bottom: 15px;
+}
+.selection {
+    margin-bottom: 20px;
+}
+.selection li {
+    margin: 8px 0;
+}
+.selection li label {
+    cursor: pointer;
+    vertical-align: middle;
+    color: #6f6f6e;
+    margin-left: 10px;
+}
+.buttonPink {
+    background-color: #F07A78;
+    color: #FFFFFF;
+    display: table;
+    font-size: 14px;
+    padding: 10px 20px;
+    text-transform: uppercase;
+}
+.buttonPink:hover {
+    background-color: #de6765
+
+}
+.buttonPink img {
+    margin-right: 15px;
+    vertical-align: text-top;
+}
+.leftPannelOption {
+    border-right: 1px solid #EEEEEE;
+    float: left;
+    margin-right: 5%;
+    padding-right: 4%;
+    padding-top: 2em;
+    width: 45%;
+}
+.rightPannelOption {
+    float: left;
+    width: 45%;
+    padding-top: 2em;
+}
+.printForm p {
+    margin-bottom: 20px;
+}
+input[type=text], input[type=password], input[type=email] {
+    border: 1px solid #c2c2c2;
+    height: 35px;
+    font-size: 14px;
+    padding: 0 3%;
+}
+.printForm input[type=text] {
+    width: 94%;
+}
+.paypalPannel {
+    display: table;
+    border-bottom: 1px solid #eee;
+}
+.paypalPannel p {
+    font-size: 12px;
+    line-height: 18px;
+    color: #686868;
+}
+.paypalPannel .paypalLeftSec {
+    border-right: 1px solid #eee;
+}
+.paypalLeftSec {
+    display: table-cell;
+    width: 582px;
+    padding-right: 35px;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    vertical-align: top;
+}
+.paypalRightSec {
+    display: table-cell;
+    padding-left: 35px;
+    width: 260px;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    vertical-align: top;
+}
+.paypalPannel img {
+    margin-bottom: 10px;
+}
+.paypalPannel h4, .paypalPaymentPannel h4 {
+    font-size: 14px;
+    color: #f07a78;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.paypalPaymentPannel h4 {
+    text-transform: none;
+    margin-bottom: 10px;
+}
+.paypalPayment p {
+    margin-bottom: 15px;
+}
+.paypalPayment label {
+    display: block;
+    cursor: pointer;
+    font-weight: bold;
+    color: #6f6f6e;
+    font-size: 14px;
+    padding: 10px 0;
+}
+.paypalPayment input[type=text], .paypalPayment input[type=password] {
+    display: block;
+    width: 70%;
+}
+.paymentArea {
+    width: 30% !important;
+}
+.paypalPayment span {
+    font-size: 12px;
+    color: #6f6f6e;
+    line-height: 18px;
+    display: block;
+    margin-top: 5px;
+}
+.paypalPayment span a {
+    color: #f07a78;
+}
+.paypalPayment button {
+    border: none;
+    cursor: pointer;
+}
+.proOptionArea {
+    background: none repeat scroll 0 0 #fff;
+    /*border: 1px solid #c2c2c2;*/
+    color: #6f6f6e;
+    display: table;
+    padding-top: 30px;
+}
+.popColWrap {
+    padding: 20px;
+}
+.popCol1 {
+    display: table-cell;
+    width: 280px;
+    border-right: 1px solid #c2c2c2;
+}
+.popColWrap ul li {
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.leftHSide {
+    float: left;
+    width: 145px;
+}
+.box {
+    background-position: center 30px;
+    background-repeat: no-repeat;
+    float: left;
+    height: 125px;
+    margin: 0 5px 5px 0;
+    padding-bottom: 20px;
+    position: relative;
+    text-align: center;
+    width: 135px;
+    background-color: #fff;
+    border: 1px solid #dddddd;
+}
+.business1 {
+    background-image: url(../images/b1.png);
+}
+.business2 {
+    background-image: url(../images/b2.png);
+}
+.business3 {
+    background-image: url(../images/b3.png);
+}
+.business4 {
+    background-image: url(../images/b4.png);
+}
+.imgBox {
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: block;
+    height: 90px;
+    padding-top: 20px;
+    width: 100%;
+}
+span.title {
+    font-size: 11px;
+    left: 10%;
+    position: absolute;
+    top: 105px;
+    width: 80%;
+    color: #898989;
+}
+.leftHSide p {
+    font-size: 12px;
+}
+.rightHSide {
+    float: right;
+    padding: 76px 5px;
+}
+.rightHSide p input[type="radio"] {
+    margin-right: 7px;
+    vertical-align: middle;
+}
+.rightHSide p label {
+    font-size: 13px;
+    vertical-align: middle;
+}
+.popCol2 {
+    display: table-cell;
+    width: 637px;
+}
+.productOptionSec {
+    margin-top: 30px;
+    border: 1px solid #c2c2c2;
+}
+.productOptionMenu {
+    overflow: hidden;
+    /*border-bottom: 1px solid #c2c2c2;
+    border-left: 1px solid #c2c2c2;
+    border-right: 1px solid #c2c2c2;*/
+}
+.productOptionMenu ul li {
+    border-right: 1px solid #c2c2c2;
+    float: left;
+    padding: 0 20px;
+    width: 265px;
+    border-bottom: 1px solid #c2c2c2;
+    text-align: center;
+}
+.productOptionMenu ul li:nth-child(6n+6) {
+    border-right: none;
+    
+}
+.productOptionMenu ul li, .productOptionMenu ul li a {
+    font-size: 11px;
+    color: #686868;
+    line-height: 60px;
+}
+.addQuantityArea {
+    border-bottom: 1px solid #c2c2c2;
+    border-top: 1px solid #c2c2c2;
+}
+.uploadPrvBox {
+    float: right;
+    margin-left: 20px;
+}
+.uploadPrvBox .prvImg {
+    border: 1px solid #c2c2c2;
+    display: table-cell;
+    height: 118px;
+    text-align: center;
+    vertical-align: middle;
+    width: 130px;
+}
+.proOptionArea h4 {
+    font-size: 14px;
+    color: #f07a78;
+    padding-bottom: 15px;
+}
+.uploadIconArea input[type=text] {
+    width: 60%;
+    margin-bottom: 15px;
+}
+.uploadIconArea .popColWrap {
+    /*width: 75%;*/
+    margin: 0 20px;
+}
+.uploadIconArea button {
+    border: none;
+    margin-bottom: 15px;
+}
+.uploadIconArea form span {
+    display: block;
+    font-size: 12px;
+    color: #686868;
+}
+.addQuantity p {
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 20px;
+}
+.addQuantity label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    color: #6f6f6e;
+    margin-bottom: 10px;
+}
+.addQuantity input[type=text] {
+    width: 94%;
+}
+.addQuantityArea label, .rightHSide label {
+    cursor: pointer;
+}
+a.edit, a.delete {
+    border: 1px solid #c2c2c2;
+    display: inline-block;
+    height: 25px;
+    text-align: center;
+    vertical-align: middle;
+    width: 25px;
+}
+a.edit img, a.delete img {
+    display: table-cell;
+    padding-top: 5px;
+    vertical-align: middle;
+}
+.saveProduct p {
+    margin: 0 20px 20px;
+    font-size: 14px;
+}
+.saveProduct p span {
+    display: inline-block;
+    width: 55px;
+}
+.saveProduct p input[type=text] {
+    width: 18%;
+    padding: 0 2.5%;
+}
+.saveProduct p span.lastOne {
+    width: 100px;
+    text-align: center;
+}
+.popCol3 {
+    width: 250px;
+    border-right: 1px solid #c2c2c2;
+    display: table-cell;
+}
+.popCol4 {
+    width: 325px;
+    border-right: 1px solid #c2c2c2;
+    display: table-cell;
+}
+.popCol5 {
+    width: 380px;
+    display: table-cell;
+}
+.customer li {
+    background: url(../images/arrow.png) no-repeat 0 center;
+    padding-left: 20px;
+}
+.customer li a {
+    font-size: 12px;
+    color: #686868;
+    line-height: 18px;
+}
+.customerContact label {
+    color: #6f6f6e;
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+.customerContact p {
+    margin-bottom: 20px;
+}
+.customerContact input[type=text], .customerContact input[type=email], .customerContact input[type=password] {
+    width: 94%;
+}
+.customerContact p button {
+    border: none;
+}
+.popCol5 input[type=text] {
+    width: 94%;
+}
+.popCol5 .addQuantity p {
+    padding-left: 0;
+    padding-right: 0;
+}
+.popCol5 p {
+    margin-bottom: 20px;
+}
+.addItem p strong {
+    display: block;
+    font-size: 14px;
+    color: #686868;
+    line-height: 18px;
+    margin-bottom: 3px;
+}
+.addItem p span {
+    display: block;
+    font-size: 12px;
+    color: #686868;
+    line-height: 16px;
+}
+.itemPreview {
+    border: 1px solid #c2c2c2;
+    display: table-cell;
+    height: 118px;
+    text-align: center;
+    vertical-align: middle;
+    width: 130px;
+}
+.popCol5 .popColWrap {
+    border-bottom: 1px solid #c2c2c2;
+}
+.popCol5 .popColWrap:last-child {
+    border-bottom: none;
+}
+.popCol5  label {
+    cursor: pointer;
+}
+.itemPreview img {
+    height: auto;
+    max-width: 100%;
+    width: 100%;
+}
+.previewButton {
+    padding: 10px 0 15px;
+}
+.previewButton a {
+    display: block;
+    padding-left: 15px;
+    background: url(../images/mag.png) no-repeat 0 center;
+    color: #686868;
+    font-size: 12px;
+}
+.shortVer input[type=text] {
+    width: 40%;
+    padding: 0 2%;
+}
+.shortVer span {
+    width: 80px;
+    display: inline-block;
+}
+.shortVer span.lastOne {
+    width: 164px;
+}
+.shortVer {
+    padding-bottom: 25px;
+}
+.orderStatus p {
+    margin-bottom: 20px;
+}
+.orderStatus span {
+    display: block;
+    font-size: 14px;
+    line-height: 18px;
+    color: #686868;
+    margin-bottom: 5px;
+}
+.orderStatus label {
+    font-size: 12px;
+    line-height: 18px;
+    color: #898989;
+    width: 47%;
+    margin-right: 2%;
+    display: inline-block;
+    cursor: pointer;
+}
+.orderStatus h4 {
+    color: #686868;
+}
+.fullWidth button {
+    display: block;
+    width: 100%;
+    cursor: pointer;
+}
+.buttonBlack {
+    background-color: #686868;
+    color: #ffffff;
+    display: table;
+    font-size: 14px;
+    padding: 10px 20px;
+    text-transform: uppercase;
+}
+.buttonBlack:hover {
+    background-color: #424141;
+}
+.halfWidth button {
+    width: 48%;
+    font-size: 12px;
+    display: inline-block;
+    text-transform: none;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+.quickView label {
+    font-size: 12px;
+    display: inline-block;
+    line-height: 18px;
+    width: 180px;
+    margin-bottom: 20px;
+}
+.quickView span {
+    font-size: 12px;
+    display: inline-block;
+    line-height: 18px;
+    width: 75px;
+}
+.uploadIconArea .popColWrap{
+	overflow: hidden;
+}
+.uploadIconArea .popColWrap #my_image_file_field{
+	display: block;
+	margin-bottom: 20px;
+}
+.uploadPrvBox .prvImg img{
+	width: 100%;
+	height: auto;
+}
+.addQuantityArea label{
+	display: inline-block;
+    vertical-align: top;
+    width: 170px;
+}
+.addQuantityArea .popColWrap p{
+	margin-bottom: 15px;
+}
+.addQuantityArea .popColWrap p input#Item{
+		padding: 0 7px;
+    width: 290px;
+}
+.addQuantityArea .popColWrap p textarea#Description{
+	padding: 0 7px;
+    width: 290px;
+}
+.addQuantityArea .popColWrap p a#quantity_button{
+	margin-left: 174px;
+}
+.quantity_msg {
+    border: 0.5px solid #f07a78;
+    color: #f00;
+    display: none;
+    font-size: 13px;
+    line-height: 20px;
+    margin: 0 auto;
+    padding: 5px;
+    text-align: center;
+    width: 50%;
+}
+.imgBox > img {
+    height: auto;
+    width: 100%;
+}
+.twoPannelStretch{
+    width: 73%;
+    border-right: none;
+}
+.passwordContainer {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.62);
+    display: none;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+}
+.passReset{
+    background: #fff;
+    margin: 180px auto 0;
+    padding: 20px;
+}
+.passReset a#close_button {
+    float: right;
+    margin: -40px -40px 0 0;
+    position: relative;
+}
+.passReset .loginButton {
+    background-color: #f07a78;
+    border: medium none;
+    color: #ffffff;
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    margin-top: 20px;
+    padding: 0 20px;
+    text-align: center;
+    width: auto;
+}
+#custmererrormsg {
+    color: #f00;
+    display: block;
+    font-size: 12px;
+    padding-bottom: 2px;
+    padding-top: 6px;
+}
+#save_customer_button {
+    display: inline-block;
+}
+.delete_customer_button {
+    display: inline-block;
+    font-size: 14px;
+    margin-left: 2px;
+    padding: 13px 16px 12px !important;
+    position: relative;
+}
+.delete_customer_button:hover{
+    background: #000;
+}
+.uploadIconArea > .popColWrap > span {
+    font-size: 15px;
+}
+.addQuantityArea input[type=text]{
+    padding: 0 2%;
+    width: 63%;
+}
+#inventoryquantity_button {
+    margin-left: 175px;
+}
+.addQuantityArea textarea{
+    padding: 0 2%;
+    width: 63%;
+    height: 90px;
+    font-size: 14px;
+    border:1px solid #c2c2c2;
+}
+.quantity_msg.errorQuntyMesg {
+    margin-left: 175px;
+}
+.colorChange {
+    border-collapse: separate;
+    border-spacing: 5px;
+    bottom: 5px;
+    display: table;
+    position: fixed;
+    right: 10px;
+    z-index: 999;
+}
+.colorRow {
+    display: table-row;
+}
+#pink {
+    background-color: #f07a78;
+    border-radius: 4px;
+    color: #ffffff;
+    cursor: pointer;
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 16px;
+    height: 25px;
+    line-height: 22px;
+    text-align: center;
+    width: 60px;
+}
+#black {
+    background-color: #333;
+    border-radius: 4px;
+    color: #ffffff;
+    cursor: pointer;
+    display: table-cell;
+    vertical-align: middle;
+    font-size: 16px;
+    height: 25px;
+    line-height: 22px;
+    text-align: center;
+    width: 60px;
+}
+#inventoryproduct_add_quan p span{
+    display: inline-block;
+}
+
+/* editing section */
+input[type=number] {
+    -moz-appearance:textfield;
+}
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

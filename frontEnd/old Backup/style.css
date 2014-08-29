@@ -1,0 +1,580 @@
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent
+}
+body {
+	line-height: 1
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display: block
+}
+nav ul {
+	list-style: none
+}
+blockquote, q {
+	quotes: none
+}
+blockquote:before, blockquote:after, q:before, q:after {
+	content: none
+}
+a {
+	margin: 0;
+	padding: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+	text-decoration: none;
+}
+ins {
+	background-color: #ff9;
+	color: #000;
+	text-decoration: none
+}
+mark {
+	background-color: #ff9;
+	color: #000;
+	font-style: italic;
+	font-weight: bold
+}
+del {
+	text-decoration: line-through
+}
+abbr[title], dfn[title] {
+	border-bottom: 1px dotted;
+	cursor: help
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0
+}
+hr {
+	display: block;
+	height: 1px;
+	border: 0;
+	border-top: 1px solid #ccc;
+	margin: 1em 0;
+	padding: 0
+}
+input, select {
+	vertical-align: middle
+}
+li{
+	list-style: none;
+}
+input[type=radio]{
+	margin:0;
+}
+body {
+  font-family: open sans;
+}
+.clear{
+	font-size: 0;
+	line-height: 0;
+	clear: both;
+}
+.colorChange {
+  position: fixed;
+  right: 10px;
+  top: 10px;
+  z-index: 999;
+}
+#pink {
+  background-color: #f07a78;
+  border-radius: 4px;
+  color: #FFFFFF;
+  font-size: 16px;
+  height: 25px;
+  line-height: 22px;
+  text-align: center;
+  width: 50px;
+  cursor: pointer;
+  display: inline-block;
+}
+#black {
+  background-color: #333;
+  border-radius: 4px;
+  color: #FFFFFF;
+  font-size: 16px;
+  height: 25px;
+  line-height: 22px;
+  text-align: center;
+  width: 50px;
+  cursor: pointer;
+  display: inline-block;
+}
+.wrapper{
+	width: 1000px;
+	margin: 0 auto;
+}
+.header{
+	box-shadow: 0 0 5px #989;
+	position: relative;
+	z-index: 9;
+}
+.logo {
+	padding-bottom: 30px;
+  padding-top: 50px;
+  text-align: center;
+}
+.logo a{
+	display: inline-block;
+}
+.nav{
+	overflow: hidden;
+}
+.nav li{
+	float: left;
+	padding-right: 1px;
+}
+.nav li.right{
+	float: right;
+}
+.nav li.print2u a{
+	padding: 25px 55px;
+	margin-right: 10px;
+}
+.nav li.user a{
+	background-repeat: no-repeat;
+	background-position: 15px center;
+	margin-left: 1px;
+  padding-left: 46px;
+}
+.nav li.signOut a{
+	background-image: url(images/signOut.png);
+	background-repeat: no-repeat;
+	background-position: 13px center;
+	padding-left: 35px;
+}
+.nav li a {
+  display: block;
+  font-size: 12px;
+  padding: 25px 20px;
+  text-transform: uppercase;
+}
+.contentArea{
+	margin-bottom: 80px;
+	padding: 33px 74px 60px;
+}
+.items{
+	margin-bottom: 50px;
+	position: relative;
+}
+.items h2 {
+    font-weight: 300;
+    font-size: 18px;
+    font-weight: 300;
+    padding: 0 0 22px;
+}
+.box{
+	float: left;
+	margin: 0 5px 5px 0;
+	position: relative;
+	height: 125px;
+	width: 135px;
+	text-align: center;
+	padding-bottom: 20px;
+	background-repeat: no-repeat;
+	background-position: center 30px;
+}
+span.title {
+    font-size: 11px;
+    left: 10%;
+    position: absolute;
+    top: 105px;
+    width: 80%;
+}
+.imgBox {
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: block;
+    height: 90px;
+    padding-top: 20px;
+    width: 100%;
+}
+.userMenu {
+    margin: 0 -50px 25px;
+    padding-bottom: 25px;
+    position: relative;
+}
+.userMenu ul li{
+	float: left;
+}
+.userMenu ul li:last-child{
+	background: none;
+}
+.userMenu ul li a{
+	display: block;
+  font-size: 14px;
+  margin-right: 1px;
+  padding: 20px;
+}
+.orderInfo{
+	float: left;
+}
+.orderInfo .box{
+	float: none;
+	display: block;
+
+}
+.contentArea h3{
+	font-size: 18px;
+	padding-bottom: 20px;
+}
+.customerContact p{
+	vertical-align: middle;
+}
+.customerContact p input[type="radio"]{
+	vertical-align: middle;
+	display: inline-block;
+  margin: 10px 10px 10px 0;  
+}
+.customerContact p{
+	margin-bottom: 15px;
+}
+.customerContact p label {
+    display: inline-block;
+    margin-right: 40px;
+    vertical-align: middle;
+}
+.customerContact p span{
+	font-size: 12px;
+	display: block;
+	margin-bottom: 6px;
+}
+.contentArea input[type=text]{
+	width: 210px;
+	padding:13px 20px;
+	margin-right: 10px;
+}
+.largeButton {
+  display: inline-block;
+  padding: 22px 20px 25px;
+  text-align: center;
+  width: 160px;
+}
+.customerLogIn p input[type="radio"]{
+	vertical-align: middle;
+	display: inline-block;
+  margin: 10px 10px 10px 0;  
+}
+.customerLogIn p{
+	margin-bottom: 15px;
+}
+.customerLogIn p label {
+    display: inline-block;
+    margin-right: 40px;
+    vertical-align: middle;
+}
+.customerLogIn p input[type="text"]{
+	vertical-align: bottom;
+}
+.popUpBox{
+	left: -54px;
+  overflow: hidden;
+  padding: 30px 0;
+  position: absolute;
+  top: 200px;
+  width: 960px;
+  z-index: 10;
+  display: none;
+}
+.popUpBox h3{
+	font-weight: normal;
+}
+.popColWrap{
+	padding: 20px;
+}
+.popColWrap ul li{
+	overflow: hidden;
+	margin-bottom: 20px;
+}
+.popCol1{
+	float: left;
+	width: 280px;
+}
+.popCol2{
+	float: left;
+  padding-bottom: 89px;
+  width: 390px;
+}
+.popCol3{
+	float: left;
+	width: 270px;
+}
+.leftHSide{
+	float: left;
+	width: 145px;
+}
+.leftHSide p{
+	font-size: 12px;
+}
+.rightHSide{
+	float: right;
+	padding: 76px 5px;
+}
+.rightHSide p input[type="radio"]{
+	margin-right: 7px;
+	vertical-align: middle;
+}
+.rightHSide p label{
+	vertical-align: middle;
+	font-size: 13px;
+}
+p.subTitle{
+	font-size: 12px;
+}
+p.subTitle span{
+	display: block;
+	margin-bottom: 5px;
+}
+.uploadProcess {
+    display: block;
+    height: 15px;
+    margin: 10px 0 15px;
+    width: 99%;
+    position: relative;
+}
+.uploadProcess:before {
+    content: "";
+    height: 15px;
+    position: absolute;
+    width: 25%;
+}
+.artWorkPreview {
+    margin-bottom: 20px;
+    position: relative;
+}
+.previewBtn {
+    font-size: 12px;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    top: 46%;
+    width: 100%;
+}
+.artWorkControl {
+    font-size: 13px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.artWorkTitle{
+	padding-left: 30px;
+}
+.artControlBtn {
+    margin-top: 30px;
+}
+.artControlBtn > a {
+    display: inline-block;
+    padding: 20px;
+}
+.artControlBtn > a:first-child {
+    margin-right: 22px;
+}
+.orderCost p {
+    font-size: 14px;
+    margin: 25px 0;
+    padding-left: 17px;
+}
+.payOption {
+    margin-bottom: 40px;
+    text-align: center;
+}
+.paypalInfo, .papalLogo{
+	margin-bottom: 15px;
+}
+.paypalInfo p{
+    font-size: 11px;
+    line-height: 18px;
+    padding-left: 17px;
+}
+.paypalInfo p strong{
+		font-size: 14px;
+		line-height: 20px;
+}
+.closeBtn {
+    height: 43px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 43px;
+    z-index: 999;
+}
+.smallGap{
+	padding:33px 20px 60px;
+}
+.caption{
+	font-size: 24px;
+	font-weight: 300;
+	display: inline-block;
+	margin-right: 30px;
+}
+.createAccount .button, .inventory p a{
+	padding: 20px 30px;
+	display: inline-block;
+	margin-right: 3px;
+}
+.createAccount {
+    border-bottom: 1px solid #EEEEEE;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+}
+.inventory p{
+	margin-bottom: 8px;
+}
+.option2{
+	width: 290px;
+}
+.accDetail{
+	font-size: 12px;
+	padding: 15px;
+}
+.accDetail label{
+	display: inline-block;
+	width: 145px;
+}
+.accDetail span{
+		display: inline-block;
+    width: 275px;
+}
+.accDetail input[type=button]{
+		border: medium none;
+    cursor: pointer;
+    display: inline-block;
+    height: 25px;
+    width: 25px;
+}
+.accDetail input[type=text], .accDetail input[type=password]{
+	display: block;
+  float: right;
+  margin-right: 10px;
+  margin-top: 8px;
+  padding: 13px 20px;
+  width: 230px;
+  display: none;
+}
+.accDetail > p {
+  margin-bottom: 15px;
+  overflow: hidden;
+  padding-bottom: 20px;
+}
+.accDetail > p:last-child{
+	border-bottom: none;
+}
+.accountDetails h3 {
+    font-size: 24px;
+    font-weight: 300;
+    margin: 0 14px 10px;
+    padding: 20px 17px 17px 0;
+}
+.closeBtn{
+	padding: 0 !important;
+}
+.userMenuOptions:after {
+	background: url(images/whiteCorner.png) no-repeat 0 0;
+	content: "";
+  height: 19px;
+  left: 20px;
+  position: absolute;
+  top: -19px;
+  width: 21px;
+  z-index: 9;
+}
+.accountDetails{
+	width: 490px;
+}
+.userMenuOptions {
+  position: absolute;
+  z-index: 99;
+  display: none;
+}
+.myInvenTory{
+	width: 660px;
+}
+.myInvenTory .wrap{
+	padding: 15px 0;
+	overflow: hidden;
+}
+.myInvenTory .popCol1{
+	width: 49.8%;
+}
+.myInvenTory .popCol1:last-child{
+	border-right: none;
+}
+.myInvenTory span.title{
+	top: 133px;
+}
+.myInvenTory ul li{
+	width: 100%;
+}
+.myInvenTory .leftHSide {
+    margin-right: 0px;
+    width: 180px;
+}
+.myInvenTory .rightHSide {
+    width: 90px;
+}
+.topGap {
+    height: 67px;
+}
+.invenControl a{
+	display: inline-block !important;
+  margin: 15px 5px 35px !important;
+  width: 30px;
+}
+.invenControl {
+    text-align: center;
+}
+.orderStatus {
+    left: -5px;
+    top: 62px;
+    width: 960px;
+}
+.userMenuOptions.orderStatus:after {
+    left: 346px;
+}
+.popCol6{
+	float: left;
+}
+.orderStatus .wrap{
+	overflow: hidden;
+	padding: 25px 0;
+}
+.orderStatus .wrap > div{
+	width: 33%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

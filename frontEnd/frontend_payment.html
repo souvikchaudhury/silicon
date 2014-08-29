@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Index | Silikon Graphics</title>
+
+	<!-- styles -->
+	<!-- <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800' rel='stylesheet' type='text/css'> -->
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" id="switch_style" href="black.css"> 
+
+	<!-- Scripts  -->
+	<script src="js/jquery-1.9.1.min.js"></script>
+	<script src="js/core.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('.box').click(function() {
+				$(this).parent('.orderInfo').find('.popUpBox').fadeIn('800')
+			});
+			
+			$('.closeBtn').click(function(){
+				$(this).parent('.popUpBox').fadeOut('800');
+			});
+
+			$('.showEdit').click(function() {
+				$(this).next(".editBox").fadeToggle();
+				$(this).toggleClass('active');
+			});
+
+			$('.userMenu ul li a').click(function() {
+				$(this).toggleClass('active').next().fadeIn('800');
+			});
+
+			$('.userMenuOptions .closeBtn').click(function() {
+				$(this).parent().fadeOut('800').prev().removeClass('active');
+			});
+			//
+			$("input[type='radio']").click(function()
+				{
+			  var previousValue = $(this).attr('previousValue');
+			  var name = $(this).attr('name');
+
+			  if (previousValue == 'checked')
+			  {
+			    $(this).removeAttr('checked');
+			    $(this).attr('previousValue', false);
+			  }
+			  else
+			  {
+			    $("input[name="+name+"]:radio").attr('previousValue', false);
+			    $(this).attr('previousValue', 'checked');
+			  }
+			});
+			//
+			$('.infoProduction').click(function() {
+				$(this).prev('.production').toggleClass('redBg');	
+			});
+			$('.infoComplete').click(function() {
+				$(this).prev('.complete').toggleClass('greenBg');	
+			});
+		});
+	</script>
+
+</head>
+<body>
+	<!-- header start -->
+	<div class="header">  
+		<div class="wrapper">
+			<div class="logo">
+				<a href="index.html"><img src="images/logo.png" alt=""></a>
+			</div>
+			<div class="nav">
+				<ul>
+					<li class="active print2u"><a href="#">Print 2 you</a></li>
+					<li class="active user"><a href="#">Welcome Aldrich</a></li>
+					<li class="right signOut"><a href="#">Sign out</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- header end -->
+	
+	<!-- mainBody Start -->
+	<div class="mainBody">
+		<div class="wrapper">
+			<div class="contentArea">
+				
+				<div class="userMenu">
+					<ul>
+						<li>
+							<a href="javascript:void(0)">My Account Details</a>
+								<div class="accountDetails userMenuOptions">
+								<a class="closeBtn" href="javascript:void(0)"></a>
+								<h3>Your account details</h3>
+								<form action="" class="accDetail">
+								<p>
+									<label>Name</label>
+									<span>Aldrich</span>
+									<input class="showEdit" type="button">
+									<input class="editBox" type="text" placeholder="Put your name">
+								</p>
+								<p>
+									<label>Email</label>
+									<span>abcd@gmail.com</span>
+									<input class="showEdit" type="button">
+									<input class="editBox" type="text" placeholder="Put your email">
+								</p>
+								<p>
+									<label>Password</label>
+									<span>XXXXXXXX</span>
+									<input class="showEdit" type="button">
+									<input class="editBox" type="password" placeholder="Put your password">
+								</p>
+								<p>
+									<label>Business Name</label>
+									<span>Aldrich_business</span>
+									<input class="showEdit" type="button">
+									<input class="editBox" type="text" placeholder="Put your business name">
+								</p>
+								<p>
+									<label>Mobile / Cell no.</label>
+									<span>5680 03480 3409</span>
+									<input class="showEdit" type="button">
+									<input class="editBox" type="text" placeholder="Put your mobile / cell no.">
+								</p>
+								<p>
+									<label>Phone no.</label>
+									<span>5680 03480 3409</span>
+									<input class="showEdit" type="button">
+									<input class="editBox" type="text" placeholder="Put your phone no.">
+								</p>
+								</form>
+								</div>
+						</li>
+						<li>
+							<a href="javascript:void(0)">My Inventory</a>
+							<div class="userMenuOptions myInvenTory">
+								<a class="closeBtn" href="javascript:void(0)"></a>
+								<div class="wrap">
+									<div class="popCol1">
+										<div class="popColWrap">
+											<h3>Your Inventory</h3>
+											<p class="subTitle">
+												<span>Click | Tap product to edit &amp; upload</span> your art work  | Max file size 32mb
+											</p>
+											<hr>
+
+											<ul>
+												<li>
+													<div class="leftHSide">
+														<a class="box" href="#"><span class="imgBox business1"></span><span class="title">Business Cards</span></a>
+														<p>Business Cards 500 qty.</p>
+													</div>
+													<div class="rightHSide">
+														<p><input type="radio" id="order"><label for="order">Order</label></p>
+													</div>
+												</li>
+
+												<li>
+													<div class="leftHSide">
+														<a class="box" href="#"><span class="imgBox business2"></span><span class="title">Letter Heads</span></a>
+														<p>Letter Heads 500 qty.</p>
+													</div>
+													<div class="rightHSide">
+														<p><input type="radio" id="order1"><label for="order1">Order</label></p>
+													</div>
+												</li>
+
+												<li>
+													<div class="leftHSide">
+														<a class="box" href="#"><span class="imgBox business4"></span><span class="title">Presentation Folders</span></a>
+														<p>Presentation Folders 100 qty.</p>
+													</div>
+													<div class="rightHSide">
+														<p><input type="radio" id="order2"><label for="order2">Order</label></p>
+													</div>
+												</li>
+
+												<li>
+													<div class="leftHSide">
+														<a class="box" href="#"><span class="imgBox business3"></span><span class="title">With Compliments Slips</span></a>
+														<p>With Compliments Slips 50 qty.</p>
+													</div>
+													<div class="rightHSide">
+														<p><input type="radio" id="order3"><label for="order3">Order</label></p>
+													</div>
+												</li>
+											</ul>
+
+										</div>
+									</div>
+
+									<div class="popCol1">
+										<div class="popColWrap">
+											<div class="topGap"></div>
+											<hr>
+
+											<ul>
+												<li>
+													<div class="leftHSide">
+														<a class="box" href="#"><span class="imgBox business1"></span><span class="title">Business Cards</span></a>
+														<p>Business Cards 500 qty.</p>
+													</div>
+													<div class="rightHSide">
+														<p><input type="radio" id="order4"><label for="order4">Order</label></p>
+													</div>
+												</li>
+
+												<li>
+													<div class="leftHSide">
+														<a class="box" href="#"><span class="imgBox business2"></span><span class="title">Letter Heads</span></a>
+														<p>Letter Heads 500 qty.</p>
+													</div>
+													<div class="rightHSide">
+														<p><input type="radio" id="order5"><label for="order5">Order</label></p>
+													</div>
+												</li>
+
+												<li>
+													<div class="leftHSide">
+														<a class="box" href="#"><span class="imgBox business4"></span><span class="title">Presentation Folders</span></a>
+														<p>Presentation Folders 100 qty.</p>
+													</div>
+													<div class="rightHSide">
+														<p><input type="radio" id="order6"><label for="order6">Order</label></p>
+													</div>
+												</li>
+
+												<li>
+													<div class="leftHSide">
+														<a class="box" href="#"><span class="imgBox business3"></span><span class="title">With Compliments Slips</span></a>
+														<p>With Compliments Slips 50 qty.</p>
+													</div>
+													<div class="rightHSide">
+														<p><input type="radio" id="order7"><label for="order7">Order</label></p>
+													</div>
+												</li>
+											</ul>
+
+										</div>
+									</div>
+								</div>
+								<div class="invenControl">
+									<a href="#" class="prev">prev</a>
+									<a href="#" class="next">next</a>
+								</div>
+							</div>
+						</li>
+						<li>
+							<a href="javascript:void(0)">Order Status</a>
+							<div class="userMenuOptions orderStatus">
+								<a class="closeBtn" href="javascript:void(0)"></a>
+								<div class="wrap">
+									<div class="popCol1">
+										<div class="popColWrap">
+											<h3>ORDER STATUS</h3>
+											<p class="subTitle">
+												Products &amp; Qunatity Ordered
+											</p>
+											<hr>
+
+											<ul>
+												<li>
+													<div class="leftHSide">
+														<a class="box" href="#"><span class="imgBox business1"></span><span class="title">Business Cards</span></a>
+														<p>Business Cards 500 qty.</p>
+													</div>
+													<div class="rightHSide">
+														<p class="infoService"><span class="production"></span><span class="infoProduction">Production</span></p>
+														<p class="infoService"><span class="complete"></span><span class="infoComplete">Complete</span></p>
+													</div>
+												</li>
+
+												<li>
+													<div class="leftHSide">
+														<a class="box" href="#"><span class="imgBox business2"></span><span class="title">Letter Heads</span></a>
+														<p>Letter Heads 500 qty.</p>
+													</div>
+													<div class="rightHSide">
+														<p class="infoService"><span class="production"></span><span class="infoProduction">Production</span></p>
+														<p class="infoService"><span class="complete"></span><span class="infoComplete">Complete</span></p>
+													</div>
+												</li>
+
+												<li>
+													<div class="leftHSide">
+														<a class="box" href="#"><span class="imgBox business4"></span><span class="title">Presentation Folders</span></a>
+														<p>Presentation Folders 100 qty.</p>
+													</div>
+													<div class="rightHSide">
+														<p class="infoService"><span class="production"></span><span class="infoProduction">Production</span></p>
+														<p class="infoService"><span class="complete"></span><span class="infoComplete">Complete</span></p>
+													</div>
+												</li>
+
+												<li>
+													<div class="leftHSide">
+														<a class="box" href="#"><span class="imgBox business3"></span><span class="title">With Compliments Slips</span></a>
+														<p>With Compliments Slips 50 qty.</p>
+													</div>
+													<div class="rightHSide">
+														<p class="infoService"><span class="production"></span><span class="infoProduction">Production</span></p>
+														<p class="infoService"><span class="complete"></span><span class="infoComplete">Complete</span></p>
+													</div>
+												</li>
+											</ul>
+
+										</div>
+									</div>
+									<div class="popCol6">
+										<div class="popCol6Wrap">
+											<h3>Order Number 000187</h3>
+											<p class="subTitle"> &nbsp; </p>
+											<hr>
+											<div class="priceSection">
+												<p><span>Products:</span>$0.00</p>
+												<p><span>Delivery:</span>$0.00</p>
+												<p><span>Subtotal:</span>$0.00</p>
+												<p><span>GST:</span>$0.00</p>
+												<p><strong><span>Total:</span>$0.00</strong></p>
+											</div>
+										</div>
+									</div>
+									<div class="popCol6">
+										<div class="popCol6Wrap">
+											<h3>Estimated Delivery Time</h3>
+											<p class="subTitle"> &nbsp; </p>
+											<hr>
+											<div class="deleveryTime">
+												<p>Standard Delivary</p>
+												<p><span>Monday, 22 July</span></p>
+											</div>
+
+											<div class="deleveryTime">
+												<p>Standard Delivary</p>
+												<p><span>Monday, 22 July</span></p>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+
+
+					<div class="clear"></div>
+				</div>
+				
+				<div class="userAddress">
+					<div class="userAddressInfo">
+						<p>ABN. 88 974 713 645</p>
+						<p>Silikon Graphics</p>
+						<p>28 Alcock Street Reservoir Melbourne. Vic. 3073. Australia. P. +61 3 0421991860</p>
+						<p>E. accounts@silikongraphics.com W. www.silikongraphics.com</p>
+					</div>
+					<hr>
+					<div class="orderFinalInfo">
+						<table class="addressTable">
+							<tbody>
+								<tr>
+									<td>PRODUCT ORDER NUMBER</td>
+									<td>000187</td>
+								</tr>
+
+								<tr>
+									<td>CLIENT</td>
+									<td>Bunnings Warehouse Presto</td>
+								</tr>
+
+								<tr>
+									<td>ADDRESS</td>
+									<td>123 Chiefly Drive, Preston, 3072</td>
+								</tr>
+
+								<tr>
+									<td>CONTACT</td>
+									<td>Mr B. Unnings</td>
+								</tr>
+
+								<tr>
+									<td>EMAIL</td>
+									<td>b.unnings@bunnings.com.au</td>
+								</tr>
+
+								<tr>
+									<td>PHONE</td>
+									<td>9402 1234 Mobile: 0412 123 456</td>
+								</tr>
+
+							</tbody>
+						</table>
+						<hr>
+						<div class="orderStatus">
+								<div class="wrap">
+									<div class="popCol1">
+										<div class="popColWrap">
+											<h3>ORDER STATUS</h3>
+											<p class="subTitle">
+												Products &amp; Qunatity Ordered
+											</p>
+											<hr>
+
+											<ul>
+												<li>
+													<div class="leftHSide">
+														<a href="#" class="box"><span class="imgBox business1"></span><span class="title">Business Cards</span></a>
+														<div class="clear"></div>
+														<p>Business Cards 500 qty.</p>
+														<p><a href="#" class="dornloadArt">Download Art</a></p>
+													</div>
+												</li>
+
+												<li>
+													<div class="leftHSide">
+														<a href="#" class="box"><span class="imgBox business2"></span><span class="title">Letter Heads</span></a>
+														<div class="clear"></div>
+														<p>Letter Heads 500 qty.</p>
+														<p><a href="#" class="dornloadArt">Download Art</a></p>
+													</div>
+												</li>
+
+												<li>
+													<div class="leftHSide">
+														<a href="#" class="box"><span class="imgBox business4"></span><span class="title">Presentation Folders</span></a>
+														<div class="clear"></div>
+														<p>Presentation Folders 100 qty.</p>
+														<p><a href="#" class="dornloadArt">Download Art</a></p>
+													</div>
+												</li>
+
+												<li>
+													<div class="leftHSide">
+														<a href="#" class="box"><span class="imgBox business3"></span><span class="title">With Compliments Slips</span></a>
+														<div class="clear"></div>
+														<p>With Compliments Slips 50 qty.</p>
+														<p><a href="#" class="dornloadArt">Download Art</a></p>
+													</div>
+												</li>
+											</ul>
+
+										</div>
+									</div>
+									<div class="popCol6">
+										<div class="popCol6Wrap">
+											<h3>&nbsp;</h3>
+											<p class="subTitle">Order Number 000187</p>
+											<hr>
+											<div class="detailOrderInfo">
+												<table width="100%" border="0" cellspacing="0" cellpadding="0">
+												  <tr>
+												    <td align="left" valign="middle">Products:</td>
+												    <td align="right" valign="middle">$0.00</td>
+												  </tr>
+												  <tr>
+												    <td align="left" valign="middle">Delivery:</td>
+												    <td align="right" valign="middle">$0.00</td>
+												  </tr>
+												  <tr>
+												    <td align="left" valign="middle">Subtotal:</td>
+												    <td align="right" valign="middle">$0.00</td>
+												  </tr>
+												  <tr>
+												    <td align="left" valign="middle">GST:</td>
+												    <td align="right" valign="middle">$0.00</td>
+												  </tr>
+												  <tr>
+												    <td align="left" valign="middle">Total :</td>
+												    <td align="right" valign="middle">$0.00</td>
+												  </tr>
+												</table>
+											</div>
+										</div>
+									</div>
+									<div class="popCol6">
+										<div class="popCol6Wrap">
+											<h3>&nbsp; </h3>
+											<p class="subTitle">Estimated Delivery Time</p>
+											<hr>
+											<div class="estimateDeliveryInfo">
+												<table width="100%" border="0" cellspacing="0" cellpadding="0">
+												  <tr>
+												    <td align="left" valign="middle">Standard :</td>
+												    <td align="right" valign="middle">Monday 22 July</td>
+												  </tr>
+												  <tr>
+												    <td align="left" valign="middle">Fast Tracked :</td>
+												    <td align="right" valign="middle">Monday 15 July</td>
+												  </tr>
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- mainBody End -->
+
+	<!-- Color Change Start -->
+	<div class="colorChange">
+		<div class="switch" id="black">Black</div>
+		<div class="switch" id="pink">Pink</div> 
+	</div>
+	<!-- Color Change End -->
+</body>
+</html>
