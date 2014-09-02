@@ -169,6 +169,28 @@
 		return $post_meta[0];
 	}
 
+	//delete post meta function
+	function delete_post_meta($postid, $meta_key){
+		require_once(substr(dirname(__FILE__), 0, -7).'config.php');
+		$link = mysql_connect(DBHOST, DBUSER, DBPASS);
+		$db = mysql_select_db(DBNAME);
+		$postmetaTable = PREFIX.'postmeta';
+		$post_metaSql = "DELETE FROM $postmetaTable WHERE post_id = '".$postid."' AND meta_key = '".$meta_key."'" ;
+		$post_metaSql_result = mysql_query( $post_metaSql );
+		return $post_metaSql_result;
+	}
+
+	//arrange post meta image function
+	function arrange_post_meta_images($postid, $deletedimageid=''){
+		$postmetaTable = PREFIX.'postmeta';
+		$post_metaSql = "SELECT *  FROM $postmetaTable WHERE post_id = '".$postid."' and meta_key LIKE 'post_image_url_%' ORDER BY meta_id ASC";
+		$post_metaSql_result = mysql_query( $post_metaSql );
+		while($row = mysql_fetch_array($post_metaSql_result)) {
+		  echo $row['meta_key'];
+		  echo $i++;
+		}
+	}
+
 	//update post meta function
 	function update_post_meta($postid, $meta_key, $meta_value) {
 		require_once(substr(dirname(__FILE__), 0, -7).'config.php');

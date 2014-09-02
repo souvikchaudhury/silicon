@@ -47,7 +47,10 @@
 	<script type="text/javascript" src="<?php echo THEMEPATH(); ?>/js/jquery.form.js"></script>
 
 	<script src="<?php echo THEMEPATH(); ?>/js/core.js"></script>
-	<script>var themeAjaxVar = '<?php echo THEMEPATH(); ?>/js/themeajax.php'</script>
+	<script>
+	var themeAjaxVar = '<?php echo THEMEPATH(); ?>/js/themeajax.php';
+	var relativepath = '<?php echo str_replace('\\', '/', dirname(__FILE__)); ?>';
+	</script>
 	<script src="<?php echo THEMEPATH(); ?>/js/custom.js"></script>
 
 </head>

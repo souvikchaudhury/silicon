@@ -1,4 +1,5 @@
-$(document).ready(function(){    
+$(document).ready(function(){  
+    window.dataid = '';
     //logout section
     $('.signOut').click(function() {
         $.ajax({
@@ -126,6 +127,7 @@ $(document).ready(function(){
         var src = $(this).attr('data-image');
         var title = $(this).attr('data-title');
         var dataid = $(this).attr('data-id');
+        window.dataid = dataid;
         $('.conBoxPopUp').show('slow');
         $('#homepagepopup').show('slow');
         $('#inventorymainprdct_img').attr('src', src);
@@ -160,7 +162,7 @@ $(document).ready(function(){
         $('#artworktitle').hide();
         $('#updateInventory').hide();
         $('#deleteInventory').hide();
-        $('#browseInventory').hide();
+        // $('#browseInventory').hide();
         $('.artWorkPreview').hide();
         $.removeCookie("inventoryartworkimgurl");
         $.removeCookie("inventoryartworkimgtitle");
@@ -180,6 +182,7 @@ $(document).ready(function(){
     var submitbutton    = $("#SubmitButton");
     var myform          = $("#UploadForm");
     var output          = $("#output");
+    var uploadcontainer = $("#uploadcontainer");
     var completed       = '0%';
     $(myform).ajaxForm({
         beforeSend: function() { //brfore sending form
@@ -202,7 +205,23 @@ $(document).ready(function(){
             myform.resetForm();  // reset form
             submitbutton.removeAttr('disabled'); //enable submit button
             progressbox.slideUp(); // hide progressbar
+            uploadcontainer.html('<div class="uploadmain"><div id="progress_status1"><div id="progressbar1" class="progress"></div><div id="status1"></div></div><div id="complete1"></div><div id="thumb1"></div><div id="error1"></div><input type="file" name="uploadimg[]" class="uploadimg" data-count="1" onchange="fileread(this)" ></div>');   
+            $.ajax({
+                type: "post",
+                url: themeAjaxVar,
+                data: {
+                    action: 'inventoryprdctshowfunc','parentprdctid': window.dataid
+                },
+                success: function(data) {
+                    // alert(data);
+                    if(data != '') {
+                        $('#inventoryProductImgul').show();
+                        $('.inventoryProductImgulcls').html(data);
+                    }
+                }
+            });    
         }
+
     });
 
     //inventory product edit section
@@ -216,11 +235,24 @@ $(document).ready(function(){
                 'inventoryImgID': inventoryImgID
             },
             success: function(data) {
+                // alert(data);
+                artWorkImgPreview = '';
+                imageresponse = '';
                 if(data != '') {
                     data = JSON.parse(data);
+                    for( var i in data['post_image_url'] ){
+                        // alert(data['post_image_url'][i]);
+                        artWorkImgPreview += "<img id='artWorkImgPreview_"+i+"' class='artWorkImgPreview' src='"+data['post_image_url'][i]+"' height='223' width='347'/><div data-counter = '"+i+"' class='updateimgdelete'>Delete</div>";
+                        imageresponse = imageresponse + data['post_image_url'][i] + '<*>';
+                    }
+                    imageresponse = imageresponse.trim();
+                    lnth = imageresponse.length-3;
+                    lnthlst = lnth-3;
+                    imageresponse = imageresponse.substring(0,lnth);
+                    
                     $('#inventoryprdctname').val(data['post_title']);
                     $('#inventoryprdctdesc').val(data['post_content']);
-                    $('#artWorkImgPreview').attr('src', data['post_image_url']);
+                    $('#artWorkImgPreviewdiv').html(artWorkImgPreview);
                     $('#inventoryquantity').val(data['qty']);
                     $('#addInventory').hide();
                     $('#artworktitle').html(data['post_title']+'.pdf');
@@ -229,17 +261,50 @@ $(document).ready(function(){
                     $('#deleteInventory').show();
                     $('#browseInventory').show();
                     $('.artWorkPreview').show();
-                    $('#artWorkImgPreview').click(function(){
-                        $.cookie('inventoryartworkimgurl', data['post_image_url']);
+                    $('.updateimgdelete').click(function(){
+                        
+                        var r = confirm("Are you sure you want to delete this Image?")
+                        if(r == true)
+                        {
+                            thisobj = $(this);
+                            indx = $(this).attr('data-counter');
+                            imgsrcid = $('#artWorkImgPreview_'+indx);
+                            imgsrc = imgsrcid.attr('src');
+                            imgsplitarr = imgsrc.split('/');
+                            imgsplitarr = imgsplitarr.reverse();
+                            file_name = relativepath+'/upload/'+imgsplitarr[0];
+                            // console.log(file_name);
+                            $.ajax({
+                                type: "post",
+                                url: themeAjaxVar,
+                                data: {action: 'updatedeletefunc','file' : file_name,'inventoryImgID': inventoryImgID,'index':indx},
+                                success: function (response) {
+                                    /*$('#artWorkImgPreview_'+indx).remove();
+                                    thisobj.remove();*/
+                                    alert(response);
+                                }
+                            });
+                        }
+                        // alert(relativepath);
+                    });
+                    /*$('#artWorkImgPreviewdiv').click(function(){
+                        $.cookie('inventoryartworkimgurl', imageresponse);
                         $.cookie('inventoryartworkimgtitle', data['post_title']);
                         location.href = 'pdf.php';
-                    });
+                    });*/
                 }
             }
         });
 
     });
-
+    function getPath() {
+        var path = "";
+        nodes = window.location. pathname. split('/');
+        for (var index = 0; index < nodes.length - 3; index++) {
+            path += "../";
+        }
+        return path;
+    }
     //inventory product update section start //
     // $('#updateInventory').click(function(){
 
@@ -314,3 +379,98 @@ $(document).ready(function(){
     /**************************************************/
 
 });
+
+
+
+var uploadmain, progress_status, progressbar, status, complete, thumb, error;
+
+function fileread(file) {
+
+    indx = file.getAttribute("data-count");
+    
+    // uploadmain = 'uploadmain'+indx;
+    progress_status = 'progress_status'+indx;
+    progressbar = 'progressbar'+indx;
+    status = 'status'+indx;
+    complete = 'complete'+indx;
+    thumb = 'thumb'+indx;
+    error = 'error'+indx;
+
+    // console.log(indx);
+
+    var fsize = file.files[0].size;
+    var fname = file.files[0].name;
+    var ftype = file.files[0].type;
+    var fielArray = ["image/png", "image/jpeg", "image/gif", "image/jpg"];
+    var fileTrue = fielArray.indexOf(ftype);
+    if(fileTrue>=0){
+        var reader = new FileReader();
+        reader.element = $(file).parent().find(thumb);
+        reader.onload = function(e) {
+            var div = document.getElementById(thumb);
+            div.innerHTML = "<img class='thumb' src='" + e.target.result + "'" +"title='" + fname + "'/>";
+
+            var formData = new FormData();
+            for (var i = 0; i < file.files.length; i++) {
+                var fileup = file.files[i];
+                // Check the file type.
+                if (!fileup.type.match('image.*')) {
+                    continue;
+                }
+                // Add the file to the request.
+                formData.append('filename[]', fileup, fileup.name);
+            }
+            uploadajax(formData)
+        };
+        reader.onerror = function(e) {
+            alert("error: " + e.target.error.code);
+        };
+        reader.readAsDataURL(file.files[0]);
+    }else{
+        document.getElementById(error).innerHTML = "Incorrect file format, Please select an image file format..";
+    }
+ }
+ 
+ 
+function uploadajax(formData){ 
+    // console.log('uploadajax', uploadmain,' == ', progress_status, ' == ',progressbar, ' == ',status, ' == ',complete, ' == ',thumb, ' == ',error);
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'upload.php', true);
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            // console.log(xhr.responseText);
+        } else {
+            alert('An error occurred!');
+        }
+    };
+
+    xhr.upload.addEventListener("progress", imageprogress, false);
+    xhr.addEventListener("load", Completed, false);
+    xhr.addEventListener("error", failstatus, false);
+    xhr.addEventListener("abort", Abortedstatus, false);
+    xhr.send(formData);
+
+}
+ 
+function imageprogress(event){
+    document.getElementById(complete).style.display = 'none';
+    document.getElementById(progress_status).style.display = 'block'; 
+    //document.getElementById("loaded_n_total").innerHTML = "Uploaded "+event.loaded+" bytes of "+event.total;
+    var percent = (event.loaded / event.total) * 100;
+    document.getElementById(status).value = Math.round(percent);
+    // $("#"+progressbar).progressbar({value: document.getElementById(status).value});
+    document.getElementById(status).innerHTML = Math.round(percent)+"%";
+}
+ 
+function Completed(event){
+    document.getElementById(complete).style.display = 'block';
+    document.getElementById(progress_status).style.display = 'none';
+    document.getElementById(complete).innerHTML = event.target.responseText;
+    document.getElementById(progressbar).value = 0;
+}
+function failstatus(event){
+    document.getElementById(status).innerHTML = "Upload Failed";
+}
+function Abortedstatus(event){
+    document.getElementById(status).innerHTML = "Upload Aborted";
+}
