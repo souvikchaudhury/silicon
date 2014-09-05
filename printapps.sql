@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.2.2
+-- version 3.5.1
 -- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1
--- Generation Time: Sep 02, 2014 at 10:20 AM
--- Server version: 5.5.27
--- PHP Version: 5.4.7
+-- Host: localhost
+-- Generation Time: Sep 05, 2014 at 07:13 PM
+-- Server version: 5.5.24-log
+-- PHP Version: 5.4.3
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `printapps_postmeta` (
   `meta_key` varchar(255) DEFAULT NULL,
   `meta_value` longtext,
   PRIMARY KEY (`meta_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=224 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=253 ;
 
 --
 -- Dumping data for table `printapps_postmeta`
@@ -141,48 +141,12 @@ INSERT INTO `printapps_postmeta` (`meta_id`, `post_id`, `meta_key`, `meta_value`
 (51, 15, 'price', '10'),
 (52, 15, 'shipping_cost', '1'),
 (53, 16, 'post_image_url', 'http://localhost/silikon/theme/uploads/10455234_539739999463536_2423695569467854069_n.jpg'),
-(87, 24, 'price', '20'),
-(88, 24, 'shipping_cost', '5'),
 (56, 16, 'shipping_cost', ''),
 (55, 16, 'price', ''),
-(86, 24, 'qty', '100'),
-(85, 24, 'post_image_url', 'http://localhost/silikon/theme/uploads/26112013727-4240693948.jpg'),
-(80, 22, 'shipping_cost', '15'),
-(79, 22, 'price', '14'),
-(78, 22, 'qty', '1'),
-(77, 22, 'post_image_url', 'http://localhost/silikon/theme/uploads/b-488853845.jpeg'),
-(76, 21, 'shipping_cost', '15'),
-(75, 21, 'price', '14'),
-(74, 21, 'qty', '1'),
-(73, 21, 'post_image_url', 'http://localhost/silikon/theme/uploads/b-1464228956.jpeg'),
-(89, 25, 'post_image_url', 'http://localhost/silikon/theme/uploads/26112013727-5100992280.jpg'),
-(90, 25, 'qty', '1'),
-(91, 25, 'price', '14'),
-(92, 25, 'shipping_cost', '15'),
-(93, 26, 'post_image_url', 'http://localhost/silikon/theme/uploads/10455234_539739999463536_2423695569467854069_n-5332046765.jpg'),
-(94, 26, 'qty', '200'),
-(95, 26, 'price', '20'),
-(96, 26, 'shipping_cost', '5'),
-(97, 27, 'post_image_url', 'http://localhost/silikon/theme/uploads/penguins-2920030010.jpg'),
-(98, 27, 'qty', '1'),
-(99, 27, 'price', '14'),
-(100, 27, 'shipping_cost', '15'),
-(101, 28, 'post_image_url', 'http://localhost/silikon/theme/uploads/6762acban1024[1]-3126933439.jpg'),
-(102, 28, 'qty', '100'),
-(103, 28, 'price', '14'),
-(104, 28, 'shipping_cost', '15'),
-(105, 29, 'post_image_url', 'http://localhost/silikon/theme/uploads/10455234_539739999463536_2423695569467854069_n-2859401786.jpg'),
-(106, 29, 'qty', '1'),
-(107, 29, 'price', '14'),
-(108, 29, 'shipping_cost', '15'),
 (109, 30, 'post_image_url', 'http://localhost/silikon/theme/uploads/WP_20131127_16_39_19_Pro.jpg'),
 (110, 30, 'qty', '2'),
 (111, 30, 'price', '10'),
-(112, 30, 'shipping_cost', '1'),
-(222, 55, 'price', 'Resource id #8'),
-(223, 55, 'shipping_cost', 'Resource id #9'),
-(221, 55, 'qty', '3'),
-(219, 55, 'post_image_url_0', 'http://localhost/silikon/theme/upload/desert-345545203.jpg');
+(112, 30, 'shipping_cost', '1');
 
 -- --------------------------------------------------------
 
@@ -215,28 +179,19 @@ CREATE TABLE IF NOT EXISTS `printapps_posts` (
   `post_mime_type` varchar(100) NOT NULL,
   `comment_count` bigint(20) NOT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=56 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=59 ;
 
 --
 -- Dumping data for table `printapps_posts`
 --
 
 INSERT INTO `printapps_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post_content`, `post_title`, `post_excerpt`, `post_status`, `comment_status`, `ping_status`, `post_password`, `post_name`, `to_ping`, `pinged`, `post_modified`, `post_modified_gmt`, `post_content_filtered`, `post_parent`, `guid`, `menu_order`, `post_type`, `post_mime_type`, `comment_count`) VALUES
-(25, 21, '2014-08-26 19:30:15', '2014-08-26 19:30:15', 'nb nb', 'Inventory Test Product 1', 'nb nb...', 'publish', '', '', '', 'inventory-test-product-12', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', 14, '', 0, 'inventory-product', '', 0),
-(24, 21, '2014-08-26 19:29:18', '2014-08-26 19:29:18', 'abcdef', '1234', 'abcdef...', 'publish', '', '', '', '1234', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', 13, '', 0, 'inventory-product', '', 0),
 (12, 1, '2014-08-05 08:08:27', '2014-08-05 08:08:27', 'Business Product 1', 'Business Cards', '', 'publish', '', '', '', 'business-cards', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', 0, '', 0, 'product', '', 0),
 (13, 1, '2014-08-05 08:38:06', '2014-08-05 08:38:06', 'Test Lenticular', 'Lenticular Printing Product', '', 'publish', '', '', '', 'lenticular-printing-product', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', 0, '', 0, 'product', '', 0),
 (14, 1, '2014-08-05 08:39:52', '2014-08-05 08:39:52', 'Letter Heads Product', 'Letter Heads', '', 'publish', '', '', '', 'letter-heads', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', 0, '', 0, 'product', '', 0),
 (15, 13, '2014-08-21 23:15:32', '2014-08-21 23:15:32', 'abcd', 'Business Card  400 qty', '', 'publish', '', '', '', 'business-card--400-qty', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', 0, '', 0, 'inventory-product', '', 0),
 (16, 13, '2014-08-21 23:15:32', '2014-08-21 23:15:32', 'abcd', 'Business Card  30 qty', '', 'publish', '', '', '', 'business-card--30-qty', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', 0, '', 0, 'inventory-product', '', 0),
-(22, 24, '2014-08-24 20:16:59', '2014-08-24 20:16:59', 'dfgd', 'sdgfs', 'dfgd...', 'publish', '', '', '', 'sdgfs', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', 14, '', 0, 'inventory-product', '', 0),
-(21, 24, '2014-08-24 19:35:17', '2014-08-24 19:35:17', 'nb nb', 'Inventory Test Product 1', 'nb nb...', 'publish', '', '', '', 'inventory-test-product-1', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', 14, '', 0, 'inventory-product', '', 0),
-(26, 21, '2014-08-26 19:34:51', '2014-08-26 19:34:51', 'abcde', 'fleyrs', 'abcde...', 'publish', '', '', '', 'fleyrs', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', 13, '', 0, 'inventory-product', '', 0),
-(27, 21, '2014-08-27 17:15:29', '2014-08-27 17:15:29', 'dfgd', 'sdgfs', 'dfgd...', 'publish', '', '', '', 'sdgfs2', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', 14, '', 0, 'inventory-product', '', 0),
-(28, 21, '2014-08-28 12:54:23', '2014-08-28 12:54:23', 'abcdefgh', 'Assassin\\''s Creed', 'abcdefgh...', 'publish', '', '', '', 'assassin\\''s-creed', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', 14, '', 0, 'inventory-product', '', 0),
-(29, 21, '2014-08-28 12:56:22', '2014-08-28 12:56:22', 'nb nb', 'Inventory Test Product 1', 'nb nb...', 'publish', '', '', '', 'inventory-test-product-13', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', 14, '', 0, 'inventory-product', '', 0),
-(30, 21, '2014-08-28 13:02:47', '2014-08-28 13:02:47', 'afghti', 'acbd 2 qty', '', 'publish', '', '', '', 'acbd-2-qty', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', 0, '', 0, 'inventory-product', '', 0),
-(55, 21, '2014-09-02 08:32:11', '2014-09-02 08:32:11', 'ss', 'Test', 'ss...', 'publish', '', '', '', 'test', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', 12, '', 0, 'inventory-product', '', 0);
+(30, 21, '2014-08-28 13:02:47', '2014-08-28 13:02:47', 'afghti', 'acbd 2 qty', '', 'publish', '', '', '', 'acbd-2-qty', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '', 0, '', 0, 'inventory-product', '', 0);
 
 -- --------------------------------------------------------
 
