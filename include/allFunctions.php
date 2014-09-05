@@ -191,6 +191,15 @@
 		}
 	}
 
+	function getImage($postid){
+		$postmetaTable = PREFIX.'postmeta';
+		$imageurl = "SELECT meta_value  FROM $postmetaTable WHERE post_id = '".$postid."' and meta_key LIKE 'post_image_url_%' ORDER BY meta_id ASC";
+		$post_metaSql_result = mysql_query( $post_metaSql );
+		while($row = mysql_fetch_array($post_metaSql_result)) {
+		  var_dump($row);
+		}
+	}
+	
 	//update post meta function
 	function update_post_meta($postid, $meta_key, $meta_value) {
 		require_once(substr(dirname(__FILE__), 0, -7).'config.php');

@@ -71,12 +71,20 @@
 		  }
 		die();
 	}
-
+	function getImage($postid){
+		$postmetaTable = PREFIX.'postmeta';
+		$imageurl = "SELECT meta_value  FROM $postmetaTable WHERE post_id = '".$postid."' and meta_key LIKE 'post_image_url_%' ORDER BY meta_id ASC";
+		$post_metaSql_result = mysql_query( $post_metaSql );
+		while($row = mysql_fetch_array($post_metaSql_result)) {
+		  var_dump($row);
+		}
+	}
 	if($action == 'inventoryprdctshowfunc') {
 		$allinventoryproducts = get_post_children($parentprdctid, 'inventory-product');
 		if( !empty($allinventoryproducts) ) {
 			foreach($allinventoryproducts as $inventoryproduct) {
 				$imageurl = get_post_meta($inventoryproduct->ID, 'post_image_url_0');
+				$imageurl = $imageurl ? $imageurl : get_post_meta($inventoryproduct->ID, 'post_image_url_1');
 				$qty = get_post_meta($inventoryproduct->ID, 'qty');
 ?>
 				<li>
