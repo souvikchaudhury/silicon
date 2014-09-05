@@ -97,7 +97,9 @@
 												</div>
 											</div>
 											<div class="uploadaddmore">Add More</div>
-
+											<p><input name="inventoryID" type="hidden" id="inventoryprdctID" /></p>
+											<p><input type="hidden" id="formmode" name="formmode" value="inserttime"/></p>
+											
 											<p>Title<input name="inventoryname" type="text" id="inventoryprdctname" required="required" /></p>
 											<p>Description<textarea name="inventorydesc" id="inventoryprdctdesc" required="required"></textarea></p>
 											<p>Quantity<input name="quantity" type="text" id="inventoryquantity" /></p>

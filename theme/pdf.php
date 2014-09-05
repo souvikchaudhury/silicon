@@ -4,19 +4,22 @@
 		$imgUrl = $_COOKIE['inventoryartworkimgurl'];
 		$imgTitle = $_COOKIE['inventoryartworkimgtitle'];
 
-		$imgarr = explode('<*>',$imgUrl);
-
+		$img = explode('/', $imgUrl);
+		$str = str_replace('\\', '/', dirname(__FILE__));
+		$relativeimgpath = $str.'/upload/'.end($img);
 		
+		// $imgarr = explode('<*>',$imgUrl);
 
 		$content = "<page>";
 		// $content .= $imgUrl;
-		foreach($imgarr as $value){
+		/*foreach($imgarr as $value){
 			$img = explode('/', $value);
 			$str = str_replace('\\', '/', dirname(__FILE__));
 			$relativeimgpath = $str.'/upload/'.end($img);
 			// $content .=$relativeimgpath.'\n';
 			$content .= "<img src='$relativeimgpath' alt='$imgTitle' height='200px' width='200px'/>";
-		}
+		}*/
+		$content .= "<img src='$relativeimgpath' alt='$imgTitle' height='200px' width='200px'/>";
 		// $content .= "<img src='$relativeimgpath' alt='$imgTitle' />";
 		$content .= "</page>";
 		unset($_COOKIE['inventoryartworkimgurl'], $_COOKIE['inventoryartworkimgtitle']);

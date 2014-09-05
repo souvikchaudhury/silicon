@@ -71,20 +71,12 @@
 		  }
 		die();
 	}
-	function getImage($postid){
-		$postmetaTable = PREFIX.'postmeta';
-		$imageurl = "SELECT meta_value  FROM $postmetaTable WHERE post_id = '".$postid."' and meta_key LIKE 'post_image_url_%' ORDER BY meta_id ASC";
-		$post_metaSql_result = mysql_query( $post_metaSql );
-		while($row = mysql_fetch_array($post_metaSql_result)) {
-		  var_dump($row);
-		}
-	}
+
 	if($action == 'inventoryprdctshowfunc') {
 		$allinventoryproducts = get_post_children($parentprdctid, 'inventory-product');
 		if( !empty($allinventoryproducts) ) {
 			foreach($allinventoryproducts as $inventoryproduct) {
-				$imageurl = get_post_meta($inventoryproduct->ID, 'post_image_url_0');
-				$imageurl = $imageurl ? $imageurl : get_post_meta($inventoryproduct->ID, 'post_image_url_1');
+				$imageurl = getPostImage($inventoryproduct->ID);
 				$qty = get_post_meta($inventoryproduct->ID, 'qty');
 ?>
 				<li>
@@ -110,28 +102,30 @@
 		if( !empty($editproductDetails) ) {
 
 			$postmetaTable = PREFIX.'postmeta';
-			$post_metaSql = "SELECT meta_value  FROM printapps_postmeta WHERE post_id = '".$editproductDetails->ID."' and meta_key LIKE 'post_image_url_%' ORDER BY meta_id ASC";
+			$post_metaSql = "SELECT meta_key,meta_value  FROM printapps_postmeta WHERE post_id = '".$editproductDetails->ID."' and meta_key LIKE 'post_image_url_%' ORDER BY meta_id ASC";
 			$post_metaSql_result = mysql_query( $post_metaSql );
+			$i=0;
 			while($row = mysql_fetch_array($post_metaSql_result)) {
-			  $editproductImgUrlarr[] = $row['meta_value'];
+			  $editproductImgUrlarr[$i]['meta_value'] = $row['meta_value'];
+			  $editproductImgUrlarr[$i]['meta_key'] = $row['meta_key'];
+			  $i++;
 			}
 			// var_dump($editproductImgUrlarr);
 			$editproductqty = get_post_meta($editproductDetails->ID, 'qty');
 			$inventoryprdcteditarr = array(
-										'post_title' => $editproductDetails->post_title,
-										'post_content' => $editproductDetails->post_content,
-										'post_image_url' => $editproductImgUrlarr,
+										'ID'			=> $editproductDetails->ID,
+										'post_title' 	=> $editproductDetails->post_title,
+										'post_content' 	=> $editproductDetails->post_content,
+										'post_image_url'=> $editproductImgUrlarr,
 										'qty' => $editproductqty
 				                     );
 			echo json_encode($inventoryprdcteditarr);
 		}
 		die();
 	}
-	if($action == 'updatedeletefunc') {
 
-		/*arrange_post_meta_images($inventoryImgID)
-		$metakey = 'post_image_url_'.$index;
-		$editproductqty = delete_post_meta($inventoryImgID, $metakey);*/
-		
-		var_dump(arrange_post_meta_images($inventoryImgID));
+	if($action == 'updatedeletefunc') {
+		unlink($file);
+		$editproductqty = delete_post_meta($inventoryImgID, $meta_key);	
+		die();
 	}

@@ -159,9 +159,8 @@ $(document).ready(function(){
         $('#inventoryquantity').val('');
         $('#addInventory').show();
         $('#artworktitle').empty();
-        $('#artworktitle').hide();
-        $('#updateInventory').hide();
-        $('#deleteInventory').hide();
+        $('#artworktitle,#updateInventory,#deleteInventory').hide();
+        $('#formmode').val('inserttime');
         // $('#browseInventory').hide();
         $('.artWorkPreview').hide();
         $.removeCookie("inventoryartworkimgurl");
@@ -201,25 +200,37 @@ $(document).ready(function(){
             }
         },
         complete: function(response) { // on complete
-            output.html(response.responseText); //update element with received data
-            myform.resetForm();  // reset form
-            submitbutton.removeAttr('disabled'); //enable submit button
-            progressbox.slideUp(); // hide progressbar
-            uploadcontainer.html('<div class="uploadmain"><div id="progress_status1"><div id="progressbar1" class="progress"></div><div id="status1"></div></div><div id="complete1"></div><div id="thumb1"></div><div id="error1"></div><input type="file" name="uploadimg[]" class="uploadimg" data-count="1" onchange="fileread(this)" ></div>');   
-            $.ajax({
-                type: "post",
-                url: themeAjaxVar,
-                data: {
-                    action: 'inventoryprdctshowfunc','parentprdctid': window.dataid
-                },
-                success: function(data) {
-                    // alert(data);
-                    if(data != '') {
-                        $('#inventoryProductImgul').show();
-                        $('.inventoryProductImgulcls').html(data);
+            if(response.responseText == 'notupdate'){
+                output.html('Not Updated Please Give One Product Image'); //update element with received data
+                submitbutton.removeAttr('disabled'); //enable submit button
+                progressbox.slideUp(); // hide progressbar
+                $('#artworktitle').fadeOut();
+            }else{
+                $('#artworktitle').html('');
+                $('#artworktitle,#updateInventory,#deleteInventory').hide();
+                $('#formmode').val('inserttime');
+                $('.artWorkPreview').hide();
+                $('#addInventory').show();
+                output.html(response.responseText); //update element with received data
+                myform.resetForm();  // reset form
+                submitbutton.removeAttr('disabled'); //enable submit button
+                progressbox.slideUp(); // hide progressbar
+                uploadcontainer.html('<div class="uploadmain"><div id="progress_status1"><div id="progressbar1" class="progress"></div><div id="status1"></div></div><div id="complete1"></div><div id="thumb1"></div><div id="error1"></div><input type="file" name="uploadimg[]" class="uploadimg" data-count="1" onchange="fileread(this)" ></div>');   
+                $.ajax({
+                    type: "post",
+                    url: themeAjaxVar,
+                    data: {
+                        action: 'inventoryprdctshowfunc','parentprdctid': window.dataid
+                    },
+                    success: function(data) {
+                        // alert(data);
+                        if(data != '') {
+                            $('#inventoryProductImgul').show();
+                            $('.inventoryProductImgulcls').html(data);
+                        }
                     }
-                }
-            });    
+                });    
+            }
         }
 
     });
@@ -242,56 +253,58 @@ $(document).ready(function(){
                     data = JSON.parse(data);
                     for( var i in data['post_image_url'] ){
                         // alert(data['post_image_url'][i]);
-                        artWorkImgPreview += "<img id='artWorkImgPreview_"+i+"' class='artWorkImgPreview' src='"+data['post_image_url'][i]+"' height='223' width='347'/><div data-counter = '"+i+"' class='updateimgdelete'>Delete</div>";
-                        imageresponse = imageresponse + data['post_image_url'][i] + '<*>';
+                        artWorkImgPreview += "<img id='artWorkImgPreview_"+i+"' class='artWorkImgPreview' data-metakey='"+data['post_image_url'][i]['meta_key']+"' src='"+data['post_image_url'][i]['meta_value']+"' height='223' width='347'/><div data-counter = '"+i+"' class='updateimgdelete'>Delete</div>";
+                        // imageresponse = imageresponse + data['post_image_url'][i]['meta_value'] + '<*>';
                     }
-                    imageresponse = imageresponse.trim();
+                    /*imageresponse = imageresponse.trim();
                     lnth = imageresponse.length-3;
                     lnthlst = lnth-3;
-                    imageresponse = imageresponse.substring(0,lnth);
-                    
+                    imageresponse = imageresponse.substring(0,lnth);*/
+                    $('#inventoryprdctID').val(data['ID']);
                     $('#inventoryprdctname').val(data['post_title']);
                     $('#inventoryprdctdesc').val(data['post_content']);
                     $('#artWorkImgPreviewdiv').html(artWorkImgPreview);
                     $('#inventoryquantity').val(data['qty']);
                     $('#addInventory').hide();
                     $('#artworktitle').html(data['post_title']+'.pdf');
-                    $('#artworktitle').show();
-                    $('#updateInventory').show();
-                    $('#deleteInventory').show();
-                    $('#browseInventory').show();
-                    $('.artWorkPreview').show();
+                    $('#artworktitle,#updateInventory,#deleteInventory,#browseInventory,.artWorkPreview').show();
+                    $('#formmode').val('updatetime');
+
                     $('.updateimgdelete').click(function(){
-                        
                         var r = confirm("Are you sure you want to delete this Image?")
                         if(r == true)
                         {
                             thisobj = $(this);
                             indx = $(this).attr('data-counter');
                             imgsrcid = $('#artWorkImgPreview_'+indx);
+                            imgmetakey = imgsrcid.attr('data-metakey');
                             imgsrc = imgsrcid.attr('src');
                             imgsplitarr = imgsrc.split('/');
                             imgsplitarr = imgsplitarr.reverse();
                             file_name = relativepath+'/upload/'+imgsplitarr[0];
-                            // console.log(file_name);
                             $.ajax({
                                 type: "post",
                                 url: themeAjaxVar,
-                                data: {action: 'updatedeletefunc','file' : file_name,'inventoryImgID': inventoryImgID,'index':indx},
+                                data: {action:'updatedeletefunc','file':file_name,'meta_key':imgmetakey,'inventoryImgID':inventoryImgID},
                                 success: function (response) {
-                                    /*$('#artWorkImgPreview_'+indx).remove();
-                                    thisobj.remove();*/
-                                    alert(response);
+                                    $('#artWorkImgPreview_'+indx).remove();
+                                    thisobj.remove();
                                 }
                             });
                         }
-                        // alert(relativepath);
                     });
-                    /*$('#artWorkImgPreviewdiv').click(function(){
+
+                    //inventory product update section start //
+                    $('#updateInventory').click(function(){
+
+                    });
+                    //inventory product update section end //
+                    $('.artWorkImgPreview').click(function(){
+                        imageresponse = $(this).attr('src')
                         $.cookie('inventoryartworkimgurl', imageresponse);
                         $.cookie('inventoryartworkimgtitle', data['post_title']);
                         location.href = 'pdf.php';
-                    });*/
+                    });
                 }
             }
         });
@@ -305,11 +318,7 @@ $(document).ready(function(){
         }
         return path;
     }
-    //inventory product update section start //
-    // $('#updateInventory').click(function(){
-
-    // });
-    //inventory product update section end //
+    
 
     //home page user menu section
     $('.showEdit').click(function() {

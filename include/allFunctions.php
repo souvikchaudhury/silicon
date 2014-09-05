@@ -146,7 +146,41 @@
 		$updatecountSql = "UPDATE $term_taxonomyTable SET count = $postcountnum WHERE term_taxonomy_id = '".$term_taxonomy_id."'";
 		mysql_query($updatecountSql); //post count updated
 	}
+	
+	function wp_update_post( $postarr = array(), $wp_error = false ) {
+		require_once(substr(dirname(__FILE__), 0, -7).'config.php');
+		$link = mysql_connect(DBHOST, DBUSER, DBPASS);
+		$db = mysql_select_db(DBNAME);
+		$postsTable = PREFIX.'posts';
 
+		$getpostarr = array();
+		$post_ID = $postarr['ID'];
+		$setsql = '';
+		// First, get all of the original fields
+		$post = get_post($post_ID);
+
+		if ($post) {
+			//Convert object to array.
+			foreach ($post as $key => $value) {
+				$getpostarr[$key] = $value;
+			}
+
+			foreach ($postarr as $key => $value) {
+				if($key!='ID')
+					$setsql .= " $key = '".$value."', ";
+			}
+
+			$setsql = rtrim(trim($setsql), ",");
+			$updateSql = "UPDATE $postsTable SET $setsql WHERE ID=$post_ID";
+
+			return mysql_query($updateSql);
+
+		} else{
+
+			return 'Invalid PostId';
+
+		}	
+	}
 	//add post meta function
 	function add_post_meta($post_id, $meta_key, $meta_value) {
 		require_once(substr(dirname(__FILE__), 0, -7).'config.php');
@@ -180,26 +214,55 @@
 		return $post_metaSql_result;
 	}
 
-	//arrange post meta image function
-	function arrange_post_meta_images($postid, $deletedimageid=''){
+	//Get Active Image from postmeta table
+	function getPostImage($postid,$isPostArray=false){
+		require_once(substr(dirname(__FILE__), 0, -7).'config.php');
+		$link = mysql_connect(DBHOST, DBUSER, DBPASS);
+		$db = mysql_select_db(DBNAME);
 		$postmetaTable = PREFIX.'postmeta';
 		$post_metaSql = "SELECT *  FROM $postmetaTable WHERE post_id = '".$postid."' and meta_key LIKE 'post_image_url_%' ORDER BY meta_id ASC";
 		$post_metaSql_result = mysql_query( $post_metaSql );
-		while($row = mysql_fetch_array($post_metaSql_result)) {
-		  echo $row['meta_key'];
-		  echo $i++;
-		}
-	}
+		$postcount = mysql_num_rows($post_metaSql_result);
+		if($postcount){
+			if($isPostArray){
+				$i=0; $value=array();
+				while($row = mysql_fetch_array($post_metaSql_result)) {
+				  	$value[$row['meta_key']] = $row['meta_value'];
+				  	$i++;
+				}
 
-	function getImage($postid){
-		$postmetaTable = PREFIX.'postmeta';
-		$imageurl = "SELECT meta_value  FROM $postmetaTable WHERE post_id = '".$postid."' and meta_key LIKE 'post_image_url_%' ORDER BY meta_id ASC";
-		$post_metaSql_result = mysql_query( $post_metaSql );
-		while($row = mysql_fetch_array($post_metaSql_result)) {
-		  var_dump($row);
+			}else{
+				$i=0; $value='';
+				while($row = mysql_fetch_array($post_metaSql_result)) {
+				  	if($i==0){
+				  		$value = $row['meta_value'];
+				  	}
+				  	$i++;
+				}
+			}
+			return $value;
+		}else{
+			return 0;
 		}
 	}
 	
+	//Get Last postimage Function
+	function getLastPostImageNo($post_id){
+		$dbImages = getPostImage($post_id,true);
+		if($dbImages){
+	        ksort($dbImages);
+	        end($dbImages);
+	        $key = key($dbImages);
+	        $get_number = explode("_",$key);
+	        array_flip($get_number);
+	        $get_number = array_reverse($get_number);
+	        $number = $get_number[0]+1;
+	        return $number;
+    	}else{
+    		return 0;
+    	}
+	}
+
 	//update post meta function
 	function update_post_meta($postid, $meta_key, $meta_value) {
 		require_once(substr(dirname(__FILE__), 0, -7).'config.php');
@@ -208,8 +271,8 @@
 		$postmetaTable = PREFIX.'postmeta';
 		$post_metaSql = "UPDATE $postmetaTable SET meta_value='".$meta_value."' WHERE post_id = '".$postid."' AND meta_key = '".$meta_key."'";
 		$post_metaSql_result = mysql_query( $post_metaSql );
-		$post_meta = mysql_fetch_row( $post_metaSql_result );
-		return $post_meta[0];
+		// $post_meta = mysql_fetch_row( $post_metaSql_result );
+		return $post_metaSql_result;
 	}
 
 	//post count by slug function

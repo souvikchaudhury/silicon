@@ -94,3 +94,11 @@
 [22-Aug-2014 23:35:31 Asia/Calcutta] PHP Warning:  mysql_fetch_object(): supplied argument is not a valid MySQL result resource in /home/ozdropsh/public_html/silikon/include/allFunctions.php on line 312
 [22-Aug-2014 23:35:33 Asia/Calcutta] PHP Warning:  Missing argument 2 for get_userdata(), called in /home/ozdropsh/public_html/silikon/admin/product-inventory.php on line 208 and defined in /home/ozdropsh/public_html/silikon/include/allFunctions.php on line 298
 [22-Aug-2014 23:35:33 Asia/Calcutta] PHP Warning:  mysql_fetch_object(): supplied argument is not a valid MySQL result resource in /home/ozdropsh/public_html/silikon/include/allFunctions.php on line 312
+[03-Sep-2014 21:26:35 Asia/Calcutta] PHP Warning:  mysql_fetch_row() expects parameter 1 to be resource, boolean given in /home/ozdropsh/public_html/silikon/include/allFunctions.php on line 180
+[03-Sep-2014 21:26:35 Asia/Calcutta] PHP Warning:  mysql_fetch_row() expects parameter 1 to be resource, boolean given in /home/ozdropsh/public_html/silikon/include/allFunctions.php on line 180
+[03-Sep-2014 21:26:35 Asia/Calcutta] PHP Warning:  mysql_fetch_row() expects parameter 1 to be resource, boolean given in /home/ozdropsh/public_html/silikon/include/allFunctions.php on line 180
+[03-Sep-2014 21:26:35 Asia/Calcutta] PHP Warning:  mysql_fetch_row() expects parameter 1 to be resource, boolean given in /home/ozdropsh/public_html/silikon/include/allFunctions.php on line 180
+[03-Sep-2014 21:31:04 Asia/Calcutta] PHP Warning:  mysql_fetch_row() expects parameter 1 to be resource, boolean given in /home/ozdropsh/public_html/silikon/include/allFunctions.php on line 180
+[03-Sep-2014 21:31:04 Asia/Calcutta] PHP Warning:  mysql_fetch_row() expects parameter 1 to be resource, boolean given in /home/ozdropsh/public_html/silikon/include/allFunctions.php on line 180
+[03-Sep-2014 21:31:04 Asia/Calcutta] PHP Warning:  mysql_fetch_row() expects parameter 1 to be resource, boolean given in /home/ozdropsh/public_html/silikon/include/allFunctions.php on line 180
+[03-Sep-2014 21:31:04 Asia/Calcutta] PHP Warning:  mysql_fetch_row() expects parameter 1 to be resource, boolean given in /home/ozdropsh/public_html/silikon/include/allFunctions.php on line 180
