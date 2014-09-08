@@ -83,14 +83,16 @@
 	}
 
 	//add post function
-	function add_post($prdct_details_arr, $categoryslug) {
+	function add_post($prdct_details_arr, $categoryslug, $fromadmin=false) {
 		require_once(substr(dirname(__FILE__), 0, -7).'config.php');
 		$link = mysql_connect(DBHOST, DBUSER, DBPASS);
 		$db = mysql_select_db(DBNAME);
+
 		$postsTable = PREFIX.'posts';
 		$postmetaTable = PREFIX.'postmeta';
 		$term_taxonomyTable = PREFIX.'term_taxonomy';
 		$term_relationshipsTable = PREFIX.'term_relationships';
+
 		extract($prdct_details_arr);
 		$postsSql = "INSERT INTO $postsTable(post_author, post_date, post_date_gmt, post_content, post_title, post_status, post_name, post_parent, post_type) VALUES('".$post_author."', '".$post_date."', '".$post_date_gmt."', '".$post_content."', '".$post_title."', '".$post_status."', '".$post_name."', '".$post_parent."', '".$post_type."')";
 		mysql_query($postsSql); //inserting post

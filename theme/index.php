@@ -70,7 +70,10 @@
 											<ul>
 												<li>
 													<div class="leftHSide">
-														<a class="box" href="#"><span class="imgBox business1"></span><span class="title">Business Cards</span></a>
+														<a class="box" href="#">
+															<span class="imgBox business1"></span>
+															<span class="title">Business Cards</span>
+														</a>
 														<p>Business Cards 500 qty.</p>
 													</div>
 													<div class="rightHSide">
@@ -292,10 +295,21 @@
 									$all_objectid = @array_reverse($all_objectid);
 									if( !empty($all_objectid) ) {
 										foreach($all_objectid as $objectid) {
+											$title = get_the_title($objectid->object_id);
+
+												$title_arr = explode('<_>',$title);
+												$dispTitle = $title_arr[0];
+
+												$title = str_replace('<_>', ' ', $title);
+
 								?>
 											<a id="<?php echo $objectid->object_id; ?>" href="<?php if( !isset($_SESSION['logged_in_user']) ) {echo THEMEPATH(); ?>/apps.php<?php } else {echo 'javascript:void(0)';}?>" class="box <?php if( isset($_SESSION['logged_in_user']) ) {echo 'homepagepopupBox';} ?>" data-id="<?php echo $objectid->object_id; ?>" data-image="<?php echo get_image($objectid->object_id); ?>" data-title="<?php echo get_the_title($objectid->object_id); ?>">
-												<span class="imgBox"><img src="<?php echo get_image($objectid->object_id); ?>" alt="" /></span>
-												<span class="title"><?php echo get_the_title($objectid->object_id); ?></span>
+												<span class="imgBox" style="background-image:url(<?php echo get_image($objectid->object_id);?>);">
+													<!-- <img src="<?php echo get_image($objectid->object_id); ?>" alt="" /> -->
+												</span>
+												<span class="title">
+													<?php echo $title; ?>
+												</span>
 											</a>
 								<?php 
 										}

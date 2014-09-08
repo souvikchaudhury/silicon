@@ -59,20 +59,29 @@ $(document).ready(function() {
     //product section
     $('.addProduct').click(function() {
         $('#product_details_section').show();
+        $('.productDeleteButton').css('visibility','hidden');
+        $('#blah').attr('src', 'images/sample.png');
+        $('#Item').val('');
+        $('#Description').val('');
+        $('#product_add_quan').html('');
+        $('#my_image_file_field').attr('required','required');
+        $('.qsection').show();
+        $('#saveProductButton').val('SAVE PRODUCT');
+        $('#prodctId').val('');
+        $('.sPnotes').hide();
     });
     $('#quantity_button').click(function() {
         var quantityval = $('#Quantity').val();
+        var index = $('.smlVer').length;
         if ((quantityval == '') || (quantityval <= 0)) {
             $('.quantity_msg').show();
         } else {
             $('.quantity_msg').hide();
+
             $.ajax({
                 type: "post",
                 url: adminAjaxVar,
-                data: {
-                    action: 'productquantityaddfunc',
-                    'quantityno': quantityval
-                },
+                data: { action: 'productquantityaddfunc', 'quantityno': quantityval, 'previndex':index },
                 success: function(data) {
                     $('#product_add_quan').append(data);
                     $('.saveProduct').show();
@@ -84,22 +93,24 @@ $(document).ready(function() {
     $('.showProduct').click(function(){
         var showProductId = $(this).attr('id');
         $('#product_details_section').show();
-        $('.popColWrap p:nth-child(3), .popColWrap p:nth-child(4)').remove();
+        $('.qsection').hide();
+        $('#my_image_file_field').removeAttr('required');
         $.ajax({
             type: "post",
             url: adminAjaxVar,
-            data: {
-                action: 'showproductfunc',
-                'showProductId': showProductId
-            },
+            data: { action: 'showproductfunc','showProductId': showProductId },
             success: function(data) {
                 data = JSON.parse(data);
                 $('#blah').attr('src', data['post_image_url']);
                 $('#Item').val(data['itemname']);
                 $('#Description').val(data['itemdesc']);
-                $('#product_add_quan').append('<p class="smlVer"><span>'+data['qty']+'</span><span>Price $</span><input type="text" value="'+data['price']+'" name="price_arr" required="required" /><span class="lastOne">Shipping $</span><input type="text" value="'+data['shipping_cost']+'" name="shipping_arr" required="required" /></p>');
+                $('#product_add_quan').html('<p class="smlVer"><span>'+data['qty']+'</span><span>Price $</span><input type="text" value="'+data['price']+'" name="price_arr" required="required" /><span class="lastOne">Shipping $</span><input type="text" value="'+data['shipping_cost']+'" name="shipping_arr" required="required" /></p>');
                 $('.saveProduct').show();
-                $('#saveProductButton').after('<a href="javascript:void(0)" class="productDeleteButton" id="'+showProductId+'">DELETE PRODUCT</a>');
+                $('.productDeleteButton').css('visibility','visible');
+                $('.productDeleteButton').attr('id',showProductId);
+                $('#saveProductButton').val('UPDATE PRODUCT');
+                $('#prodctId').val(showProductId);
+                data['qty'] >1 ? $('.sPnotes').show() : $('.sPnotes').hide();
             }
         });
     });
@@ -233,7 +244,7 @@ $(document).ready(function() {
         var inventoryProductid = $(this).attr('id');
         $('.inventoryDeleteButton').remove();
         $('.inventorypopColWrap p:nth-child(3), .inventorypopColWrap p:nth-child(4)').remove();
-        $('.inventorypopColWrap').append('<p>Quantity<input type="number" value="" name="invenQuan" class="invenquan" />Price<input type="number" value="" name="invenPrice" class="invenprice" />Shipping<input type="number" value="" name="invenShipp" class="invenshipp" /></p>');
+        $('.inventoryappnd').html('<p><label for="Quantity">Quantity</label><input type="number" value="" name="invenQuan" class="invenquan" /></p><p><label for="Price">Price</label><input type="number" value="" name="invenPrice" class="invenprice" /></p><p><label for="Shipping">Shipping</label><input type="number" value="" name="invenShipp" class="invenshipp" /></p>');
         $('#inventorysaveProductButton').after('<a href="javascript:void(0)" class="inventoryDeleteButton" onclick="inventoryDelete(' + inventoryProductid + ')">DELETE PRODUCT</a>');
         $('.saveProduct').show();
         $.ajax({
@@ -256,7 +267,7 @@ $(document).ready(function() {
     });
 
     /* checking inventory section start from here */
-    $('.inventory_customer').click(function(){
+    /*$('.inventory_customer').click(function(){
         var inventory_Customer_ID = $(this).attr('id');
         $.ajax({
             type: "post",
@@ -282,7 +293,7 @@ $(document).ready(function() {
                 window.location.reload();
             }
         });
-    });
+    });*/
     /* checking inventory section end here */
 
 

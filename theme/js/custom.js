@@ -147,6 +147,32 @@ $(document).ready(function(){
                     $('#inventoryProductImgul').append(data);
                     $('#inventoryProductImgul').show();
                 }
+                $('.inventoryOrder').click(function(){
+                    if(this.checked){
+                        // alert('checked');
+                        var checkedValues = $('input:checkbox:checked').map(function() { return this.value; }).get();
+
+                        $.ajax({
+                            type: "post",
+                            url: themeAjaxVar,
+                            data: {action: 'changeinventoryordercosts','allcheckedpostid': checkedValues },
+                            success:function(data){
+                                alert(data);
+                            }
+                        });
+                    }else{
+                        // alert('Unchecked');
+                        var checkedValues = $('input:checkbox:checked').map(function() { return this.value; }).get();
+                        $.ajax({
+                            type: "post",
+                            url: themeAjaxVar,
+                            data: {action: 'changeinventoryordercosts','allcheckedpostid': checkedValues },
+                            success:function(data){
+                                alert(data);
+                            }
+                        });
+                    }
+                });
             }
         });
     });
@@ -173,6 +199,8 @@ $(document).ready(function(){
             $('#inventoryquantity').attr('placeholder', 'Please use number');
         $('#browseInventory').show();
     });
+
+    
 
     //inventory product image upload section
     var progressbox     = $('#progressbox');
@@ -294,11 +322,8 @@ $(document).ready(function(){
                         }
                     });
 
-                    //inventory product update section start //
-                    $('#updateInventory').click(function(){
 
-                    });
-                    //inventory product update section end //
+
                     $('.artWorkImgPreview').click(function(){
                         imageresponse = $(this).attr('src')
                         $.cookie('inventoryartworkimgurl', imageresponse);

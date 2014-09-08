@@ -85,8 +85,8 @@
 							<span class="imgBox inventoryproductimgbox" style="padding:0px;">
 								<img src="<?php echo $imageurl; ?>" height="146px" width="135px">
 							</span>
-
 						</a>
+						<p><input type="checkbox" name="inventoryOrder[]" class="inventoryOrder" value="<?php echo $inventoryproduct->ID; ?>">Order</p>
 						<p><?php echo $inventoryproduct->post_title." $qty qty."; ?></p>
 					</div>
 				</li>
@@ -128,4 +128,21 @@
 		unlink($file);
 		$editproductqty = delete_post_meta($inventoryImgID, $meta_key);	
 		die();
+	}
+
+	if($action == 'changeinventoryordercosts'){
+		/*$str = '';
+		$shipping_cost = 0,	$price = 0;
+
+		foreach ($allcheckedpostid as $key => $value) {
+			$shipping_cost 	= get_post_meta($value,'shipping_cost');
+			$shipping_cost = $shipping_cost ? $shipping_cost : 0;
+			$total_shipping_cost = $total_shipping_cost + $shipping_cost;
+
+			$price			= get_post_meta($value,'price');
+			$price = $price ? $price : 0;
+			$total_price = $total_price + $price;
+		}
+		var_dump($str);
+		die();*/
 	}

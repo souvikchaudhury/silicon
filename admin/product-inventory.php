@@ -76,78 +76,7 @@
 					</div>
 				</div>
 				<hr>
-				<div class="userOptions">
-					<ul>
-						<li>
-							<a href="<?php echo site_url(); ?>admin/category.php">
-								<span class="image">
-								<img src="<?php echo site_url(); ?>admin/images/category.png" height="35" width="44" alt="">
-								</span>
-								<span class="text">Product Category</span>
-							</a>
-						</li>
-						<li>
-							<?php
-								$prdct_end_array = end($terms_select_Result);
-								$prdct_catalog_url = site_url().'admin/product.php?termslug='.$prdct_end_array->slug;
-							?>
-							<a href="<?php echo $prdct_catalog_url; ?>">
-								<span class="image">
-								<img src="<?php echo site_url(); ?>admin/images/catalog.png" height="30" width="24" alt="">
-								</span>
-								<span class="text">Product Catalog</span>
-							</a>
-						</li>
-						<li>
-							<a href="<?php echo site_url(); ?>admin/customers.php">
-								<span class="image">
-								<img src="<?php echo site_url(); ?>admin/images/customers.png" height="26" width="34" alt="">
-								</span>
-								<span class="text">Customers</span>
-							</a>
-						</li>
-						<li>
-							<a href="<?php echo site_url(); ?>admin/payment.php">
-								<span class="image">
-								<img src="<?php echo site_url(); ?>admin/images/paymentSetup.png" height="34" width="45" alt="">
-								</span>
-								<span class="text">Payment Setup</span>
-							</a>
-						</li>
-						<li>
-							<a href="javascript:void(0)">
-								<span class="image">
-								<img src="<?php echo site_url(); ?>admin/images/website.png" height="28" width="35" alt="">
-								</span>
-								<span class="text">Website Integration</span>
-							</a>
-						</li>
-						<li>
-							<a href="javascript:void(0)">
-								<span class="image">
-								<img src="<?php echo site_url(); ?>admin/images/setup.png" height="28" width="28" alt="">
-								</span>
-								<span class="text">Setup Guide</span>
-							</a>
-						</li>
-						<li>
-							<a href="javascript:void(0)">
-								<span class="image">
-								<img src="<?php echo site_url(); ?>admin/images/admin.png" height="32" width="47" alt="">
-								</span>
-								<span class="text">Admin Branding</span>
-							</a>
-						</li>
-						<li>
-							<a href="javascript:void(0)">
-								<span class="image">
-								<img src="<?php echo site_url(); ?>admin/images/contact.png" height="23" width="23" alt="">
-								</span>
-								<span class="text">Contact</span>
-							</a>
-						</li>
-					</ul>
-				</div>
+				<?php require_once('menu.php');?>
 				<div class="productOptionSec">
 					<div class="productOptionMenu">
 						<ul>
@@ -156,8 +85,13 @@
 								foreach($all_customers as $indicustomer) {
 									$customer_role = get_user_meta($indicustomer->ID, 'role');
 									if($customer_role == 'customer') {
+										$cust_url = site_url().'admin/product-inventory.php?customerid='.$indicustomer->ID;
 							?>
-										<li><a href="javascript:void(0);" class="inventory_customer" id="<?php echo $indicustomer->ID; ?>"><?php echo $indicustomer->display_name; ?></a></li>
+										<li>
+											<a href="<?php echo $cust_url; ?>" class="inventory_customer" id="<?php echo $indicustomer->ID; ?>">
+												<?php echo $indicustomer->display_name; ?>
+											</a>
+										</li>
 							<?php
 									}
 								}
@@ -169,12 +103,18 @@
 						<div class="popCol3">
 							<div class="popColWrap">
 								<br>
-								<a class="buttonPink" href="<?php echo site_url(); ?>admin/customers.php"><img alt="" src="<?php echo site_url(); ?>admin/images/plus.png">ADD Customer</a>
+								<a class="buttonPink" href="<?php echo site_url(); ?>admin/customers.php">
+									<img alt="" src="<?php echo site_url(); ?>admin/images/plus.png">
+									ADD Customer
+								</a>
 								<hr>
 								<ul>
 									<?php
+										$customerid = isset($_GET['customerid']) ? $_GET['customerid'] : 1;
+										$disabled = $customerid ==1 ? 'disabled="disabled"' : '';
+
 										$post_table = $table_prefix.'posts';
-										$get_inventoryproductSql = "SELECT * FROM $post_table WHERE post_type = 'inventory-product' AND post_author = '".$_SESSION['inventory_Customer_ID']."'";
+										$get_inventoryproductSql = "SELECT * FROM $post_table WHERE post_type = 'inventory-product' AND post_author = '".$customerid."'";
 										$get_inventoryproduct = mysql_query($get_inventoryproductSql);
 										while($data = mysql_fetch_object($get_inventoryproduct)) {
 										  $all_inventoryproduct[] = $data;
@@ -185,7 +125,7 @@
 												<li>
 													<div class="leftHSide">
 														<a class="box inventoryShowBox" href="javascript:void(0)" id="<?php echo $inventoryProduct->ID; ?>">
-															<span class="imgBox"><img src="<?php echo get_image($inventoryProduct->ID); ?>" alt="" /></span>
+															<span class="imgBox"><img src="<?php echo getPostImage($inventoryProduct->ID); ?>" alt="" /></span>
 														</a>
 														<p><?php echo get_the_title($inventoryProduct->ID); ?></p>
 													</div>
@@ -204,10 +144,10 @@
 								<form action="" class="addItem" method="post" enctype="multipart/form-data">
 									<h4>Customers Custom Inventory Orders</h4>
 									<?php 
-										if(isset($_SESSION['inventory_Customer_ID'])) { 
-											$userDetails = @get_userdata($_SESSION['inventory_Customer_ID']); //get user information
+										if(isset($customerid)) { 
+											$userDetails = get_userdata('id',$customerid); //get user information
 											//$_SESSION['inventory_Customer_ID'] = $userDetails->ID;
-									?>
+									?>	
 											<p>
 												<input type="text" id="CustomerCustomInventory" name="customer_custom_inventory" value="<?php echo $userDetails->display_name; ?>" readonly="readonly" />
 											</p>
@@ -216,10 +156,12 @@
 									<div class="uploadIconArea">
 										<div class="popColWrap">
 											<div class="uploadPrvBox">
-												<a href="javascript:void(0);" class="prvImg"><img id="inventory_img" src="#" height="75" width="39" alt=""></a>
+												<a href="javascript:void(0);" class="prvImg">
+													<img id="inventory_img" src="images/sample.png" height="75" width="39" alt="">
+												</a>
 											</div>
 											<h4>Upload Product Icon</h4>
-												<input type="file" id="my_image_file_field" name="inventoryproduct_image" onchange="readURL(this);" />
+												<input type="file" id="my_image_file_field" name="inventoryproduct_image" onchange="readURL(this);" <?php echo $disabled; ?>/>
 												<span>No file selected  |  * Upload 54 x 54 Transparent PNG Icon</span>
 										</div>
 									</div>
@@ -227,26 +169,32 @@
 										<div class="popColWrap inventorypopColWrap">
 												<p>
 													<label for="Item">Item Name</label>
-													<input type="text" id="inventoryItem" name="inventoryproduct_name" value="" required="required" />
+													<input type="text" id="inventoryItem" name="inventoryproduct_name" value="" required="required" <?php echo $disabled; ?> />
 												</p>
 												<p>
 													<label for="Description">Description</label>
-													<textarea id="inventoryDescription" name="inventoryproduct_desc" required="required"></textarea>
+													<textarea id="inventoryDescription" name="inventoryproduct_desc" required="required"<?php echo $disabled; ?> ></textarea>
 												</p>
 												<p>
 													<label for="Quantity">Quantity Options</label>
-													<input type="number" id="inventoryQuantity" name="inventoryproduct_quantity" value="" />
+													<input type="number" id="inventoryQuantity" name="inventoryproduct_quantity" value="" <?php echo $disabled; ?> />
 												</p>
-												<?php if(isset($_SESSION['inventory_Customer_ID'])) { ?>
-														<p><a class="buttonPink" href="javascript:void(0);" id="inventoryquantity_button"><img src="<?php echo site_url(); ?>admin/images/plus.png" alt="">ADD quantity</a></p>
+												<?php if($customerid!=1) { ?>
+														<p>
+															<a class="buttonPink" href="javascript:void(0);" id="inventoryquantity_button">
+																<img src="<?php echo site_url(); ?>admin/images/plus.png" alt="">
+																ADD quantity
+															</a>
+														</p>
 												<?php } ?>
 												<span class="quantity_msg">Quantity can not be blank</span>
+												<div class="inventoryappnd"></div>
 										</div>
 									</div>
 									<div class="saveProduct">
 										<div class="popColWrap" id="inventoryproduct_add_quan"></div>
 										<div class="popColWrap">
-											<?php if(isset($_SESSION['inventory_Customer_ID'])){ ?>
+											<?php if($customerid!=1){ ?>
 											<p><input type="submit" name="inventorysave_product" class="buttonPink" value="SAVE PRODUCT" id="inventorysaveProductButton" /></p>
 											<?php } ?>
 										</div>
@@ -269,12 +217,12 @@
 								$uploads_dir = substr(dirname(__FILE__), 0, -5).'theme/uploads/'.$filename;
 								$moveResult = move_uploaded_file ( $filename_tmp, $uploads_dir );
 
-								$userDetails = @get_userdata($_SESSION['inventory_Customer_ID']); //\\
+								$userDetails = get_userdata('id',$customerid); //\\
 								if(!isset($_SESSION['invpid'])) {
 									if( count($_SESSION['inventory_product_quantity']) > 1 ) {
 										foreach($_SESSION['inventory_product_quantity'] as $key => $value) {
 											$post_name = mysql_real_escape_string( $inventoryproduct_name.' '.$value.' qty' );
-											$post_author = $_SESSION['inventory_Customer_ID']; //\\
+											$post_author = $customerid; //\\
 											//die();
 											$post_date = date("Y-m-d H:i:s");
 											$post_date_gmt = date("Y-m-d H:i:s");
@@ -309,7 +257,7 @@
 											foreach($_SESSION['inventory_product_quantity'] as $key => $value) {
 												$post_name = mysql_real_escape_string( $inventoryproduct_name.' '.$value.' qty' );
 												// $userDetails = get_userdata($_SESSION['inventory_Customer_ID']); //\\
-												$post_author = $_SESSION['inventory_Customer_ID']; //\\
+												$post_author = $customerid; //\\
 												$post_date = date("Y-m-d H:i:s");
 												$post_date_gmt = date("Y-m-d H:i:s");													$post_content = mysql_real_escape_string( $inventoryproduct_desc );
 												$post_title = mysql_real_escape_string( $inventoryproduct_name.' '.$value.' qty' );

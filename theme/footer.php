@@ -124,8 +124,8 @@
 										<h3 class="title">Order Costs</h3>
 										<p><span>Products:</span>$0.00</p>
 										<p><span>Delivery:</span>$0.00</p>
-										<p><span>Subtotal:</span>$0.00</p>
-										<p><span>GST:</span>$0.00</p>
+										<!-- <p><span>Subtotal:</span>$0.00</p>
+										<p><span>GST:</span>$0.00</p> -->
 										<p><span>Total:</span>$0.00</p>
 									</div>
 									

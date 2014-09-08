@@ -662,8 +662,10 @@ a.edit img, a.delete img {
 	margin-bottom: 20px;
 }
 .uploadPrvBox .prvImg img{
-	width: 100%;
-	height: auto;
+	/*width: 100%;
+	height: auto;*/
+    width: 100px;
+    height: 100px;
 }
 .addQuantityArea label{
 	display: inline-block;
@@ -696,8 +698,10 @@ a.edit img, a.delete img {
     width: 50%;
 }
 .imgBox > img {
-    height: auto;
-    width: 100%;
+    /*height: auto;*/
+    height: 100px;
+    /*width: 100%;*/
+    width: 100px;
 }
 .twoPannelStretch{
     width: 73%;

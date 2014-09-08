@@ -37,7 +37,7 @@
 	}
 
 	if($action == 'productquantityaddfunc') {
-		if( !isset($_SESSION['product_quantity']) ) {
+		/*if( !isset($_SESSION['product_quantity']) ) {
 			unset( $_SESSION['product_quantity'] );
 			$_SESSION['product_quantity'] = array($quantityno);
 		} else {
@@ -45,29 +45,33 @@
 		  }
 
 		  $key = count( $_SESSION['product_quantity'] )-1;
-		  $value = end( $_SESSION['product_quantity'] );
+		  $value = end( $_SESSION['product_quantity'] );*/
 ?>
-			<p class="smlVer" id="quan<?php echo $key; ?>">
-				<span><?php echo $value; ?></span>
+			<p class="smlVer" id="quan<?php echo $previndex; ?>">
+				<span><?php echo $quantityno; ?></span>
+				<input type="hidden" value="<?php echo $quantityno; ?>" name="quantity[<?php echo $previndex;?>][qnumbr]"/>
 				<span>Price $</span>
-				<input type="text" value="" name="price_arr[]" required="required" />
+				<input type="text" value="" name="quantity[<?php echo $previndex;?>][qprice]" required="required" />
 				<span class="lastOne">Shipping $</span>
-				<input type="text" value="" name="shipping_arr[]" required="required" />
-				<a href="javascript:void(0);" class="delete" onclick="delete_func(<?php echo $key; ?>)"><img src="<?php echo site_url(); ?>admin/images/delete.png" alt=""></a>
+				<input type="text" value="" name="quantity[<?php echo $previndex;?>][qshipping]" required="required" />
+				<a href="javascript:void(0);" class="delete" onclick="delete_func(<?php echo $previndex; ?>)">
+					<img src="<?php echo site_url(); ?>admin/images/delete.png" alt="">
+				</a>
 			</p>
 <?php
 		die();
 	}
 
 	if($action == 'showproductfunc') {
-		unset($_SESSION['show_product_id']);
-		$_SESSION['show_product_id'] = $showProductId;
+		// unset($_SESSION['show_product_id']);
+		// $_SESSION['show_product_id'] = $showProductId;
 		$productDetails = get_post($showProductId);
 		$qty = get_post_meta($showProductId, 'qty');
 		$price = get_post_meta($showProductId, 'price');
 		$shipping_cost = get_post_meta($showProductId, 'shipping_cost');
 		$post_image_url = get_post_meta($showProductId, 'post_image_url');
 		$productDetails_arr = array(
+								'productId' => $showProductId,
 								'itemname' => $productDetails->post_title,
 								'itemdesc' => $productDetails->post_content,
 								'qty' => $qty,
@@ -220,7 +224,7 @@
 		$inventoryQuantity = get_post_meta($allDetails[0]->ID, 'qty'); //inventory product quantity
 		$inventoryPrice = get_post_meta($allDetails[0]->ID, 'price'); //inventory product price
 		$inventoryShipping = get_post_meta($allDetails[0]->ID, 'shipping_cost'); //inventory product shipping
-		$inventory_img = get_post_meta($allDetails[0]->ID, 'post_image_url'); //inventory product image
+		$inventory_img = getPostImage($allDetails[0]->ID); //inventory product image
 		$inventoryProductdetails_arr = array(
 							  'inventoryItem' => $allDetails[0]->post_title,
 							  'inventoryDescription' => $allDetails[0]->post_content,
@@ -240,10 +244,10 @@
 	}
 
 	if($action == 'inventorycustomershowfunc') {
-		unset($_SESSION['inventory_Customer_ID']);
+		/*unset($_SESSION['inventory_Customer_ID']);
 		$userDetails = get_userdata($inventory_Customer_ID); //get user information
 		$_SESSION['inventory_Customer_ID'] = $userDetails->ID;
 		// $userarr = array($userDetails->ID, $userDetails->display_name);
 		// echo json_encode($userarr);
-		die();
+		die();*/
 	}

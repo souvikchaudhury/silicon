@@ -1,7 +1,7 @@
 <?php
 	require_once(dirname(__FILE__).'/header.php');
 		/******** login section **********/
-		if($_POST['submit_login']) {
+		if(isset($_POST['submit_login'])) {
 			extract($_POST);
 			unset($_SESSION['user_logged_in']);
 

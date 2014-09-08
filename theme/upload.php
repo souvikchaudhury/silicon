@@ -28,6 +28,6 @@ if(isset($_FILES['filename']))
  $str = str_replace('\\', '/', dirname(__FILE__));
  $str = $str.'/upload/'.$NewName;
  echo "<div class='sucess' data-basepath='".$str."'> Successfully uploaded.</div>
-<input type='text' name='uploadedimg[]' value='".$base."' />";
+<input type='hidden' name='uploadedimg[]' value='".$base."' />";
  }
 ?>
