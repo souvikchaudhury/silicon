@@ -657,7 +657,7 @@ a.edit img, a.delete img {
 .uploadIconArea .popColWrap{
 	overflow: hidden;
 }
-.uploadIconArea .popColWrap #my_image_file_field{
+.uploadIconArea .popColWrap .my_image_file_field{
 	display: block;
 	margin-bottom: 20px;
 }
@@ -666,6 +666,12 @@ a.edit img, a.delete img {
 	height: auto;*/
     width: 100px;
     height: 100px;
+}
+.uploadmain{
+    display: block;
+    float: left;
+    width: 100%;
+    padding-bottom: 10px;
 }
 .addQuantityArea label{
 	display: inline-block;

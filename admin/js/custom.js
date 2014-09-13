@@ -221,6 +221,8 @@ $(document).ready(function() {
     //inventory product section
     $('#inventoryquantity_button').click(function() {
         var quantityval = $('#inventoryQuantity').val();
+        var indx = $('.smlVer').length;
+
         if ((quantityval == '') || (quantityval == 0)) {
             $('.quantity_msg').show();
         } else {
@@ -228,10 +230,7 @@ $(document).ready(function() {
             $.ajax({
                 type: "post",
                 url: adminAjaxVar,
-                data: {
-                    action: 'inventoryproductquantityaddfunc',
-                    'inventoryquantityno': quantityval
-                },
+                data: { action: 'inventoryproductquantityaddfunc','inventoryquantityno': quantityval, 'quantityindex':indx },
                 success: function(data) {
                     $('#inventoryproduct_add_quan').append(data);
                     $('.saveProduct').show();
@@ -242,21 +241,25 @@ $(document).ready(function() {
     });
     $('.inventoryShowBox').click(function() {
         var inventoryProductid = $(this).attr('id');
+        $('#checkCondition').val('edititem');
+        
         $('.inventoryDeleteButton').remove();
-        $('.inventorypopColWrap p:nth-child(3), .inventorypopColWrap p:nth-child(4)').remove();
-        $('.inventoryappnd').html('<p><label for="Quantity">Quantity</label><input type="number" value="" name="invenQuan" class="invenquan" /></p><p><label for="Price">Price</label><input type="number" value="" name="invenPrice" class="invenprice" /></p><p><label for="Shipping">Shipping</label><input type="number" value="" name="invenShipp" class="invenshipp" /></p>');
-        $('#inventorysaveProductButton').after('<a href="javascript:void(0)" class="inventoryDeleteButton" onclick="inventoryDelete(' + inventoryProductid + ')">DELETE PRODUCT</a>');
+        // $('.inventorypopColWrap p:nth-child(3), .inventorypopColWrap p:nth-child(4)').remove();
+        // $('.inventoryappnd').html('<p><label for="Quantity">Quantity</label><input type="number" value="" name="invenQuan" class="invenquan" /></p><p><label for="Price">Price</label><input type="number" value="" name="invenPrice" class="invenprice" /></p><p><label for="Shipping">Shipping</label><input type="number" value="" name="invenShipp" class="invenshipp" /></p>');
+        $('#inventorysaveProductButton').after('<a href="javascript:void(0)" class="inventoryDeleteButton buttonPink" style="display:inline;" onclick="inventoryDelete(' + inventoryProductid + ')">DELETE PRODUCT</a>');
         $('.saveProduct').show();
         $.ajax({
             type: "post",
             url: adminAjaxVar,
-            data: {
-                action: 'inventoryproductshowfunc',
-                'inventoryProductid': inventoryProductid
-            },
+            data: { action: 'inventoryproductshowfunc', 'inventoryProductid': inventoryProductid  },
             success: function(data) {
+                artWorkImgPreview = '';
                 data = JSON.parse(data);
-                $('#inventory_img').attr('src', data['inventory_img']);
+                for( var i in data['inventory_img'] ){
+                    artWorkImgPreview += "<img id='artWorkImgPreview_"+i+"' class='artWorkImgPreview' data-metakey='"+data['inventory_img'][i]['meta_key']+"' src='"+data['inventory_img'][i]['meta_value']+"' height='223' width='347'/><div data-counter = '"+i+"' class='updateimgdelete'>Delete</div>";
+                }
+                $('#artWorkImgPreviewdiv').html(artWorkImgPreview);
+                
                 $('#inventoryItem').val(data['inventoryItem']);
                 $('#inventoryDescription').val(data['inventoryDescription']);
                 $('.invenquan').val(data['inventoryQuantity']);
@@ -336,6 +339,21 @@ $(document).ready(function() {
                 }
             });
         }
+    });
+
+    $('.uploadaddmore').click(function(){
+        // alert('jj');
+        count = $('.uploadmain').length;
+        count = count+1;
+        $('.uploadcontainer').append('<div class="uploadmain"><div class="uploadPrvBox"><a href="javascript:void(0);" class="prvImg"><img id="inventory_img'+count+'" src="images/sample.png" height="75" width="39" alt=""></a></div><h4>Upload Product Icon</h4><input type="file" name="uploadedimg[]" class="uploadimg my_image_file_field" data-count="'+count+'" onchange="readURL(this)" ><div data-counter = "'+count+'" class="uploaddelete">Delete</div></div>');
+
+        $('.uploaddelete').on("click",function(){
+            var r = confirm("Are you sure you want to delete this Image?")
+            if(r == true)
+            {
+                $(this).parent().remove();
+            }
+        });
     });
 });
 

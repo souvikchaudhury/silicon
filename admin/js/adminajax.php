@@ -187,22 +187,22 @@
 	}
 
 	if($action == 'inventoryproductquantityaddfunc') {
-		if( !isset($_SESSION['inventory_product_quantity']) ) {
+		/*if( !isset($_SESSION['inventory_product_quantity']) ) {
 			unset( $_SESSION['inventory_product_quantity'] );
 			$_SESSION['inventory_product_quantity'] = array($inventoryquantityno);
 		} else {
 			array_push($_SESSION['inventory_product_quantity'], $inventoryquantityno);
 		  }
 		$key = count( $_SESSION['inventory_product_quantity'] )-1;
-		$value = end( $_SESSION['inventory_product_quantity'] );
+		$value = end( $_SESSION['inventory_product_quantity'] );*/
 ?>
-			<p class="smlVer" id="inventoryquan<?php echo $key; ?>">
-				<span><?php echo $value; ?></span>
+			<p class="smlVer" id="inventoryquan<?php echo $quantityindex; ?>">
+				<span><?php echo $inventoryquantityno; ?></span>
 				<span>Price $</span>
 				<input type="text" value="" name="price_arr[]" required="required" />
 				<span class="lastOne">Shipping $</span>
 				<input type="text" value="" name="shipping_arr[]" required="required" />
-				<a href="javascript:void(0);" class="delete" onclick="inventorydelete_func(<?php echo $key; ?>)"><img src="<?php echo site_url(); ?>admin/images/delete.png" alt=""></a>
+				<a href="javascript:void(0);" class="delete" onclick="inventorydelete_func(<?php echo $quantityindex; ?>)"><img src="<?php echo site_url(); ?>admin/images/delete.png" alt=""></a>
 			</p>
 
 <?php
@@ -215,16 +215,17 @@
 	}
 
 	if($action == 'inventoryproductshowfunc') {
-		$postsTable = $table_prefix.'posts'; //posts table
+		/*$postsTable = $table_prefix.'posts'; //posts table
 		$ineventoryproductdetailsSql = "SELECT * FROM $postsTable WHERE ID = '".$inventoryProductid."'";
 		$ineventoryproductdetails = mysql_query($ineventoryproductdetailsSql);
 		while ($datainventoryproduct = mysql_fetch_object($ineventoryproductdetails)) {
 			$allDetails[] = $datainventoryproduct;
 		}
+
 		$inventoryQuantity = get_post_meta($allDetails[0]->ID, 'qty'); //inventory product quantity
 		$inventoryPrice = get_post_meta($allDetails[0]->ID, 'price'); //inventory product price
 		$inventoryShipping = get_post_meta($allDetails[0]->ID, 'shipping_cost'); //inventory product shipping
-		$inventory_img = getPostImage($allDetails[0]->ID); //inventory product image
+		// $inventory_img = getPostImage($allDetails[0]->ID); //inventory product image
 		$inventoryProductdetails_arr = array(
 							  'inventoryItem' => $allDetails[0]->post_title,
 							  'inventoryDescription' => $allDetails[0]->post_content,
@@ -233,8 +234,39 @@
 							  'inventoryShipping' => $inventoryShipping,
 							  'inventory_img' => $inventory_img
 			               );
-		$_SESSION['invpid'] = $inventoryProductid; //stores inventory product id
-		echo json_encode($inventoryProductdetails_arr);
+		// $_SESSION['invpid'] = $inventoryProductid; //stores inventory product id
+		echo json_encode($inventoryProductdetails_arr);*/
+		
+
+		$editproductDetails = get_post($inventoryProductid);
+		$editproductImgUrlarr = array();
+		if( !empty($editproductDetails) ) {
+
+			$postmetaTable = PREFIX.'postmeta';
+			$post_metaSql = "SELECT meta_key,meta_value  FROM printapps_postmeta WHERE post_id = '".$editproductDetails->ID."' and meta_key LIKE 'post_image_url_%' ORDER BY meta_id ASC";
+			$post_metaSql_result = mysql_query( $post_metaSql );
+			$i=0;
+			while($row = mysql_fetch_array($post_metaSql_result)) {
+			  $editproductImgUrlarr[$i]['meta_value'] = $row['meta_value'];
+			  $editproductImgUrlarr[$i]['meta_key'] = $row['meta_key'];
+			  $i++;
+			}
+			// var_dump($editproductImgUrlarr);
+			$editproductqty = get_post_meta($editproductDetails->ID, 'qty');
+			$inventoryPrice = get_post_meta($editproductDetails->ID, 'price'); //inventory product price
+			$inventoryShipping = get_post_meta($editproductDetails->ID, 'shipping_cost'); //inventory product shipping
+
+			$inventoryprdcteditarr = array(
+										'ID'			=> $editproductDetails->ID,
+										'inventoryItem' 	=> $editproductDetails->post_title,
+										'inventoryDescription' 	=> $editproductDetails->post_content,
+										'inventory_img'=> $editproductImgUrlarr,
+										'inventoryQuantity' => $editproductqty,
+										'inventoryPrice'	=>$inventoryPrice,
+										'inventoryShipping' => $inventoryShipping
+				                     );
+			echo json_encode($inventoryprdcteditarr);
+		}
 		die();
 	}
 
@@ -250,4 +282,7 @@
 		// $userarr = array($userDetails->ID, $userDetails->display_name);
 		// echo json_encode($userarr);
 		die();*/
+	}
+	if($action == 'deletetype'){
+		unlink($_GET['file']);
 	}

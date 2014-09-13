@@ -7,8 +7,10 @@
 		function readURL(input) {
 		    if (input.files && input.files[0]) {
 		        var reader = new FileReader();
+		        indx = input.getAttribute("data-count");
+
 		        reader.onload = function(e) {
-		            $('#inventory_img').attr('src', e.target.result);
+		            $('#inventory_img'+indx).attr('src', e.target.result);
 		        }
 		        reader.readAsDataURL(input.files[0]);
 		    }
@@ -154,19 +156,27 @@
 									<?php } ?>
 
 									<div class="uploadIconArea">
-										<div class="popColWrap">
-											<div class="uploadPrvBox">
-												<a href="javascript:void(0);" class="prvImg">
-													<img id="inventory_img" src="images/sample.png" height="75" width="39" alt="">
-												</a>
+										<div id="artWorkImgPreviewdiv"> </div>
+										<div class="uploadaddmore">Add More</div>
+										<div class="popColWrap uploadcontainer" id="uploadcontainer">
+											<div class="uploadmain">
+												<div class="uploadPrvBox">
+													<a href="javascript:void(0);" class="prvImg">
+															<img id="inventory_img1" src="images/sample.png" height="75" width="39" alt="">
+													</a>
+												</div>
+												<!-- <a href="javascript:void(0);" class="prvImg">
+													<img id="inventory_img1" src="images/sample.png" height="75" width="39" alt="">
+												</a> -->
+												<h4>Upload Product Icon</h4>
+												<input type="file" name="uploadedimg[]" class="uploadimg my_image_file_field" data-count="1" onchange="readURL(this)" >
+												<!-- <span>No file selected  |  * Upload 54 x 54 Transparent PNG Icon</span> -->
 											</div>
-											<h4>Upload Product Icon</h4>
-												<input type="file" id="my_image_file_field" name="inventoryproduct_image" onchange="readURL(this);" <?php echo $disabled; ?>/>
-												<span>No file selected  |  * Upload 54 x 54 Transparent PNG Icon</span>
 										</div>
 									</div>
 									<div class="addQuantityArea">
 										<div class="popColWrap inventorypopColWrap">
+												<input type="hidden" id="checkCondition" name="checkCondition" value="additem" />
 												<p>
 													<label for="Item">Item Name</label>
 													<input type="text" id="inventoryItem" name="inventoryproduct_name" value="" required="required" <?php echo $disabled; ?> />
@@ -177,16 +187,25 @@
 												</p>
 												<p>
 													<label for="Quantity">Quantity Options</label>
-													<input type="number" id="inventoryQuantity" name="inventoryproduct_quantity" value="" <?php echo $disabled; ?> />
+													<input type="number" id="inventoryQuantity" name="inventoryproduct_quantity" class="invenquan" value="" <?php echo $disabled; ?> />
 												</p>
-												<?php if($customerid!=1) { ?>
+												<p>
+													<label for="Price">Price</label>
+													<input type="number" value="" name="inventoryproduct_price" class="invenprice" />
+												</p>
+												<p>
+													<label for="Shipping">Shipping</label>
+													<input type="number" value="" name="inventoryproduct_shipping" class="invenshipp" />
+												</p>												
+
+												<?php /* if($customerid!=1) { ?>
 														<p>
 															<a class="buttonPink" href="javascript:void(0);" id="inventoryquantity_button">
 																<img src="<?php echo site_url(); ?>admin/images/plus.png" alt="">
 																ADD quantity
 															</a>
 														</p>
-												<?php } ?>
+												<?php } */?>
 												<span class="quantity_msg">Quantity can not be blank</span>
 												<div class="inventoryappnd"></div>
 										</div>
@@ -195,7 +214,7 @@
 										<div class="popColWrap" id="inventoryproduct_add_quan"></div>
 										<div class="popColWrap">
 											<?php if($customerid!=1){ ?>
-											<p><input type="submit" name="inventorysave_product" class="buttonPink" value="SAVE PRODUCT" id="inventorysaveProductButton" /></p>
+											<p><input type="submit" name="inventorysave_product" class="buttonPink"  style="display:inline;" value="SAVE PRODUCT" id="inventorysaveProductButton" /></p>
 											<?php } ?>
 										</div>
 									</div>
@@ -205,20 +224,137 @@
 						// $userDetails = get_userdata($_SESSION['inventory_Customer_ID']);
 						// echo '<pre>';
 						// print_r($userDetails);
-
+						
 							if(isset($_POST['inventorysave_product'])) {
 								extract($_POST);
 								$postsTable = $table_prefix.'posts';
 								$postmetaTable = $table_prefix.'postmeta';
+								$fileUploaded = false;
 
 								//file upload
-								$filename = $_FILES['inventoryproduct_image']['name'];
-								$filename_tmp = $_FILES['inventoryproduct_image']['tmp_name'];
-								$uploads_dir = substr(dirname(__FILE__), 0, -5).'theme/uploads/'.$filename;
-								$moveResult = move_uploaded_file ( $filename_tmp, $uploads_dir );
+								foreach($_FILES["uploadedimg"]["error"] as $key => $value){
+								    if($value == 0){
+								        $fileUploaded = true;
+								        break;
+								    }
+								}
 
-								$userDetails = get_userdata('id',$customerid); //\\
-								if(!isset($_SESSION['invpid'])) {
+								if($checkCondition == 'additem') {
+
+									$slugName = strtolower( preg_replace("/[\s_]/", "-", $inventoryproduct_name) );
+						            $prdctno = postcountbyslug($slugName);
+						            if( empty($prdctno) ) {
+						                $slug = $slugName;
+						            } else {
+						                $prdctno = $prdctno + 1;
+						                $slug = $slugName.$prdctno;
+						              }
+						            $postExcerpt = substr($inventoryproduct_desc, 0, 52).'...';
+
+						            $prdct_details_array = array(
+						                                        'post_author' => $customerid,
+						                                        'post_date' => date("Y-m-d H:i:s"),
+						                                        'post_date_gmt' => date("Y-m-d H:i:s"),
+						                                        'post_content' => $inventoryproduct_desc,
+						                                        'post_title' => $inventoryproduct_name,
+						                                        'post_excerpt' => $postExcerpt,
+						                                        'post_status' => 'publish',
+						                                        'post_name' => $slug,
+						                                        'post_parent' => 0,
+						                                        'post_type' => 'inventory-product'
+						                                   );
+						            add_inventory_product($prdct_details_array); //add inventory product
+						            $invProduct = get_postbyslug($slug); //post details by slug
+						            if( empty($inventoryproduct_quantity) ) //quantity
+						                $qty = 1;
+						            else
+						                $qty = $inventoryproduct_quantity;
+
+						            if($fileUploaded){
+										$allimages = reArrayFiles($_FILES['uploadedimg']);
+										foreach ($allimages as $key => $value) {
+											$RandomNum = rand(0, 9999999999);
+											$ImageName = str_replace(' ','-',strtolower($value['name']));
+											$ImageType = $value['type']; //"image/png", image/jpeg etc.
+											$ImageExt = substr($ImageName, strrpos($ImageName, '.'));
+											$ImageExt = str_replace('.','',$ImageExt);
+											$ImageName = preg_replace("/\.[^.\s]{3,4}$/", "", $ImageName);
+											//Create new image name (with random number added).
+											$filename = $ImageName.'-'.$RandomNum.'.'.$ImageExt;
+											$filename_tmp = $value['tmp_name'];
+											$uploads_dir = substr(dirname(__FILE__), 0, -5).'theme/upload/'.$filename;
+											$moveResult = move_uploaded_file ( $filename_tmp, $uploads_dir );
+
+											$base_path="http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']);
+											$base=$base_path.'/'.'upload/'.$filename;
+											
+											$ks = 'post_image_url_'.$key;
+	                						add_post_meta($invProduct->ID, $ks, $base);
+										}
+									}
+
+						            add_post_meta($invProduct->ID, 'qty', $qty);
+						            add_post_meta($invProduct->ID, 'price', $inventoryproduct_price);
+					            	add_post_meta($invProduct->ID, 'shipping_cost', $inventoryproduct_shipping);
+
+					        	} else if($checkCondition == 'edititem'){
+
+					        		$postExcerpt = substr($inventoryproduct_desc, 0, 52).'...';
+						            $postid = $_POST['inventoryID'];
+						            $my_post = array(
+						                    'ID'            => $postid,
+						                    'post_date'     => date("Y-m-d H:i:s"),
+						                    'post_date_gmt' => date("Y-m-d H:i:s"),
+						                    'post_content'  => $inventoryproduct_desc,
+						                    'post_title'    => $inventoryproduct_name,
+						                    'post_excerpt'  => $postExcerpt,
+						                    'post_status'   => 'publish',
+						              );
+						            
+						            if($fileUploaded){
+										$allimages = reArrayFiles($_FILES['uploadedimg']);
+										foreach ($allimages as $key => $value) {
+											$RandomNum = rand(0, 9999999999);
+											$ImageName = str_replace(' ','-',strtolower($value['name']));
+											$ImageType = $value['type']; //"image/png", image/jpeg etc.
+											$ImageExt = substr($ImageName, strrpos($ImageName, '.'));
+											$ImageExt = str_replace('.','',$ImageExt);
+											$ImageName = preg_replace("/\.[^.\s]{3,4}$/", "", $ImageName);
+											//Create new image name (with random number added).
+											$filename = $ImageName.'-'.$RandomNum.'.'.$ImageExt;
+											$filename_tmp = $value['tmp_name'];
+											$uploads_dir = substr(dirname(__FILE__), 0, -5).'theme/upload/'.$filename;
+											$moveResult = move_uploaded_file ( $filename_tmp, $uploads_dir );
+
+											$base_path="http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']);
+											$base=$base_path.'/'.'upload/'.$filename;
+
+											$gnumber = getLastPostImageNo($postid);
+											$number = $gnumber+$key;
+						                    $meta_key = 'post_image_url_'.$number;
+
+	                						add_post_meta($postid, $meta_key, $base);
+										}
+									}
+									$qty = empty($inventoryproduct_quantity) ? 1 : $inventoryproduct_quantity;
+									$$inventoryproduct_price = empty($inventoryproduct_price ) ? 0 : $inventoryproduct_price;
+									$inventoryproduct_shipping = empty($inventoryproduct_shipping) ? 0 : $inventoryproduct_shipping;
+
+						            $allimages = getPostImage($postid,true);
+						            if($allimages){
+						                update_post_meta($postid,'qty',$qty);
+						                update_post_meta($postid,'price',$inventoryproduct_price);
+						                update_post_meta($postid,'shipping_cost',$inventoryproduct_shipping);
+						                wp_update_post( $my_post );
+						            }
+					        	}
+
+
+								/*$userDetails = get_userdata('id',$customerid); //\\
+								// if(!isset($_SESSION['invpid'])) {
+
+								// Edit Section
+
 									if( count($_SESSION['inventory_product_quantity']) > 1 ) {
 										foreach($_SESSION['inventory_product_quantity'] as $key => $value) {
 											$post_name = mysql_real_escape_string( $inventoryproduct_name.' '.$value.' qty' );
@@ -259,8 +395,9 @@
 												// $userDetails = get_userdata($_SESSION['inventory_Customer_ID']); //\\
 												$post_author = $customerid; //\\
 												$post_date = date("Y-m-d H:i:s");
-												$post_date_gmt = date("Y-m-d H:i:s");													$post_content = mysql_real_escape_string( $inventoryproduct_desc );
+												$post_date_gmt = date("Y-m-d H:i:s");													
 												$post_title = mysql_real_escape_string( $inventoryproduct_name.' '.$value.' qty' );
+												$post_content = mysql_real_escape_string( $inventoryproduct_desc );
 												$post_status = 'publish';
 												$post_name = strtolower( preg_replace("/[\s_]/", "-", $post_name) );
 												$post_parent = 0;
@@ -290,8 +427,8 @@
 											}
 									   }
 
-									   unset($_SESSION['inventory_Customer_ID'], $_SESSION['inventory_product_quantity']);
-								} else {
+									   unset($_SESSION['inventory_Customer_ID'], $_SESSION['inventory_product_quantity']);*/
+								/*} else {
 									$invpid = $_SESSION['invpid'];
 									$inv_image_url = site_url().'theme/uploads/'.$filename;
 									$post_title = mysql_real_escape_string($inventoryproduct_name);
@@ -306,7 +443,7 @@
 									unset($_SESSION['invpid']);
 								  }
 							   $url = site_url().'admin/product-inventory.php';
-							   redirect($url);
+							   redirect($url);*/
 							}
 
 						?>
