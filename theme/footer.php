@@ -122,11 +122,11 @@
 
 									<div class="orderCost">
 										<h3 class="title">Order Costs</h3>
-										<p><span>Products:</span>$0.00</p>
-										<p><span>Delivery:</span>$0.00</p>
+										<p><span>Products:</span><label id="tot_prod_price">$0.00</label></p>
+										<p><span>Delivery:</span><label id="tot_ship_price">$0.00</label></p>
 										<!-- <p><span>Subtotal:</span>$0.00</p>
 										<p><span>GST:</span>$0.00</p> -->
-										<p><span>Total:</span>$0.00</p>
+										<p><span>Total:</span><label id="total_prod_ship_price">$0.00</label></p>
 									</div>
 									
 									<div class="payOption">

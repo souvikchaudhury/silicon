@@ -147,32 +147,9 @@ $(document).ready(function(){
                     $('#inventoryProductImgul').append(data);
                     $('#inventoryProductImgul').show();
                 }
-                $('.inventoryOrder').click(function(){
-                    if(this.checked){
-                        // alert('checked');
-                        var checkedValues = $('input:checkbox:checked').map(function() { return this.value; }).get();
-
-                        $.ajax({
-                            type: "post",
-                            url: themeAjaxVar,
-                            data: {action: 'changeinventoryordercosts','allcheckedpostid': checkedValues },
-                            success:function(data){
-                                alert(data);
-                            }
-                        });
-                    }else{
-                        // alert('Unchecked');
-                        var checkedValues = $('input:checkbox:checked').map(function() { return this.value; }).get();
-                        $.ajax({
-                            type: "post",
-                            url: themeAjaxVar,
-                            data: {action: 'changeinventoryordercosts','allcheckedpostid': checkedValues },
-                            success:function(data){
-                                alert(data);
-                            }
-                        });
-                    }
-                });
+               //***********************************************************************************************************************
+               invntryOrderchnge();
+               //***********************************************************************************************************************
             }
         });
     });
@@ -255,6 +232,7 @@ $(document).ready(function(){
                         if(data != '') {
                             $('#inventoryProductImgul').show();
                             $('.inventoryProductImgulcls').html(data);
+                            invntryOrderchnge();
                         }
                     }
                 });    
@@ -352,6 +330,21 @@ $(document).ready(function(){
     });
     $('.userMenu ul li a').click(function() {
         $(this).toggleClass('active').next().fadeIn('800');
+        if( $(this).attr('data-chk') == "myinventory" ){
+            currentuserid = $(this).attr('data-userid');
+            $.ajax({
+                type: "post",
+                url: themeAjaxVar,
+                data: { action: 'myinventory', 'currentuserid': currentuserid },
+                success: function(data) { 
+                    $('.myInvenTory').html(data);
+                    $('.userMenuOptions .closeBtn').click(function() {
+                        $(this).parent().fadeOut('800').prev().removeClass('active');
+                    });
+                    invntryOrderchnge();
+                }
+            });
+        }
     });
     $('.userMenuOptions .closeBtn').click(function() {
         $(this).parent().fadeOut('800').prev().removeClass('active');
@@ -507,4 +500,51 @@ function failstatus(event){
 }
 function Abortedstatus(event){
     document.getElementById(status).innerHTML = "Upload Aborted";
+}
+
+function invntryOrderchnge(){
+    $('.inventoryOrder').click(function(){
+        if(this.checked){
+            // alert('checked');
+            var checkedValues = $('input:checkbox:checked').map(function() { return this.value; }).get();
+
+            $.ajax({
+                type: "post",
+                url: themeAjaxVar,
+                data: {action: 'changeinventoryordercosts','allcheckedpostid': checkedValues },
+                success:function(data){
+                    if(data){
+                        data = jQuery.parseJSON(data);
+                        $('#tot_prod_price').html(data.product_price);
+                        $('#tot_ship_price').html(data.total_shipping_cost);
+                        $('#total_prod_ship_price').html(data.total_price);
+                    }else{
+                        $('#tot_prod_price').html("$0.00");
+                        $('#tot_ship_price').html("$0.00");
+                        $('#total_prod_ship_price').html("$0.00");
+                    }
+                }
+            });
+        }else{
+            // alert('Unchecked');
+            var checkedValues = $('input:checkbox:checked').map(function() { return this.value; }).get();
+            $.ajax({
+                type: "post",
+                url: themeAjaxVar,
+                data: {action: 'changeinventoryordercosts','allcheckedpostid': checkedValues },
+                success:function(data){
+                    if(data){
+                        data = jQuery.parseJSON(data);
+                        $('#tot_prod_price').html(data.product_price);
+                        $('#tot_ship_price').html(data.total_shipping_cost);
+                        $('#total_prod_ship_price').html(data.total_price);
+                    }else{
+                        $('#tot_prod_price').html("$0.00");
+                        $('#tot_ship_price').html("$0.00");
+                        $('#total_prod_ship_price').html("$0.00");
+                    }
+                }
+            });
+        }
+    });
 }

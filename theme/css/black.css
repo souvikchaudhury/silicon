@@ -176,7 +176,7 @@ span.title {
 }
 .largeButton {
   background: none repeat scroll 0 0 #555F62;
-  color: #FFFFFF;
+  color: #FFFFFF!important;
 }
 .popUpBox{
 	background: #fff;

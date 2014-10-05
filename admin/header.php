@@ -26,7 +26,11 @@
 	<link rel="stylesheet" href="<?php echo site_url()?>admin/css/reset.css">
 	<link rel="stylesheet" href="<?php echo site_url()?>admin/css/backend.css">
 	<link rel="stylesheet" href="<?php echo site_url()?>admin/css/common.css">
-
+	<script>
+	var themeAjaxVar = '<?php echo THEMEPATH(); ?>/js/themeajax.php';
+	var relativepath = '<?php echo str_replace('\\', '/', dirname(__FILE__)); ?>';
+	</script>
+	
 	<!-- jQuery Library  -->
 	<script>var adminAjaxVar = '<?php echo site_url(); ?>admin/js/adminajax.php'</script>
 	<script src="<?php echo site_url()?>admin/js/jquery-1.9.1.min.js"></script>

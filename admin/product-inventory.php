@@ -177,6 +177,8 @@
 									<div class="addQuantityArea">
 										<div class="popColWrap inventorypopColWrap">
 												<input type="hidden" id="checkCondition" name="checkCondition" value="additem" />
+												<input type="hidden" id="inventoryID" name="inventoryID" value="" />
+
 												<p>
 													<label for="Item">Item Name</label>
 													<input type="text" id="inventoryItem" name="inventoryproduct_name" value="" required="required" <?php echo $disabled; ?> />
@@ -283,10 +285,16 @@
 											$filename = $ImageName.'-'.$RandomNum.'.'.$ImageExt;
 											$filename_tmp = $value['tmp_name'];
 											$uploads_dir = substr(dirname(__FILE__), 0, -5).'theme/upload/'.$filename;
+
 											$moveResult = move_uploaded_file ( $filename_tmp, $uploads_dir );
 
+											//var_dump($moveResult);
+											//die();
+
 											$base_path="http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']);
+											
 											$base=$base_path.'/'.'upload/'.$filename;
+											$base = str_replace('admin', 'theme', $base);
 											
 											$ks = 'post_image_url_'.$key;
 	                						add_post_meta($invProduct->ID, $ks, $base);
@@ -328,6 +336,7 @@
 
 											$base_path="http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']);
 											$base=$base_path.'/'.'upload/'.$filename;
+											$base = str_replace('admin', 'theme', $base);
 
 											$gnumber = getLastPostImageNo($postid);
 											$number = $gnumber+$key;
@@ -349,6 +358,8 @@
 						            }
 					        	}
 
+					        	$url = site_url().'admin/product-inventory.php';
+							    redirect($url);
 
 								/*$userDetails = get_userdata('id',$customerid); //\\
 								// if(!isset($_SESSION['invpid'])) {

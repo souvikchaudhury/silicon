@@ -286,3 +286,9 @@
 	if($action == 'deletetype'){
 		unlink($_GET['file']);
 	}
+
+	if($action == 'updatedeletefunc') {
+		unlink($file);
+		$editproductqty = delete_post_meta($inventoryImgID, $meta_key);	
+		die();
+	}

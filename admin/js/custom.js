@@ -259,14 +259,47 @@ $(document).ready(function() {
                     artWorkImgPreview += "<img id='artWorkImgPreview_"+i+"' class='artWorkImgPreview' data-metakey='"+data['inventory_img'][i]['meta_key']+"' src='"+data['inventory_img'][i]['meta_value']+"' height='223' width='347'/><div data-counter = '"+i+"' class='updateimgdelete'>Delete</div>";
                 }
                 $('#artWorkImgPreviewdiv').html(artWorkImgPreview);
-                
+                $('#inventoryID').val(inventoryProductid);
                 $('#inventoryItem').val(data['inventoryItem']);
                 $('#inventoryDescription').val(data['inventoryDescription']);
                 $('.invenquan').val(data['inventoryQuantity']);
                 $('.invenprice').val(data['inventoryPrice']);
                 $('.invenshipp').val(data['inventoryShipping']);
+
+                $('.updateimgdelete').click(function(){
+                    
+                   var r = confirm("Are you sure you want to delete this Image?")
+                    if(r == true)
+                    {
+                        thisobj = $(this);
+                        indx = $(this).attr('data-counter');
+
+                        imgsrcid = $('#artWorkImgPreview_'+indx);
+                    
+                        imgmetakey = imgsrcid.attr('data-metakey');
+                        imgsrc = imgsrcid.attr('src');
+
+                        imgsplitarr = imgsrc.split('/');
+                        imgsplitarr = imgsplitarr.reverse();
+                        file_name = relativepath+'/upload/'+imgsplitarr[0];
+                        var file_name = file_name.replace("admin", "theme");
+                        //file_name = str_replace('admin', 'theme', file_name);
+
+                        $.ajax({
+                            type: "post",
+                            url: themeAjaxVar,
+                            data: {action:'updatedeletefunc','file':file_name,'meta_key':imgmetakey,'inventoryImgID':inventoryProductid},
+                            success: function (response) {
+                                $('#artWorkImgPreview_'+indx).remove();
+                                thisobj.remove();
+                            }
+                        });
+                    }
+                });
             }
         });
+
+
     });
 
     /* checking inventory section start from here */

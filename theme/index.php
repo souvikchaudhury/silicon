@@ -55,120 +55,9 @@
 										</div>
 									</li>
 						<li>
-							<a href="javascript:void(0)">My Inventory</a>
+							<a href="javascript:void(0)" data-chk="myinventory" data-userid="<?php echo $loggedinuserdetails->ID; ?>">My Inventory</a>
 							<div class="userMenuOptions myInvenTory">
-								<a class="closeBtn" href="javascript:void(0)"></a>
-								<div class="wrap">
-									<div class="popCol1">
-										<div class="popColWrap">
-											<h3>Your Inventory</h3>
-											<p class="subTitle">
-												<span>Click | Tap product to edit &amp; upload</span> your art work  | Max file size 32mb
-											</p>
-											<hr>
-
-											<ul>
-												<li>
-													<div class="leftHSide">
-														<a class="box" href="#">
-															<span class="imgBox business1"></span>
-															<span class="title">Business Cards</span>
-														</a>
-														<p>Business Cards 500 qty.</p>
-													</div>
-													<div class="rightHSide">
-														<p><input type="radio" id="order"><label for="order">Order</label></p>
-													</div>
-												</li>
-
-												<li>
-													<div class="leftHSide">
-														<a class="box" href="#"><span class="imgBox business2"></span><span class="title">Letter Heads</span></a>
-														<p>Letter Heads 500 qty.</p>
-													</div>
-													<div class="rightHSide">
-														<p><input type="radio" id="order1"><label for="order1">Order</label></p>
-													</div>
-												</li>
-
-												<li>
-													<div class="leftHSide">
-														<a class="box" href="#"><span class="imgBox business4"></span><span class="title">Presentation Folders</span></a>
-														<p>Presentation Folders 100 qty.</p>
-													</div>
-													<div class="rightHSide">
-														<p><input type="radio" id="order2"><label for="order2">Order</label></p>
-													</div>
-												</li>
-
-												<li>
-													<div class="leftHSide">
-														<a class="box" href="#"><span class="imgBox business3"></span><span class="title">With Compliments Slips</span></a>
-														<p>With Compliments Slips 50 qty.</p>
-													</div>
-													<div class="rightHSide">
-														<p><input type="radio" id="order3"><label for="order3">Order</label></p>
-													</div>
-												</li>
-											</ul>
-
-										</div>
-									</div>
-
-									<div class="popCol1">
-										<div class="popColWrap">
-											<div class="topGap"></div>
-											<hr>
-
-											<ul>
-												<li>
-													<div class="leftHSide">
-														<a class="box" href="#"><span class="imgBox business1"></span><span class="title">Business Cards</span></a>
-														<p>Business Cards 500 qty.</p>
-													</div>
-													<div class="rightHSide">
-														<p><input type="radio" id="order4"><label for="order4">Order</label></p>
-													</div>
-												</li>
-
-												<li>
-													<div class="leftHSide">
-														<a class="box" href="#"><span class="imgBox business2"></span><span class="title">Letter Heads</span></a>
-														<p>Letter Heads 500 qty.</p>
-													</div>
-													<div class="rightHSide">
-														<p><input type="radio" id="order5"><label for="order5">Order</label></p>
-													</div>
-												</li>
-
-												<li>
-													<div class="leftHSide">
-														<a class="box" href="#"><span class="imgBox business4"></span><span class="title">Presentation Folders</span></a>
-														<p>Presentation Folders 100 qty.</p>
-													</div>
-													<div class="rightHSide">
-														<p><input type="radio" id="order6"><label for="order6">Order</label></p>
-													</div>
-												</li>
-
-												<li>
-													<div class="leftHSide">
-														<a class="box" href="#"><span class="imgBox business3"></span><span class="title">With Compliments Slips</span></a>
-														<p>With Compliments Slips 50 qty.</p>
-													</div>
-													<div class="rightHSide">
-														<p><input type="radio" id="order7"><label for="order7">Order</label></p>
-													</div>
-												</li>
-											</ul>
-
-										</div>
-									</div>
-								</div>
-								<div class="invenControl">
-									<a href="#" class="prev">prev</a>
-									<a href="#" class="next">next</a>
-								</div>
+								
 							</div>
 						</li>
 						<li>
@@ -238,7 +127,7 @@
 											<p class="subTitle"> &nbsp; </p>
 											<hr>
 											<div class="priceSection">
-												<p><span>Products:</span>$0.00</p>
+												<p><span>Products:</span><label>$0.00</label></p>
 												<p><span>Delivery:</span>$0.00</p>
 												<p><span>Subtotal:</span>$0.00</p>
 												<p><span>GST:</span>$0.00</p>
