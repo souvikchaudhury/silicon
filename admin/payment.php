@@ -48,26 +48,39 @@
 						<form class="paypalPayment" action="" method="post">
 							<?php
 								$pay_login = get_option('payment_account_login');
-								$pay_password = get_option('payment_account_password');
-								$pay_code = get_option('paypal_payment_code');
+								$pay_url = get_option('payment_account_url');
+								$pay_header_img = get_option('paypal_head_img');
+								$pay_curr = get_option('paypal_currency');
+								// $pay_code = get_option('paypal_payment_code');
 								$fast_track_option = get_option('fast_track_order');
 							?>
 							<p>
 								<label for="account">Paypal Account Login</label>
-								<input type="email" id="account" placeholder="aldo@benzina.com.au" name="payment_login" required="required" <?php if( !empty($pay_login) ) echo "value=".$pay_login; ?> />
+								<input type="email" style="width:70%;" id="account" placeholder="aldo@benzina.com.au" name="payment_login" required="required" <?php if( !empty($pay_login) ) echo "value=".$pay_login; ?> />
 							</p>
 							<p>
-								<label for="password">Paypal Account Password</label>
-								<input type="text" id="password" placeholder="XXXXXXXXXXXXXXXX" name="payment_password" required="required" <?php if( !empty($pay_password) ) echo "value=".$pay_password; ?> />
+								<label for="password">Paypal Site Url</label>
+								<input type="text" id="paypalurl" placeholder="https://www.paypal.com/cgi-bin/webscr" name="payment_url" required="required" <?php if( !empty($pay_url) ) echo "value=".$pay_url; ?> readonly=true/>
 							</p>
 							<p>
+								<label for="password">Paypal Currency</label>
+								<input type="text" id="paypalcurrency" placeholder="USD" name="paypalcurrency" required="required" <?php if( !empty($pay_curr) ) echo "value=".$pay_curr; ?> />
+								<span>Possible values are "USD", "EUR", "GBP", "CAD", "JPY".</span>
+							</p>
+							
+							<p>
+								<label for="password">Paypal Header Image</label>
+								<input type="text" id="paypalheaderimage" placeholder="Image Url" name="payment_header_img" required="required" <?php if( !empty($pay_header_img) ) echo "value=".$pay_header_img; ?> />
+							</p>
+							<!-- <p>
 								<label for="payments">Paypal Custom Payments Page Code</label>
 								<input type="text" id="payments" placeholder="QXVTYRE6A2D8AP9X" class="paymentArea" name="payment_code" required="required" <?php if( !empty($pay_code) ) echo "value=".$pay_code; ?> />
 								<span>Insert PayPal Custom Payment Page button code . What is this ? <a href="#">Download the PayPal SetUp Guide</a></span>
-							</p>
+							</p> -->
 							<p>
-								<label for="track">Fast Track Order</label>
-								<input type="text" id="track" name="fast_track_order" <?php if( !empty($fast_track_option) ) echo "value=".$fast_track_option; ?> />
+								<label for="track">Fast Track Order ( % )</label>
+								<input type="text" id="track" placeholder="Price should be 0 to 100" name="fast_track_order" <?php if( !empty($fast_track_option) ) echo "value=".$fast_track_option; ?> />
+								<span>Price should be 0 to 100. It calculated in % of the total order price.</span>
 							</p>
 							
 							<!-- <button class="buttonPink">Save</button> -->
@@ -88,8 +101,11 @@
 			extract($_POST);
 
 			$payment_log = check_option('payment_account_login');
-			$payment_pass = check_option('payment_account_password');
-			$payment_co = check_option('paypal_payment_code');
+			$payment_url1 = check_option('payment_account_url');
+			$payment_head_img = check_option('paypal_head_img');
+			$paypal_curr = check_option('paypal_currency');
+			
+			// $payment_co = check_option('paypal_payment_code');
 			$fast_track = check_option('fast_track_order');
 
 			if( empty($payment_log) ) 
@@ -97,15 +113,27 @@
 			else 
 				update_option('payment_account_login', $payment_login);
 			 
-			if( empty($payment_pass) ) 
-				add_option('payment_account_password', $payment_password);
+			if( empty($payment_url1) ) 
+				add_option('payment_account_url', $payment_url);
 			else 
-				update_option('payment_account_password', $payment_password);
+				update_option('payment_account_url', $payment_url);
+			
+			
+			if( empty($paypal_curr) ) 
+				add_option('paypal_currency', $paypalcurrency);
+			else 
+				update_option('paypal_currency', $paypalcurrency);
 
-			if( empty($payment_co) ) 
+
+			if( empty($payment_head_img) ) 
+				add_option('paypal_head_img', $payment_header_img);
+			else 
+				update_option('paypal_head_img', $payment_header_img);
+
+			/*if( empty($payment_co) ) 
 				add_option('paypal_payment_code', $payment_code);
 			else 
-				update_option('paypal_payment_code', $payment_code);
+				update_option('paypal_payment_code', $payment_code);*/
 
 			if( empty($fast_track) ) 
 				add_option('fast_track_order', $fast_track_order);

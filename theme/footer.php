@@ -130,7 +130,7 @@
 									</div>
 									
 									<div class="payOption">
-										<a href="#" class="largeButton">Send &amp; Pay Order</a>
+										<a href="javascript:void(0)" class="largeButton sendpaypal">Send &amp; Pay Order</a>
 									</div>
 									
 									<div class="payPal">
@@ -143,7 +143,7 @@
 										</div>
 										
 										<div class="payOption">
-											<a href="#" class="largeButton">Fast Track Order</a>
+											<a href="javascript:void(0)" class="largeButton sendpaypalfast">Fast Track Order</a>
 										</div>
 
 									</div>

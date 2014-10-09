@@ -502,7 +502,38 @@ function Abortedstatus(event){
     document.getElementById(status).innerHTML = "Upload Aborted";
 }
 
+
+function sendpaypal(){
+
+    $('.sendpaypal').click(function(){
+        $('#homepagepopup .closeBtn').trigger('click');
+        var checkedValues = $('input:checkbox:checked').map(function() { return this.value; }).get();
+        $.ajax({
+                type: "post",
+                url: themeAjaxVar,
+                data: {action: 'sendpaypalform','allcheckedpostid': checkedValues, 'fasttrackorder':'no' },
+                success:function(data){
+                    $('.contentArea').html(data);
+                }
+            });
+    });
+    
+    $('.sendpaypalfast').click(function(){
+        $('#homepagepopup .closeBtn').trigger('click');
+        var checkedValues = $('input:checkbox:checked').map(function() { return this.value; }).get();
+        $.ajax({
+                type: "post",
+                url: themeAjaxVar,
+                data: {action: 'sendpaypalform','allcheckedpostid': checkedValues,'fasttrackorder':'yes' },
+                success:function(data){
+                    $('.contentArea').html(data);
+                }
+            });
+    });
+}
+
 function invntryOrderchnge(){
+    sendpaypal();
     $('.inventoryOrder').click(function(){
         if(this.checked){
             // alert('checked');

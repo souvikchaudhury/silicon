@@ -76,21 +76,31 @@
 		$allinventoryproducts = get_post_children($parentprdctid, 'inventory-product');
 		if( !empty($allinventoryproducts) ) {
 			foreach($allinventoryproducts as $inventoryproduct) {
+
+				$title = get_the_title($parentprdctid);
+				$title_arr = explode('<_>',$title);
+				$dispTitle = $title_arr[0];
+				$parentpost_title = str_replace('<_>', ' ', $title);
+				
+
 				$imageurl = getPostImage($inventoryproduct->ID);
 				$qty = get_post_meta($inventoryproduct->ID, 'qty');
 ?>
 				<li>
 					<div class="leftHSide">
-						<a href="javascript:void(0)" class="box inventoryImgClass" id="<?php echo $inventoryproduct->ID; ?>">
-							<span class="imgBox inventoryproductimgbox" style="padding:0px;">
-								<img src="<?php echo $imageurl; ?>" height="146px" width="135px">
+						<a class="box inventoryImgClass" href="javascript:void(0)" id="<?php echo $inventoryproduct->ID; ?>">
+							<span class="imgBox inventoryproductimgbox" style="padding:5px 0 0 0;">
+								<img src="<?php echo $imageurl; ?>" alt="" style="height:100px;width:100px;"/>
 							</span>
+							<span class="title"><?php  echo $inventoryproduct->post_title; ?></span>
 						</a>
+						<p><?php echo $parentpost_title; ?></p>
+					</div>
+					<div class="rightHSide">
 						<p>
 							<input type="checkbox" name="inventoryOrder[]" class="inventoryOrder" value="<?php echo $inventoryproduct->ID; ?>">
-							Order
+							<label for="order">Order</label>
 						</p>
-						<p><?php echo $inventoryproduct->post_title." $qty qty."; ?></p>
 					</div>
 				</li>
 <?php
@@ -132,16 +142,15 @@
 		$editproductqty = delete_post_meta($inventoryImgID, $meta_key);	
 		die();
 	}
+	function getinventorycosts($allcheckedpostid){
 
-	if($action == 'changeinventoryordercosts'){
-		if(isset($allcheckedpostid)){
-			
 			$shipping_cost = 0;
 			$price = 0;
 			$total_shipping_cost=0;
 			$totprodprice =0;
-
+			$i=0;
 			foreach ($allcheckedpostid as $key => $value) {
+
 				$shipping_cost 	= get_post_meta($value,'shipping_cost');
 				$shipping_cost = $shipping_cost ? $shipping_cost : 0;
 
@@ -154,23 +163,52 @@
 				if($postparent == 0){
 					$totprodprice = $totprodprice + $price;
 					$total_shipping_cost = $total_shipping_cost + $shipping_cost;
+					
+					$prodquantity= get_post_meta($value,'qty');
+					$unitPrice = floatval($price / $prodquantity);
+
+					$arr['itemdesc'][$i]['id'] = $value;
+					$arr['itemdesc'][$i]['productname'] = get_the_title($value);
+
+					$arr['itemdesc'][$i]['quantity'] = $prodquantity;
+					$arr['itemdesc'][$i]['unitprice'] = $unitPrice;
+					$arr['itemdesc'][$i]['amount'] = $price;
+					$arr['itemdesc'][$i]['shipping'] = $shipping_cost;
+
 				} else {
 					$catalog_quantity =  get_post_meta($postparent,'qty');
-
-					$prodquantity= get_post_meta($value,'qty');
 					$unitPrice = floatval($price / $catalog_quantity);
 
+					$prodquantity= get_post_meta($value,'qty');
 					$prodprice = $unitPrice * $prodquantity;
-					$total_shipping_cost = $total_shipping_cost + $shipping_cost;
+					
 					$totprodprice = $totprodprice + $prodprice;
+					$total_shipping_cost = $total_shipping_cost + $shipping_cost;
+
+					$arr['itemdesc'][$i]['id'] = $value;
+					$arr['itemdesc'][$i]['productname'] = get_the_title($value);
+					$arr['itemdesc'][$i]['quantity'] = $prodquantity;
+					$arr['itemdesc'][$i]['unitprice'] = $unitPrice;
+					$arr['itemdesc'][$i]['amount'] = $prodprice;
+					$arr['itemdesc'][$i]['shipping'] = $shipping_cost;
 				}
+				$i++;
 			}
 			$total_price = $total_shipping_cost + $totprodprice;
 
+			$arr['postid'] = json_encode($allcheckedpostid);
 			$arr['product_price'] = "$".$totprodprice;
-			$arr['total_price'] = "$".$total_price;
 			$arr['total_shipping_cost'] = "$".$total_shipping_cost;
-			echo json_encode($arr);
+			$arr['total_price'] = "$".$total_price;
+			
+			$fullarr = json_encode($arr);
+			return $fullarr;
+	}
+
+	if($action == 'changeinventoryordercosts'){
+		if(isset($allcheckedpostid)){
+			$arr = getinventorycosts($allcheckedpostid);
+			echo $arr;
 		}
 		die();
 	}
@@ -210,9 +248,9 @@
 										<span class="imgBox" style="padding:0px;">
 											<img src="<?php echo getPostImage($inventoryProduct->ID); ?>" alt="" style="height:100px;width:100px;"/>
 										</span>
-										<span class="title"><?php  echo $parentpost_title; ?></span>
+										<span class="title"><?php  echo $inventoryProduct->post_title; ?></span>
 									</a>
-									<p><?php echo get_the_title($currentuserid); ?></p>
+									<p><?php echo $parentpost_title; ?></p>
 								</div>
 								<div class="rightHSide">
 									<p>
@@ -242,7 +280,7 @@
 					</div>
 					
 					<div class="payOption">
-						<a href="#" class="largeButton">Send &amp; Pay Order</a>
+						<a href="javascript:void(0)" class="largeButton sendpaypal">Send &amp; Pay Order</a>
 					</div>
 					
 					<div class="payPal">
@@ -255,7 +293,7 @@
 						</div>
 						
 						<div class="payOption">
-							<a href="#" class="largeButton">Fast Track Order</a>
+							<a href="javascript:void(0)" class="largeButton sendpaypalfast">Fast Track Order</a>
 						</div>
 
 					</div>
@@ -267,4 +305,147 @@
 			<a href="#" class="next">next</a>
 		</div> -->
 		<?php
+	}
+	if($action == 'sendpaypalform'){
+		if(isset($allcheckedpostid)){
+			$arr = getinventorycosts($allcheckedpostid);
+			$getvalues = json_decode($arr);
+		}
+		$LoginuserDetails = isset($_SESSION['logged_in_user']) ? get_userdatabylogin($_SESSION['logged_in_user']) : '';
+		$pay_curr = get_option('paypal_currency');
+		?>
+		<div class="paypalPaymentFront">
+					<div class="billingInfo">
+						<div class="popColWrap">
+							<?php 
+					        	$fast_track_option = get_option('fast_track_order');
+					        	$totprice = $getvalues->total_price;
+					        	$totpricetrim = ltrim ($totprice, '$');
+					        	$fastTrackPriceAdd = (($totpricetrim*$fast_track_option)/100);
+					        	$totprice = floatval($totpricetrim + $fastTrackPriceAdd);
+					        	$showtotprice = $fasttrackorder=='yes' ? $totprice : $totpricetrim;
+					        ?>
+
+							<h2>Total $<?php echo $showtotprice.' '.$pay_curr; ?></h2>
+							<h3>Your Order summary of <?php echo $LoginuserDetails->display_name; ?> </h3>
+							<table width="100%" border="0" cellspacing="0" cellpadding="0">
+								<thead>
+									<tr>
+										<th style="width:25%">Decription </th>
+										<th style="width:25%">Amount </th>
+										<th style="background-color:#e8e8e8;width:25%">Shipping Charge</th>
+										<th style="width:25%">Total Amount</th>
+									</tr>
+								</thead>
+							    <tbody>
+							      	<?php
+							      		$fasttrack = 10;
+							      		$paypalitems = '';
+							      		$k=0;
+							      		foreach ($getvalues->itemdesc as $key => $value) {
+							      			$k++;
+							      			?>
+							      			<tr>
+										        <td align="left" valign="middle" style="width:25%">
+										        	<strong class="underLine"><?php echo $value->quantity; ?> x  <?php echo $value->productname; ?> </strong>
+										        	Item Price : $<?php echo $value->unitprice; ?> Quantity 1
+										        </td>
+										        <td align="left" valign="middle" style="width:25%">
+										        	<strong>$<?php echo $value->amount; ?></strong>
+										        </td>
+										        <td align="left" valign="middle" style="width:25%">
+										        	<strong>$<?php echo $value->shipping; ?></strong>
+										        </td>
+										        <td align="left" valign="middle" style="width:25%">
+										        	<strong>$<?php echo floatval($value->amount+$value->shipping); ?></strong>
+										        </td>
+										    </tr>
+										    <?php
+							$paypalitems.=' <input type="hidden" name="item_name_'.$k.'" value="'.$value->productname.'">
+											<input type="hidden" name="amount_'.$k.'" value="'.$value->unitprice.'">
+											<input type="hidden" name="quantity_'.$k.'" value="'.$value->quantity.'">
+											<input type="hidden" name="handling_'.$k.'" value="'.$value->shipping.'">';
+							      		}
+
+							      	?>
+							    </tbody>
+							</table>
+
+							<table width="100%" border="0" cellspacing="0" cellpadding="0" class="totalPrice">
+								<tbody>
+							      <tr>
+							        <td align="left" valign="middle" style="width:25%"><strong>Item total</strong></td>
+							        <td align="left" valign="middle" style="width:25%"><strong><?php echo $getvalues->product_price; ?></strong></td>
+							        <td align="left" valign="middle" style="width:25%"><strong><?php echo $getvalues->total_shipping_cost; ?></strong></td>
+							        <td align="left" valign="middle" style="width:25%"><strong><?php echo $getvalues->total_price; ?></strong></td>
+							      </tr>
+							   </tbody>
+							</table>
+
+							<table width="100%" border="0" cellspacing="0" cellpadding="0">
+							    <tbody>
+							      <tr>
+							        <td align="left" valign="middle" style="width:50%"></td>
+							        <td align="left" valign="middle" style="width:25%"><strong>Total</strong></td>
+							        <td align="left" valign="middle" style="width:25%"><strong>$<?php echo $totpricetrim.' '.$pay_curr; ?></strong></td>
+							      </tr>
+							      <?php if($fasttrackorder=='yes') { ?>
+								      <tr>
+								        <td align="left" valign="middle" style="width:50%"></td>
+								        <td align="left" valign="middle" style="width:25%"><strong>Fast Track Order Charge ( <?php echo $fast_track_option; ?>% ) </strong></td>
+								        <td align="left" valign="middle" style="width:25%"><strong>$<?php echo $fastTrackPriceAdd.' '.$pay_curr; ?></strong></td>
+								      </tr>
+								      <tr style="border-top: 1px solid #c2c2c2;border-bottom: 1px solid #c2c2c2;">
+								        <td align="left" valign="middle" style="width:50%"></td>
+								        <td align="left" valign="middle" style="width:25%"><strong>Total </strong></td>
+								        <td align="left" valign="middle" style="width:25%"><strong>$<?php echo $showtotprice.' '.$pay_curr; ?></strong></td>
+								      </tr>
+							      <?php } ?>
+							    </tbody>
+							</table>
+						</div>
+					</div>
+
+					<div class="paypalLoginInfo">
+
+						<?php
+							$pay_login = get_option('payment_account_login');
+							$pay_url = get_option('payment_account_url');
+							$pay_header_img = get_option('paypal_head_img');
+							
+							// $paypal_url='https://www.sandbox.paypal.com/cgi-bin/webscr'; // Test Paypal API URL
+						?>
+						<!-- <img src="images/paypalLogin.jpg" height="399" width="490" alt="">	 -->
+						<form action="<?php echo $pay_url; ?>" method="post">
+							<!-- <input type="hidden" name="cmd" value="_cart"> -->
+							<input type="hidden" name="cmd" value="_xclick">
+							<input type="hidden" name="upload" value="1">
+							<input type="hidden" name="business" value="<?php echo $pay_login; ?>">
+							<input type="hidden" name="cpp_header_image" value="<?php echo $pay_header_img; ?>">
+							<input type="hidden" name="currency_code" value="<?php echo $pay_curr;?>">
+							<?php
+					      		// echo $paypalitems;
+					      	?>
+							<input type="hidden" name="item_name" value="Total Costs">
+							<input type="hidden" name="amount" value="<?php echo $showtotprice; ?>">
+							<!-- <input type="hidden" name="quantity_1" value="2">
+							<input type="hidden" name="shipping_1" value="6">
+
+							<input type="hidden" name="item_name_2" value="towel">
+							<input type="hidden" name="amount_2" value="20">
+							<input type="hidden" name="quantity_2" value="4">
+							<input type="hidden" name="shipping_2" value="6"> -->
+
+							<input type="hidden" name="cancel_return" value="http://demo.phpgang.com/payment_with_paypal/cancel.php">
+						    <input type="hidden" name="return" value="http://demo.phpgang.com/payment_with_paypal/success.php">
+
+						    <input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+
+							<!-- <input type="image" src="http://www.paypal.com/en_US/i/btn/x-click-but01.gif" name="submit" alt="Make payments with PayPal - it's fast, free and secure!"> -->
+						</form>
+					</div>
+
+				</div>
+		<?php
+		die();
 	}
