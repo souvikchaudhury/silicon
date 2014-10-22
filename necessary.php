@@ -4,7 +4,7 @@
 	$db = mysql_select_db(DBNAME);
 	$tablePrefix = PREFIX;
 
-	$comments_sql = "CREATE TABLE ".$tablePrefix."comments(
+	$comments_sql = "CREATE TABLE IF NOT EXISTS ".$tablePrefix."comments(
 		comment_ID bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 		comment_post_ID bigint(20) UNSIGNED NOT NULL,
 		comment_author tinytext NOT NULL,
@@ -24,7 +24,7 @@
 		)";
 	mysql_query($comments_sql, $link);
 
-	$commentmeta_sql = "CREATE TABLE ".$tablePrefix."commentmeta(
+	$commentmeta_sql = "CREATE TABLE IF NOT EXISTS ".$tablePrefix."commentmeta(
 		meta_id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 		comment_id bigint(20) UNSIGNED NOT NULL,
 		meta_key varchar(255),
@@ -33,7 +33,7 @@
 		)";
 	mysql_query($commentmeta_sql, $link);
 
-	$links_sql = "CREATE TABLE ".$tablePrefix."links(
+	$links_sql = "CREATE TABLE IF NOT EXISTS ".$tablePrefix."links(
 		link_id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 		link_url varchar(255) NOT NULL,
 		link_name varchar(255) NOT NULL,
@@ -51,7 +51,7 @@
 		)";
 	mysql_query($links_sql, $link);
 
-	$options_sql = "CREATE TABLE ".$tablePrefix."options(
+	$options_sql = "CREATE TABLE IF NOT EXISTS ".$tablePrefix."options(
 		option_id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 		option_name varchar(64) NOT NULL,
 		option_value longtext NOT NULL,
@@ -60,7 +60,7 @@
 		)";
 	mysql_query($options_sql, $link);
 
-	$posts_sql = "CREATE TABLE ".$tablePrefix."posts(
+	$posts_sql = "CREATE TABLE IF NOT EXISTS IF NOT EXISTS IF NOT EXISTS IF NOT EXISTS ".$tablePrefix."posts(
 		ID bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 		post_author bigint(20) UNSIGNED NOT NULL,
 		post_date datetime NOT NULL,
@@ -88,7 +88,7 @@
 		)";
 	mysql_query($posts_sql, $link);
 
-	$postmeta_sql = "CREATE TABLE ".$tablePrefix."postmeta(
+	$postmeta_sql = "CREATE TABLE IF NOT EXISTS IF NOT EXISTS IF NOT EXISTS ".$tablePrefix."postmeta(
 		meta_id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 		post_id bigint(20) NOT NULL,
 		meta_key varchar(255),
@@ -97,7 +97,7 @@
 		)";
 	mysql_query($postmeta_sql, $link);
 
-	$terms_sql = "CREATE TABLE ".$tablePrefix."terms(
+	$terms_sql = "CREATE TABLE IF NOT EXISTS IF NOT EXISTS ".$tablePrefix."terms(
 		term_id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 		name varchar(200) NOT NULL,
 		slug varchar(200) NOT NULL,
@@ -106,7 +106,7 @@
 		)";
 	mysql_query($terms_sql, $link);
 
-	$term_taxonomy_sql = "CREATE TABLE ".$tablePrefix."term_taxonomy(
+	$term_taxonomy_sql = "CREATE TABLE IF NOT EXISTS IF NOT EXISTS ".$tablePrefix."term_taxonomy(
 		term_taxonomy_id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 		term_id bigint(20) UNSIGNED NOT NULL,
 		taxonomy varchar(32) NOT NULL,
@@ -117,7 +117,7 @@
 		)";
 	mysql_query($term_taxonomy_sql, $link);
 
-	$term_relationships_sql = "CREATE TABLE ".$tablePrefix."term_relationships(
+	$term_relationships_sql = "CREATE TABLE IF NOT EXISTS IF NOT EXISTS ".$tablePrefix."term_relationships(
 		ID bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 		object_id bigint(20) UNSIGNED NOT NULL,
 		term_taxonomy_id bigint(20) UNSIGNED NOT NULL,
@@ -126,7 +126,7 @@
 		)";
 	mysql_query($term_relationships_sql, $link);
 
-	$users_sql = "CREATE TABLE ".$tablePrefix."users(
+	$users_sql = "CREATE TABLE IF NOT EXISTS ".$tablePrefix."users(
 		ID bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 		user_login varchar(60) NOT NULL,
 		user_pass varchar(64) NOT NULL,
@@ -141,7 +141,7 @@
 		)";
 	mysql_query($users_sql, $link);
 
-	$usermeta_sql = "CREATE TABLE ".$tablePrefix."usermeta(
+	$usermeta_sql = "CREATE TABLE IF NOT EXISTS ".$tablePrefix."usermeta(
 		umeta_id bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
 		user_id bigint(20) UNSIGNED NOT NULL,
 		meta_key varchar(255),
@@ -149,4 +149,14 @@
 		PRIMARY KEY(umeta_id)
 		)";
 	mysql_query($usermeta_sql, $link);
+
+	$order_sql = "CREATE TABLE IF NOT EXISTS ".$tablePrefix."order(
+		  id int(11) NOT NULL AUTO_INCREMENT,
+		  userid int(11) NOT NULL,
+		  orderdate varchar(250) NOT NULL,
+		  ordertime varchar(250) NOT NULL,
+		  orderdesc longtext NOT NULL,
+		  PRIMARY KEY (id)
+		)";
+	mysql_query($order_sql, $link);
 ?>

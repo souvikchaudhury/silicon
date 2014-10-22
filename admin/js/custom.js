@@ -137,6 +137,8 @@ $(document).ready(function() {
         var customer_user_mobile = $('.CustomerUserMobile').val();
         var customer_user_phone = $('.CustomerUserPhone').val();
         var customer_user_password = $('.CustomerUserPassword').val();
+        var customer_user_address = $('.CustomerAddress').val();
+
         var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //email format
         var datacusid = $(this).attr('data-cusid');
         var check = 0;
@@ -159,6 +161,9 @@ $(document).ready(function() {
         } else if (customer_user_password == '') {
             $('.CustomerUserPassword').after('<span id="custmererrormsg">Password field can not be blank</span>');
             check = 1;
+        } else if (customer_user_address == '') {
+            $('.CustomerAddress').after('<span id="custmererrormsg">Address field can not be blank</span>');
+            check = 1;
         }
         if (check != 1) {
             $.ajax({
@@ -172,6 +177,7 @@ $(document).ready(function() {
                     'customer_user_mobile': customer_user_mobile,
                     'customer_user_phone': customer_user_phone,
                     'customer_user_password': customer_user_password,
+                    'customer_user_address': customer_user_address,
                     'datacusid': datacusid
                 },
                 success: function(data) {
@@ -200,6 +206,7 @@ $(document).ready(function() {
                 $('.CustomerUserMobile').val(data['mobile_number']);
                 $('.CustomerUserPhone').val(data['phone_number']);
                 $('.CustomerUserPassword').val(data['account_password']);
+                $('.CustomerAddress').val(data['customer_address']);
             }
         });
     });
@@ -388,9 +395,64 @@ $(document).ready(function() {
             }
         });
     });
+
+    $('.orderstatsave').click(function(e){
+        e.preventDefault();
+        orderid = $(this).attr('orderid');
+        postids = $(this).attr('postids');
+        postids = JSON.parse(postids);
+        for (var i = 0; i < postids.length; i++) {
+            getcls = 'status_'+postids[i]+'_'+orderid;
+            getdate = 'date_'+postids[i]+'_'+orderid;
+            getinputval = $('input:radio[name='+getcls+']:checked').val();
+            getdateval = $('.'+getdate).val();
+
+            if(getinputval=='completed'){
+                if(getdateval ==''){
+                    alert('Please Provide Estimated date');
+                }else{
+                    orderstatupdate(postids[i],orderid,getdateval,getinputval);
+                }
+            }else{
+                orderstatupdate(postids[i],orderid,getdateval,getinputval);
+            }
+
+        }    
+
+    });
+    // $('.dspan').hide();
+    $( "input[type='radio']" ).change(function() {
+        if($(this).val()=='completed'){
+            $(this).next('.dspan').fadeIn();
+            // $(this).next().next('.ui-datepicker-trigger').fadeIn();
+        }
+        if($(this).val()=='production'){
+            $(this).parent().parent().find('.dspan').fadeOut();
+            // $(this).parent().parent().find('.ui-datepicker-trigger').fadeIn();
+        }
+        
+    });
+
+    // dclsd
+
 });
 
-
+function orderstatupdate(postid,orderid,odate,status){
+    $.ajax({
+        type: "post",
+        url: adminAjaxVar,
+        data: {
+            action: 'orderstatupdatefunc',
+            'postid': postid,
+            'orderid': orderid,
+            'odate': odate,
+            'status': status
+        },
+        success: function(data) {
+           window.location.reload();
+        }
+    });
+}
 
 function category_errorfunc() {
     //$('#category_errormsg').text('');

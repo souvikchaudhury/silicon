@@ -46,6 +46,19 @@
 	            }
 	        });
 		}
+		$(function() {
+			$( ".datepicker" ).each(function(){
+				$(this).datepicker({
+					// defaultDate: +7,
+				  	showOn: "button",
+				  	buttonImage: "images/calendar.gif",
+				  	buttonImageOnly: true,
+				  	buttonText: "Select date",
+				  	dateFormat: "dd-mm-yy",
+				});
+
+			});
+		});
 	</script>
 
 
@@ -222,6 +235,48 @@
 									</div>
 								</form>
 
+								<h4>Current Job Orders Status</h4>
+								<form action="" class="orderStatus">
+									<?php 
+										$ordinfo = get_order_by_userid(21); 
+										foreach ($ordinfo as $key => $value) {
+											?>
+											<div class="orderno<?php echo $value->id;?>">
+												<h4>Order No. <?php echo $value->id;?></h4>
+												<?php 
+													$orderdesc = json_decode($value->orderdesc);
+													foreach ($orderdesc->itemdesc as $ordervalue) {
+														$postsDtls = get_post($ordervalue->id);
+														
+														$parentitle = get_the_title($postsDtls->post_parent);
+														$parentitle = str_replace('<_>', ' ', $parentitle);
+														?>
+														<p>
+															<span><?php echo $ordervalue->productname.' ( '.$parentitle. ' )'; ?></span>
+															<label for="production1">
+																<input type="radio" id="production1" class="status_<?php echo $ordervalue->id.'_'.$value->id; ?>" name="status_<?php echo $ordervalue->id.'_'.$value->id; ?>" value="production" <?php echo $ordervalue->orderstat=='production'?'checked="true"':''; ?> > Production
+															</label>
+															<label for="completed1">
+																<input type="radio" id="completed1" class="strad status_<?php echo $ordervalue->id.'_'.$value->id; ?>" name="status_<?php echo $ordervalue->id.'_'.$value->id; ?>" value="completed" <?php echo $ordervalue->orderstat=='completed'?'checked="true"':''; ?>> Completed
+																<span class="dspan" style="<?php echo $ordervalue->orderstat=='completed' ? 'display:inline-block;width:190px;':'display:none;width:190px;' ?> ">
+																	<input type="text" value="<?php echo $ordervalue->orderstat=='completed'? $ordervalue->ordercompleted:date('d-m-Y'); ?>" class="datepicker dclsd date_<?php echo $ordervalue->id.'_'.$value->id; ?>" readonly="true" style="width: 84px; height: 25px; margin-left: 30px; margin-right: 5px;" />
+																</span>
+															</label>
+														</p>
+														<?php
+													}
+												?>
+																								
+												<p class="halfWidth">
+													<!-- <button class="buttonPink">Order Production</button> -->
+													<button class="buttonBlack orderstatsave" postids='<?php echo json_encode($orderdesc->postid); ?>' orderid="<?php echo $value->id;?>">Order Save</button>
+												</p>
+											</div>
+											<?php
+										}
+									?>
+								</form>
+								
 						<?php
 						// $userDetails = get_userdata($_SESSION['inventory_Customer_ID']);
 						// echo '<pre>';

@@ -97,6 +97,11 @@
 									</p>
 
 									<p>
+										<label for="Phone Number">Address</label>
+										<textarea id="Address" class="CustomerAddress" placeholder="Address" name="user_Address" style="margin: 2px;width: 620px;height: 70px;"></textarea>
+									</p>
+
+									<p>
 										<label for="Account Password">Account Password</label>
 										<input type="text" id="Account Password" class="CustomerUserPassword" placeholder="Account Password" name="user_password" value="" />
 									</p>

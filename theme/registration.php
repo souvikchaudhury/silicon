@@ -18,6 +18,9 @@
 								<input type="text" placeholder="Phone Number" id="CustomerPhoneno" name="customer_phoneno" value="" />
 							</p>
 							<p>
+								<textarea id="Customeraddress" placeholder="Address" name="customer_address" style="margin: 2px;width: 514px;height: 123px;"></textarea>
+							</p>
+							<p>
 								<span>Please check your contact details throughly to ensure that you receive your printed jobs on time and in convenience.</span>
 								<span>** You email &amp; account password will be emailed to you which you can use to login to check your order status and re order items.</span>
 								<span>*** Account registration is required when placing orders</span>
@@ -28,7 +31,7 @@
 							<p id="theme_error_registration" style="display:none;"></p>
 						</form> 
 						<!-- popup Box Start -->
-						<?php if($_GET['stat'] == 'active') { ?>
+						<?php if(isset($_GET['stat']) == 'active') { ?>
 								<div class="popUpBoxregister popupMode2 registerinventory" id="appspageinventoryimg">
 									<!-- <a href="javascript:void(0)" class="closeBtn"></a> -->
 									<img src="<?php echo THEMEPATH(); ?>/images/ss.jpg" height="1007" width="962" alt="" />

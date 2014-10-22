@@ -178,6 +178,7 @@ body {
 	width: 135px;
 	text-align: center;
 	padding-bottom: 20px;
+	padding-top: 15px;
 	background-repeat: no-repeat;
 	background-position: center 30px;
 }
@@ -197,10 +198,22 @@ span.title {
 .imgBox {
     background-position: center center;
     background-repeat: no-repeat;
+    background-size: cover;
     display: block;
     height: 90px;
     padding-top: 20px;
     width: 100%;
+}
+.imgboxf
+{
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	display: block;
+	height: 70px;
+	margin: 0px auto;
+	padding: 0px;
+	width: 60px;
 }
 .userMenu {
     margin: 0 -50px 25px;
@@ -800,3 +813,26 @@ color: #000000;
 }
 
 .inventoryproductimgbox{height: 126px;}
+.editbtnsave { float: right;}
+.comdte{display: block;font-size: 11px;color: rgb(229, 52, 52);font-weight: bold;}
+.shws {
+display: inline-block;
+width: 100%;
+}
+.shws label {
+width: 50%;
+display: block;
+float: left;
+}
+.shws span {
+display: block;
+width: 50%;
+float: right;
+}
+.uploaddelete{
+	display: inline-block;
+background: none repeat scroll 0 0 #555F62;
+color: #fff;
+padding: 5px;
+cursor: pointer;
+}

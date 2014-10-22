@@ -322,7 +322,7 @@
 	//get post children function
 	function get_post_children($post_parent, $post_type) {
 		require_once(substr(dirname(__FILE__), 0, -7).'config.php');
-		$posts_Result = [];
+		$posts_Result = array();
 		$link = mysql_connect(DBHOST, DBUSER, DBPASS);
 		$db = mysql_select_db(DBNAME);
 		$postsTable = PREFIX.'posts';
@@ -447,7 +447,7 @@ function update_user_meta($user_id, $meta_key, $meta_value) {
 	$usermetaTable = PREFIX.'usermeta';
 	$updateusermetaquery = "UPDATE $usermetaTable SET meta_value='".$meta_value."' WHERE user_id = '".$user_id."' AND meta_key = '".$meta_key."'";
 	$updateusermetaResult = mysql_query($updateusermetaquery);
-	$updateusermeta_result = mysql_fetch_row($updateusermetaResult);
+	@$updateusermeta_result = mysql_fetch_row($updateusermetaResult);
 	return $updateusermeta_result[0];
 }
 
@@ -514,15 +514,129 @@ function update_user_meta($user_id, $meta_key, $meta_value) {
 	    return $file_ary;
 	}
 
-	
+	function getinventorycosts($allcheckedpostid,$fasttrackorder='no'){
 
-	//get post children function
-	// function get_post_children($user_login) {
-	// 	require_once(substr(dirname(__FILE__), 0, -7).'config.php');
-	// 	$link = mysql_connect(DBHOST, DBUSER, DBPASS);
-	// 	$db = mysql_select_db(DBNAME);
-	// 	$usersTable = PREFIX.'users';
-	// 	$usersSql = "SELECT * FROM $usersTable WHERE user_login = '".$user_login."'";
-	// 	$usersSql_result = mysql_query($usersSql);
-	// 	return mysql_fetch_object( $usersSql_result );
-	// }
+			$shipping_cost = 0;
+			$price = 0;
+			$total_shipping_cost=0;
+			$totprodprice =0;
+			$i=0;
+			foreach ($allcheckedpostid as $key => $value) {
+
+				$shipping_cost 	= get_post_meta($value,'shipping_cost');
+				$shipping_cost = $shipping_cost ? $shipping_cost : 0;
+
+				$price= get_post_meta($value,'price');
+				$price = $price ? $price : 0;
+				
+				$postval = get_post($value);
+				$postparent = $postval->post_parent;
+
+				if($postparent == 0){
+					$totprodprice = $totprodprice + $price;
+					$total_shipping_cost = $total_shipping_cost + $shipping_cost;
+					
+					$prodquantity= get_post_meta($value,'qty');
+					$unitPrice = floatval($price / $prodquantity);
+
+					$arr['itemdesc'][$i]['id'] = $value;
+					$arr['itemdesc'][$i]['productname'] = get_the_title($value);
+
+					$arr['itemdesc'][$i]['quantity'] = $prodquantity;
+					$arr['itemdesc'][$i]['unitprice'] = $unitPrice;
+					$arr['itemdesc'][$i]['amount'] = $price;
+					$arr['itemdesc'][$i]['shipping'] = $shipping_cost;
+					$arr['itemdesc'][$i]['orderstat'] = 'production';
+					$arr['itemdesc'][$i]['ordercompleted'] = '';
+
+				} else {
+					$catalog_quantity =  get_post_meta($postparent,'qty');
+					$unitPrice = floatval($price / $catalog_quantity);
+
+					$prodquantity= get_post_meta($value,'qty');
+					$prodprice = $unitPrice * $prodquantity;
+					
+					$totprodprice = $totprodprice + $prodprice;
+					$total_shipping_cost = $total_shipping_cost + $shipping_cost;
+
+					$arr['itemdesc'][$i]['id'] = $value;
+					$arr['itemdesc'][$i]['productname'] = get_the_title($value);
+					$arr['itemdesc'][$i]['quantity'] = $prodquantity;
+					$arr['itemdesc'][$i]['unitprice'] = $unitPrice;
+					$arr['itemdesc'][$i]['amount'] = $prodprice;
+					$arr['itemdesc'][$i]['shipping'] = $shipping_cost;
+					$arr['itemdesc'][$i]['orderstat'] = 'production';
+					$arr['itemdesc'][$i]['ordercompleted'] = '';
+				}
+				$i++;
+			}
+			$total_price = $total_shipping_cost + $totprodprice;
+
+			$fast_track_option = get_option('fast_track_order');        	
+        	$fastTrackPriceAdd = (($total_price*$fast_track_option)/100);
+        	$fasttrackorderprice = floatval($total_price + $fastTrackPriceAdd);
+        	 
+
+			$arr['postid'] = $allcheckedpostid;
+			$arr['product_price'] = "$".$totprodprice;
+			$arr['total_shipping_cost'] = "$".$total_shipping_cost;
+			$arr['total_price'] = "$".$total_price;
+			$arr['fasttrackorder'] =$fasttrackorder;
+			$arr['fasttrackorder_charge'] =$fast_track_option;
+			$arr['fasttrackorder_charge_apply'] =$fastTrackPriceAdd;
+			$arr['fasttrackorder_price'] =$fasttrackorderprice;
+			
+			$fullarr = json_encode($arr);
+			return $fullarr;
+	}
+
+	function saveorderstatus($orderstatus){
+		require_once(substr(dirname(__FILE__), 0, -7).'config.php');
+		$link = mysql_connect(DBHOST, DBUSER, DBPASS);
+		$db = mysql_select_db(DBNAME);
+		$orderTable = PREFIX.'order';
+
+		// $orderstatus = mysql_real_escape_string($orderstatus); //option value
+		$orderstatusquery = "INSERT INTO $orderTable (userid,orderdate,ordertime,orderdesc) VALUES('".$orderstatus['userid']."','".$orderstatus['orderdate']."','".$orderstatus['ordertime']."','".$orderstatus['orderdesc']."')";
+		mysql_query($orderstatusquery, $link);
+		$id =  mysql_insert_id();
+		return $id;
+	}
+	function getorderbyid($orderid){
+		require_once(substr(dirname(__FILE__), 0, -7).'config.php');
+		$link = mysql_connect(DBHOST, DBUSER, DBPASS);
+		$db = mysql_select_db(DBNAME);
+		$orderTable = PREFIX.'order';
+
+		$order_fetch_Sql = "SELECT * FROM $orderTable WHERE id = '".$orderid."' ";
+		$order_fetch_result = mysql_query($order_fetch_Sql, $link);
+		return mysql_fetch_object( $order_fetch_result );
+	}
+
+	function get_order_by_userid($userid){
+		require_once(substr(dirname(__FILE__), 0, -7).'config.php');
+		$link = mysql_connect(DBHOST, DBUSER, DBPASS);
+		$db = mysql_select_db(DBNAME);
+		$orderTable = PREFIX.'order';
+
+		$order_fetch_Sql = "SELECT * FROM $orderTable WHERE userid = '".$userid."' ";
+		$order_fetch_result = mysql_query($order_fetch_Sql, $link);
+		while ($row = mysql_fetch_object($order_fetch_result)) {
+		    $arr[] = $row;
+		}
+		return $arr;
+		// return mysql_fetch_object( $order_fetch_result );
+	}
+
+	
+	function update_order_table($orderid, $option_name, $option_value) {
+		require_once(substr(dirname(__FILE__), 0, -7).'config.php');
+		$link = mysql_connect(DBHOST, DBUSER, DBPASS);
+		$db = mysql_select_db(DBNAME);
+		$orderTable = PREFIX.'order';
+
+		$checkorderquery = "UPDATE $orderTable SET $option_name='".$option_value."' WHERE id = '".$orderid."'";
+		mysql_query($checkorderquery, $link);
+		// $order_result = mysql_fetch_row($result);
+		// return $order_result[0];
+	}

@@ -117,6 +117,7 @@
 			add_user_meta($user_id, 'customer_user_mobile', $customer_user_mobile);
 			add_user_meta($user_id, 'customer_user_phone', $customer_user_phone);
 			add_user_meta($user_id, 'customer_user_password', $userPass);
+			add_user_meta($user_id, 'customer_address', $customer_user_address);
 	    } else {
 	    	$updateuser_array = array(
 						'user_pass' => $customer_user_password,
@@ -130,6 +131,7 @@
 			update_user_meta($datacusid, 'customer_user_mobile', $customer_user_mobile);
 			update_user_meta($datacusid, 'customer_user_phone', $customer_user_phone);
 			update_user_meta($datacusid, 'customer_user_password', $user_Pass);
+			update_user_meta($datacusid, 'customer_address', $customer_user_address);
 	      }
 		die();
 	}
@@ -146,13 +148,15 @@
 		$user_mobile = get_user_meta($allDetails[0]->ID, 'customer_user_mobile'); //customer mobile no
 		$user_phone = get_user_meta($allDetails[0]->ID, 'customer_user_phone'); //customer phone no
 		$user_password = get_user_meta($allDetails[0]->ID, 'customer_user_password'); //original password
+		$customer_address = get_user_meta($allDetails[0]->ID, 'customer_address'); //original password
 		$userdetails_arr = array(
 							  'display_name' => $allDetails[0]->display_name,
 							  'business_name' => $user_business,
 							  'user_email' => $allDetails[0]->user_email,
 							  'mobile_number' => $user_mobile,
 							  'phone_number' => $user_phone,
-							  'account_password' => $user_password
+							  'account_password' => $user_password,
+							  'customer_address' => $customer_address
 			               );
 		echo json_encode($userdetails_arr);
 		die();
@@ -290,5 +294,19 @@
 	if($action == 'updatedeletefunc') {
 		unlink($file);
 		$editproductqty = delete_post_meta($inventoryImgID, $meta_key);	
+		die();
+	}
+
+	if($action == 'orderstatupdatefunc'){
+		$orderinfo = getorderbyid($orderid);
+		$orderdesc = json_decode($orderinfo->orderdesc);
+		foreach ($orderdesc->itemdesc as $ordervalue) {
+			if($ordervalue->id == $postid){
+				$ordervalue->orderstat = $status;
+				$ordervalue->ordercompleted = $odate;
+			}
+		}
+		$ordrdsc = json_encode($orderdesc);
+		update_order_table($orderid, 'orderdesc', $ordrdsc);
 		die();
 	}

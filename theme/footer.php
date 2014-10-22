@@ -52,7 +52,7 @@
 									<p class="subTitle">
 										<span>Click | Tap product to edit &amp; upload</span> your art work  | Max file size 32mb
 									</p>
-										<span class="imgBox"><img src="#" alt="" id="inventorymainprdct_img" /></span>
+										<span class="imgBox"><img src="#" alt="" id="inventorymainprdct_img" style="width:100px; height:100px;"/></span>
 										<span class="title" id="inventorymainprdct_title"></span>
 									<p>
 									</p>
@@ -96,18 +96,28 @@
 													<input type="file" name="uploadimg[]" class="uploadimg" data-count="1" onchange="fileread(this)" >
 												</div>
 											</div>
-											<div class="uploadaddmore">Add More</div>
+											<div class="uploadaddmore largeButton" style="width: 100px;height: 0px;padding: 15px 5px 30px 5px;cursor:pointer">Add More</div>
 											<p><input name="inventoryID" type="hidden" id="inventoryprdctID" /></p>
 											<p><input type="hidden" id="formmode" name="formmode" value="inserttime"/></p>
-											
-											<p>Title<input name="inventoryname" type="text" id="inventoryprdctname" required="required" /></p>
-											<p>Description<textarea name="inventorydesc" id="inventoryprdctdesc" required="required"></textarea></p>
-											<p>Quantity<input name="quantity" type="text" id="inventoryquantity" /></p>
+											<br>
+											<hr>
+											<p class="shws">
+												<label>Title</label>
+												<span><input name="inventoryname" type="text" id="inventoryprdctname" required="required" /></span>
+											</p>
+											<p class="shws">
+												<label>Description</label>
+												<span><textarea name="inventorydesc" id="inventoryprdctdesc" required="required" style="margin: 2px;width: 167px;height: 73px;"></textarea></span>
+											</p>
+											<p class="shws">
+												<label>Quantity</label>
+												<span><input name="quantity" type="text" id="inventoryquantity" /></span>
+											</p>
 										</div> 
 										
 										<div class="artControlBtn">
-											<a href="javascript:void(0)" id="addInventory">Add to Inventory</a> 
-											<input type="submit"  id="SubmitButton" value="Upload Artwork" /> 
+											<!-- <a href="javascript:void(0)" id="addInventory">Add to Inventory</a>  -->
+											<input type="submit"  id="SubmitButton" style="border: 0px;font-size:16px;cursor:pointer;" class="largeButton"value="Upload Artwork" /> 
 											<a href="javascript:void(0)" id="updateInventory" style="display:none;">Update Inventory</a>
 											<a href="javascript:void(0)" id="deleteInventory" style="display:none;">Delete Inventory</a>
 										</div>

@@ -22,6 +22,8 @@ $(document).ready(function(){
 		    CustomerBusinessname = $('#CustomerBusinessname').val(),
 		    CustomerMobileno = $('#CustomerMobileno').val(),
 		    CustomerPhoneno = $('#CustomerPhoneno').val();
+            CustomerAddress = $('#Customeraddress').val();
+
         var themeregistermailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/; //email format
         var themeRegCheck = 0;
         $('#theme_error_registration').hide();
@@ -49,6 +51,10 @@ $(document).ready(function(){
                     $('#theme_error_registration').show();
                     $('#theme_error_registration').text('Please give correct Phone no');
                     themeRegCheck = 1;
+                  } else if( CustomerAddress=='') {
+                    $('#theme_error_registration').show();
+                    $('#theme_error_registration').text('Address field can not be blank');
+                    themeRegCheck = 1;
                   }
         if(themeRegCheck != 1) {
     		$.ajax({
@@ -61,7 +67,8 @@ $(document).ready(function(){
                     'CustomerPassword': CustomerPassword,
                     'CustomerBusinessname': CustomerBusinessname,
                     'CustomerMobileno': CustomerMobileno,
-                    'CustomerPhoneno': CustomerPhoneno
+                    'CustomerPhoneno': CustomerPhoneno,
+                    'CustomerAddress':CustomerAddress
                 },
                 success: function(data) {
                     if(data == 'You have already registered. Please try by another details') {
@@ -325,8 +332,39 @@ $(document).ready(function(){
 
     //home page user menu section
     $('.showEdit').click(function() {
-        $(this).next(".editBox").fadeToggle();
+        $(this).next().next(".editBox").fadeToggle();
+        $(this).next('.editbtnsave').fadeToggle();
         $(this).toggleClass('active');
+    });
+    $('.editbtnsave').click(function(){
+        chngval = $(this).next('.editBox').val();
+        if(chngval!=''){
+            attrmeta = $(this).attr('data-status');
+            $.ajax({
+                type: "post",
+                url: themeAjaxVar,
+                data: { action: 'updateaccountinfo', 'attrmeta': attrmeta, 'chngval' : chngval},
+                success: function(data) { 
+                    data = JSON.parse(data);
+                    attrmeta = data['metak'];
+                    if(attrmeta == 'buisnessName'){
+                        $('.bcna').html(data['value']);
+                        $('.bcnb').val(data['value']);
+                    }else if(attrmeta == 'mobile'){
+                        $('.mcna').html(data['value']);
+                        $('.mcnb').val(data['value']);
+                    }else if(attrmeta == 'phone'){
+                        $('.pcna').html(data['value']);
+                        $('.pcnb').val(data['value']);
+                    }else if(attrmeta == 'address'){
+                        $('.acna').html(data['value']);
+                        $('.acnb').val(data['value']);
+                    }
+                }
+            });
+        } else{
+            alert('Field Cannot be empty');
+        }
     });
     $('.userMenu ul li a').click(function() {
         $(this).toggleClass('active').next().fadeIn('800');
@@ -342,6 +380,20 @@ $(document).ready(function(){
                         $(this).parent().fadeOut('800').prev().removeClass('active');
                     });
                     invntryOrderchnge();
+                }
+            });
+        }
+        if( $(this).attr('data-chk') == "orderstatus" ){
+            currentuserid = $(this).attr('data-userid');
+            $.ajax({
+                type: "post",
+                url: themeAjaxVar,
+                data: { action: 'orderstatus', 'currentuserid': currentuserid },
+                success: function(data) { 
+                    $('.ordercontent').html(data);
+                    $('.userMenuOptions .closeBtn').click(function() {
+                        $(this).parent().fadeOut('800').prev().removeClass('active');
+                    });
                 }
             });
         }
@@ -378,10 +430,6 @@ $(document).ready(function(){
             // $('.accountInfo').click(function(){
             //     $(this).parent().parent('.inventory').find('.popupMode2').fadeIn('800');
             // });
-
-            //
-            
-
             $('.box').click(function() {
                 $(this).parent('.orderInfo').find('.popUpBox').fadeIn('800');
             });

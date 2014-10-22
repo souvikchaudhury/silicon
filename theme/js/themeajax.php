@@ -33,6 +33,7 @@
 			add_user_meta($user_id, 'customer_user_mobile', $CustomerMobileno);
 			add_user_meta($user_id, 'customer_user_phone', $CustomerPhoneno);
 			add_user_meta($user_id, 'customer_user_password', $userPass);
+			add_user_meta($user_id, 'customer_address', $CustomerAddress);
 			if( !isset($_SESSION['logged_in_user']) )
 				$_SESSION['logged_in_user'] = mysql_real_escape_string($customer_login_name);
 
@@ -49,7 +50,36 @@
 		  }
 		die();
 	}
+	if($action == 'updateaccountinfo'){
+		$loggedinuserdetails = get_userdatabylogin($_SESSION['logged_in_user']);
+		$datacusid = $loggedinuserdetails->ID;
+		if($attrmeta == 'buisnessName'){
+			update_user_meta($datacusid, 'customer_business_name', $chngval);
+			$otpt = get_user_meta($datacusid,'customer_business_name');
+		}
+		else if($attrmeta == 'mobile'){
+			update_user_meta($datacusid, 'customer_user_mobile', $chngval);
+			$otpt = get_user_meta($datacusid,'customer_user_mobile');
+		}
+		else if($attrmeta == 'phone'){
+			update_user_meta($datacusid, 'customer_user_phone', $chngval);
+			$otpt = get_user_meta($datacusid,'customer_user_phone');
+		}
+		else if($attrmeta == 'address'){
+			update_user_meta($datacusid, 'customer_address', $chngval);
+			$otpt = get_user_meta($datacusid,'customer_address');
+		}
+			$art['value'] = $otpt;
+			$art['metak'] = $attrmeta;
+		echo json_encode($art);
+		die();
+		// if($attrmeta == 'password')
+		// 	update_user_meta($datacusid, 'customer_user_password', $chngval);
+		/*if($attrmeta == 'name')
 
+		if($attrmeta == 'email')*/
+
+	}
 	if($action == 'themelogoutfunc') {
 		unset($_SESSION['logged_in_user']);
 		die();
@@ -142,72 +172,10 @@
 		$editproductqty = delete_post_meta($inventoryImgID, $meta_key);	
 		die();
 	}
-	function getinventorycosts($allcheckedpostid){
-
-			$shipping_cost = 0;
-			$price = 0;
-			$total_shipping_cost=0;
-			$totprodprice =0;
-			$i=0;
-			foreach ($allcheckedpostid as $key => $value) {
-
-				$shipping_cost 	= get_post_meta($value,'shipping_cost');
-				$shipping_cost = $shipping_cost ? $shipping_cost : 0;
-
-				$price= get_post_meta($value,'price');
-				$price = $price ? $price : 0;
-				
-				$postval = get_post($value);
-				$postparent = $postval->post_parent;
-
-				if($postparent == 0){
-					$totprodprice = $totprodprice + $price;
-					$total_shipping_cost = $total_shipping_cost + $shipping_cost;
-					
-					$prodquantity= get_post_meta($value,'qty');
-					$unitPrice = floatval($price / $prodquantity);
-
-					$arr['itemdesc'][$i]['id'] = $value;
-					$arr['itemdesc'][$i]['productname'] = get_the_title($value);
-
-					$arr['itemdesc'][$i]['quantity'] = $prodquantity;
-					$arr['itemdesc'][$i]['unitprice'] = $unitPrice;
-					$arr['itemdesc'][$i]['amount'] = $price;
-					$arr['itemdesc'][$i]['shipping'] = $shipping_cost;
-
-				} else {
-					$catalog_quantity =  get_post_meta($postparent,'qty');
-					$unitPrice = floatval($price / $catalog_quantity);
-
-					$prodquantity= get_post_meta($value,'qty');
-					$prodprice = $unitPrice * $prodquantity;
-					
-					$totprodprice = $totprodprice + $prodprice;
-					$total_shipping_cost = $total_shipping_cost + $shipping_cost;
-
-					$arr['itemdesc'][$i]['id'] = $value;
-					$arr['itemdesc'][$i]['productname'] = get_the_title($value);
-					$arr['itemdesc'][$i]['quantity'] = $prodquantity;
-					$arr['itemdesc'][$i]['unitprice'] = $unitPrice;
-					$arr['itemdesc'][$i]['amount'] = $prodprice;
-					$arr['itemdesc'][$i]['shipping'] = $shipping_cost;
-				}
-				$i++;
-			}
-			$total_price = $total_shipping_cost + $totprodprice;
-
-			$arr['postid'] = json_encode($allcheckedpostid);
-			$arr['product_price'] = "$".$totprodprice;
-			$arr['total_shipping_cost'] = "$".$total_shipping_cost;
-			$arr['total_price'] = "$".$total_price;
-			
-			$fullarr = json_encode($arr);
-			return $fullarr;
-	}
-
+	
 	if($action == 'changeinventoryordercosts'){
 		if(isset($allcheckedpostid)){
-			$arr = getinventorycosts($allcheckedpostid);
+			$arr = getinventorycosts($allcheckedpostid,'');
 			echo $arr;
 		}
 		die();
@@ -308,7 +276,9 @@
 	}
 	if($action == 'sendpaypalform'){
 		if(isset($allcheckedpostid)){
-			$arr = getinventorycosts($allcheckedpostid);
+			// var_dump(serialize($allcheckedpostid));
+			// var_dump($fasttrackorder);
+			$arr = getinventorycosts($allcheckedpostid,$fasttrackorder);
 			$getvalues = json_decode($arr);
 		}
 		$LoginuserDetails = isset($_SESSION['logged_in_user']) ? get_userdatabylogin($_SESSION['logged_in_user']) : '';
@@ -339,7 +309,6 @@
 								</thead>
 							    <tbody>
 							      	<?php
-							      		$fasttrack = 10;
 							      		$paypalitems = '';
 							      		$k=0;
 							      		foreach ($getvalues->itemdesc as $key => $value) {
@@ -435,9 +404,12 @@
 							<input type="hidden" name="amount_2" value="20">
 							<input type="hidden" name="quantity_2" value="4">
 							<input type="hidden" name="shipping_2" value="6"> -->
-
-							<input type="hidden" name="cancel_return" value="http://demo.phpgang.com/payment_with_paypal/cancel.php">
-						    <input type="hidden" name="return" value="http://demo.phpgang.com/payment_with_paypal/success.php">
+							<?php
+							array_push($allcheckedpostid,$fasttrackorder);
+							$ids = urlencode(serialize($allcheckedpostid));
+							?>
+							<input type="hidden" name="cancel_return" value="<?php echo site_url().'theme/paypalcancel.php';?>">
+						    <input type="hidden" name="return" value="<?php echo site_url().'theme/paypalsuccess.php?orderedlists='.$ids; ?>">
 
 						    <input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
 
@@ -449,3 +421,131 @@
 		<?php
 		die();
 	}
+	if($action == 'orderstatus'){
+		$pay_curr = get_option('paypal_currency');
+		$ordinfo = get_order_by_userid($currentuserid);
+		foreach ($ordinfo as $key => $value) {
+			?>
+			<div class="wrap">
+				<div class="popCol1">
+					<div class="popColWrap">
+						<h3>ORDER STATUS</h3>
+						<p class="subTitle">
+							Products &amp; Qunatity Ordered
+						</p>
+						<hr>
+
+						<ul>
+							<?php 
+							$orderdesc = json_decode($value->orderdesc);
+							foreach ($orderdesc->itemdesc as $ordervalue) {
+								
+								$postsDtls = get_post($ordervalue->id);
+								$parentitle = get_the_title($postsDtls->post_parent);
+								$parentitle = str_replace('<_>', ' ', $parentitle);
+								$imageurl = getPostImage($postsDtls->ID);
+								?>
+
+								<li>
+									<div class="leftHSide">
+										<a class="box" href="#">
+											<span class="imgBox" style="padding:5px 0 0 0;">
+												<img src="<?php echo $imageurl; ?>" alt="" style="height:100px;width:100px;"/>
+											</span>
+											<span class="title"><?php echo $ordervalue->productname; ?></span>
+										</a>
+										<p><?php echo $parentitle; ?></p>
+									</div>
+									<div class="rightHSide">
+										<p class="infoService">
+											<span class="production" style="<?php echo $ordervalue->orderstat=='production'?'background-color: rgb(236, 25, 25);':'';?>"></span>
+											<span class="infoProduction">Production</span>
+										</p>
+										<p class="infoService">
+											<span class="complete" style="<?php echo $ordervalue->orderstat=='completed'?'background-color: rgb(0, 233, 0);':'';?>"></span>
+											<span class="infoComplete">Complete</span>
+											<?php echo $ordervalue->orderstat=='completed'?'<span class="comdte">'.date("F j, Y", strtotime($ordervalue->ordercompleted)).'</span>':'';?>
+										</p>
+									</div>
+								</li>
+								<?php
+							}
+							if(count($orderdesc->itemdesc)<=1){
+								echo '<li><div class="leftHSide"></div><div class="rightHSide"></div></li>';
+							}
+								?>
+						</ul>
+
+					</div>
+				</div>
+				<div class="popCol6">
+					<div class="popCol6Wrap">
+						<h3>Order Number <?php echo $value->id; ?></h3>
+						<p class="subTitle"> &nbsp; </p>
+						<hr>
+						<div class="priceSection">
+							<p>
+								<span>Products:</span>
+								<label><?php echo $orderdesc->product_price.' '.$pay_curr; ?></label>
+							</p>
+							<p>
+								<span>Delivery:</span>
+								<label><?php echo $orderdesc->total_shipping_cost.' '.$pay_curr; ?></label>
+							</p>
+							<p>
+								<strong>
+									<span>Total:</span>
+									<label><?php echo $orderdesc->total_price.' '.$pay_curr; ?></label>
+								</strong>
+							</p>
+							<?php if($orderdesc->fasttrackorder == 'yes') { ?>
+							  <p>
+							    <span>FastTrack Order<br> Charge ( <?php echo $orderdesc->fasttrackorder_charge; ?> ) :</span>
+							    <label>$<?php echo $orderdesc->fasttrackorder_charge_apply.' '.$pay_curr; ?></label>
+							  </p>
+							  <p>
+								<strong>
+									<span>Total:</span>
+									<label>$<?php echo $orderdesc->fasttrackorder_price.' '.$pay_curr; ?></label>
+								</strong>
+							</p>
+							  <?php } ?>
+
+						</div>
+					</div>
+				</div>
+				<div class="popCol6">
+					<?php 
+						$standard_delivery = strtotime($value->orderdate.' + 15 days'); 
+						$fasttrack_delivery = strtotime($value->orderdate.' + 7 days'); 
+					?>
+					<div class="popCol6Wrap">
+						<h3>Estimated Delivery Time</h3>
+						<p class="subTitle"> &nbsp; </p>
+						<hr>
+						<div class="deleveryTime">
+							<p>Order Date </p>
+							<p><span><?php echo $value->orderdate.' '.$value->ordertime; ?></span></p>
+						</div>
+						<div class="deleveryTime">
+							<p>Standard Delivary</p>
+							<p><span><?php echo date("F j, Y", $standard_delivery); ?></span></p>
+						</div>
+						<?php if($orderdesc->fasttrackorder == 'yes') { ?>
+							<div class="deleveryTime">
+								<p>Standard Delivary</p>
+								<p><span><?php echo date("F j, Y", $fasttrack_delivery); ?></span></p>
+							</div>
+						<?php } ?>
+					</div>
+				</div>
+			</div>
+			<?php
+			if(count($ordinfo)>1){
+				echo '<hr>';
+			}
+		}
+		die();	
+	}
+
+	?>
